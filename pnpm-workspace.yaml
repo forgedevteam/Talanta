@@ -1,0 +1,10 @@
+packages:
+  - apps/api
+  - apps/web
+  - packages/design-tokens
+  - packages/api-contract
+allowBuilds:
+  '@embedded-postgres/windows-x64': true
+  '@scarf/scarf': false
+  '@swc/core': true
+  esbuild: true

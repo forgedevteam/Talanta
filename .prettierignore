@@ -1,0 +1,14 @@
+node_modules
+dist
+build
+.next
+coverage
+pnpm-lock.yaml
+.data
+.dart_tool
+apps/mobile
+packages/*/dart
+packages/api-contract/openapi.json
+packages/api-contract/src/schema.d.ts
+apps/api/drizzle
+docs/BLUEPRINT.md

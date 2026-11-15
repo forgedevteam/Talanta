@@ -1,0 +1,37 @@
+name: talanta_workspace
+description: Dart workspace for the Talanta mobile app and its packages.
+publish_to: none
+
+environment:
+  sdk: ^3.11.0
+
+workspace:
+  - apps/mobile
+  - packages/design-tokens/dart
+  - packages/api-contract/dart
+
+dev_dependencies:
+  melos: ^7.0.0
+
+melos:
+  scripts:
+    analyze:
+      description: Static analysis across every Dart package.
+      run: dart analyze --fatal-infos .
+    test:
+      description: Run the mobile app's tests.
+      run: flutter test
+      exec:
+        concurrency: 1
+      packageFilters:
+        dirExists: test
+    generate:
+      description: Run build_runner where it is used (freezed, json_serializable, retrofit).
+      run: dart run build_runner build --delete-conflicting-outputs
+      exec:
+        concurrency: 1
+      packageFilters:
+        dependsOn: build_runner
+    format:
+      description: Check formatting.
+      run: dart format --set-exit-if-changed .
