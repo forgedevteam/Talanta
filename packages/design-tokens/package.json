@@ -1,0 +1,17 @@
+{
+  "name": "@talanta/design-tokens",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Single source of truth for Talanta colours, radii, spacing, type and motion.",
+  "exports": {
+    "./tokens.json": "./tokens.json",
+    "./tokens.css": "./generated/tokens.css",
+    "./tailwind.css": "./generated/tailwind.css"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --check",
+    "test": "node scripts/build.mjs --check"
+  }
+}

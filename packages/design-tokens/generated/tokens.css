@@ -1,0 +1,37 @@
+/* GENERATED FILE — do not edit. Source: packages/design-tokens/tokens.json */
+
+:root {
+  --talanta-primary: #FF6B2C;
+  --talanta-secondary: #6C2BD9;
+  --talanta-gold: #F5B700;
+  --talanta-background: #0E0B14;
+  --talanta-surface: #1A1622;
+  --talanta-surface-raised: #241E2E;
+  --talanta-outline: #2F2839;
+  --talanta-text: #F7F5FA;
+  --talanta-text-muted: #A59FB3;
+  --talanta-on-primary: #0E0B14;
+  --talanta-success: #2ECC71;
+  --talanta-danger: #FF5A5F;
+  --talanta-gradient-signature: linear-gradient(135deg, #FF6B2C, #6C2BD9);
+  --talanta-radius-sm: 12px;
+  --talanta-radius-lg: 20px;
+  --talanta-radius-pill: 999px;
+  --talanta-motion-fast: 120ms;
+  --talanta-motion-base: 220ms;
+  --talanta-motion-slow: 360ms;
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  --talanta-background: #FAF7F2;
+  --talanta-surface: #FFFFFF;
+  --talanta-surface-raised: #F2EDE6;
+  --talanta-outline: #E2DBD0;
+  --talanta-text: #17121F;
+  --talanta-text-muted: #6B647A;
+  --talanta-on-primary: #0E0B14;
+  --talanta-success: #1E9E55;
+  --talanta-danger: #D93A40;
+  color-scheme: light;
+}

@@ -1,0 +1,23 @@
+/* GENERATED FILE — do not edit. Source: packages/design-tokens/tokens.json */
+/* Tailwind v4 theme. Import after "tailwindcss" and alongside tokens.css. */
+
+@theme inline {
+  --color-primary: var(--talanta-primary);
+  --color-secondary: var(--talanta-secondary);
+  --color-gold: var(--talanta-gold);
+  --color-background: var(--talanta-background);
+  --color-surface: var(--talanta-surface);
+  --color-surface-raised: var(--talanta-surface-raised);
+  --color-outline: var(--talanta-outline);
+  --color-text: var(--talanta-text);
+  --color-text-muted: var(--talanta-text-muted);
+  --color-on-primary: var(--talanta-on-primary);
+  --color-success: var(--talanta-success);
+  --color-danger: var(--talanta-danger);
+  --radius-sm: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+  --spacing: 4px;
+  --font-display: var(--font-clash-display), 'Clash Display', system-ui, sans-serif;
+  --font-sans: var(--font-inter), 'Inter', system-ui, sans-serif;
+}
