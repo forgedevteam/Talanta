@@ -1,0 +1,27 @@
+swagger_parser:
+  schema_path: ../openapi.json
+  output_directory: lib/src
+  name: TalantaApi
+  language: dart
+  json_serializer: freezed
+  root_client: true
+  root_client_name: TalantaApi
+  client_postfix: Client
+  put_clients_in_folder: true
+  put_in_folder: true
+  squash_clients: false
+  merge_clients: false
+  enums_parent_prefix: false
+  enums_to_json: true
+  unknown_enum_value: true
+  mark_files_as_generated: true
+  original_http_response: false
+  generate_validator: false
+  wrapping_collections: false
+  use_multipart_file: false
+  use_freezed3: true
+  extras_parameter_by_default: false
+  dio_options_parameter_by_default: false
+  replacement_rules:
+    - pattern: 'Dto$'
+      replacement: ''

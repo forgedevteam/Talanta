@@ -1,0 +1,33 @@
+{
+  "name": "@talanta/api-contract",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The Talanta API contract: OpenAPI document plus generated TypeScript types and client.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./schema": "./src/schema.d.ts",
+    "./openapi.json": "./openapi.json"
+  },
+  "files": [
+    "dist",
+    "openapi.json",
+    "src/schema.d.ts"
+  ],
+  "scripts": {
+    "generate": "openapi-typescript openapi.json --output src/schema.d.ts --root-types --enum-values --alphabetize",
+    "build": "pnpm generate && tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "check": "openapi-typescript openapi.json --output src/schema.d.ts --root-types --enum-values --alphabetize && git diff --exit-code -- src/schema.d.ts"
+  },
+  "dependencies": {
+    "openapi-fetch": "^0.17.0"
+  },
+  "devDependencies": {
+    "openapi-typescript": "^7.13.0",
+    "typescript": "^6.0.0"
+  }
+}

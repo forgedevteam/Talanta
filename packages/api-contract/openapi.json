@@ -1,0 +1,925 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/v1/auth/otp/request": {
+      "post": {
+        "operationId": "requestOtp",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestOtpDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OtpChallengeDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Text a sign-in code to a phone number",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/v1/auth/otp/verify": {
+      "post": {
+        "operationId": "verifyOtp",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyOtpDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Exchange a sign-in code for a session, creating the account if new",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/v1/auth/refresh": {
+      "post": {
+        "operationId": "refreshSession",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenPairDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Trade a refresh token for a new token pair",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/v1/auth/logout": {
+      "post": {
+        "operationId": "signOut",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "End the session on this device",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/v1/me": {
+      "get": {
+        "operationId": "getMe",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "The signed-in account, profile, talents and next onboarding step",
+        "tags": [
+          "me"
+        ]
+      }
+    },
+    "/v1/me/talents": {
+      "put": {
+        "operationId": "setMyTalents",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetTalentsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Replace the talents on my profile",
+        "tags": [
+          "me"
+        ]
+      }
+    },
+    "/v1/me/profile": {
+      "put": {
+        "operationId": "saveMyProfile",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProfileDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create or update my profile",
+        "tags": [
+          "me"
+        ]
+      }
+    },
+    "/v1/profiles/username-availability": {
+      "get": {
+        "operationId": "checkUsername",
+        "parameters": [
+          {
+            "name": "username",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "pattern": "^[a-z0-9_]{3,24}$",
+              "example": "amara_sings",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsernameAvailabilityDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Check whether a username can be claimed",
+        "tags": [
+          "profiles"
+        ]
+      }
+    },
+    "/v1/talent-categories": {
+      "get": {
+        "operationId": "listTalentCategories",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TalentCategoryDto"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "List the talent categories people can pick from",
+        "tags": [
+          "talents"
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "operationId": "live",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Liveness: the process is up",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "operationId": "ready",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthDto"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Readiness: the database and key-value store answer",
+        "tags": [
+          "health"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Talanta API",
+    "description": "Backend for the Talanta mobile and web apps.",
+    "version": "0.1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "ErrorCode": {
+        "type": "string",
+        "enum": [
+          "validation_failed",
+          "unauthorized",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "rate_limited",
+          "internal_error",
+          "service_unavailable",
+          "phone_invalid",
+          "phone_country_unsupported",
+          "otp_resend_too_soon",
+          "otp_rate_limited",
+          "otp_invalid",
+          "otp_expired",
+          "otp_too_many_attempts",
+          "sms_delivery_failed",
+          "session_expired",
+          "account_suspended",
+          "username_taken",
+          "username_reserved",
+          "talent_category_unknown"
+        ]
+      },
+      "ProblemDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ErrorCode"
+              }
+            ]
+          },
+          "message": {
+            "type": "string",
+            "description": "Developer-facing explanation. Not for display to users."
+          },
+          "retryAfterSeconds": {
+            "type": "number",
+            "description": "Seconds until the request can be retried."
+          },
+          "fields": {
+            "type": "object",
+            "description": "Validation messages keyed by field name.",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ]
+      },
+      "RequestOtpDto": {
+        "type": "object",
+        "properties": {
+          "phone": {
+            "type": "string",
+            "example": "0803 123 4567",
+            "description": "As typed: national format together with `country`, or full international format."
+          },
+          "country": {
+            "type": "string",
+            "example": "NG",
+            "description": "ISO 3166-1 alpha-2 country chosen in the picker."
+          }
+        },
+        "required": [
+          "phone"
+        ]
+      },
+      "OtpChallengeDto": {
+        "type": "object",
+        "properties": {
+          "phone": {
+            "type": "string",
+            "example": "+2348031234567",
+            "description": "The number the code was sent to, in E.164."
+          },
+          "expiresInSeconds": {
+            "type": "number",
+            "example": 300
+          },
+          "resendAfterSeconds": {
+            "type": "number",
+            "example": 60,
+            "description": "How long to wait before asking for another code."
+          }
+        },
+        "required": [
+          "phone",
+          "expiresInSeconds",
+          "resendAfterSeconds"
+        ]
+      },
+      "VerifyOtpDto": {
+        "type": "object",
+        "properties": {
+          "phone": {
+            "type": "string",
+            "example": "0803 123 4567",
+            "description": "As typed: national format together with `country`, or full international format."
+          },
+          "country": {
+            "type": "string",
+            "example": "NG",
+            "description": "ISO 3166-1 alpha-2 country chosen in the picker."
+          },
+          "code": {
+            "type": "string",
+            "example": "482913",
+            "pattern": "^\\d{6}$"
+          },
+          "deviceName": {
+            "type": "string",
+            "example": "Tecno Spark 10",
+            "maxLength": 80
+          }
+        },
+        "required": [
+          "phone",
+          "code"
+        ]
+      },
+      "TokenPairDto": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "Send as `Authorization: Bearer <token>`."
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "Single use. Each refresh returns a new one."
+          },
+          "accessTokenExpiresIn": {
+            "type": "number",
+            "example": 900,
+            "description": "Access token lifetime in seconds."
+          }
+        },
+        "required": [
+          "accessToken",
+          "refreshToken",
+          "accessTokenExpiresIn"
+        ]
+      },
+      "UserRole": {
+        "type": "string",
+        "enum": [
+          "member",
+          "sponsor",
+          "admin"
+        ]
+      },
+      "ProfileDto": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "amara_sings"
+          },
+          "displayName": {
+            "type": "string",
+            "example": "Amara Okafor"
+          },
+          "bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "avatarUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true,
+            "example": "Lagos"
+          },
+          "isVerified": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "username",
+          "displayName",
+          "bio",
+          "avatarUrl",
+          "city",
+          "isVerified"
+        ]
+      },
+      "TalentLevel": {
+        "type": "string",
+        "enum": [
+          "emerging",
+          "skilled",
+          "professional"
+        ]
+      },
+      "UserTalentDto": {
+        "type": "object",
+        "properties": {
+          "categoryId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "slug": {
+            "type": "string",
+            "example": "music"
+          },
+          "name": {
+            "type": "string",
+            "example": "Music"
+          },
+          "icon": {
+            "type": "string",
+            "example": "music"
+          },
+          "level": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TalentLevel"
+              }
+            ]
+          },
+          "isPrimary": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "categoryId",
+          "slug",
+          "name",
+          "icon",
+          "level",
+          "isPrimary"
+        ]
+      },
+      "OnboardingStep": {
+        "type": "string",
+        "enum": [
+          "talents",
+          "profile",
+          "done"
+        ],
+        "description": "The next onboarding screen to show, or `done`."
+      },
+      "MeDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true,
+            "example": "+2348031234567"
+          },
+          "country": {
+            "type": "string",
+            "nullable": true,
+            "example": "NG"
+          },
+          "language": {
+            "type": "string",
+            "example": "en"
+          },
+          "role": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserRole"
+              }
+            ]
+          },
+          "profile": {
+            "nullable": true,
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProfileDto"
+              }
+            ]
+          },
+          "talents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserTalentDto"
+            }
+          },
+          "onboardingStep": {
+            "description": "The next onboarding screen to show, or `done`.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OnboardingStep"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "phone",
+          "country",
+          "language",
+          "role",
+          "profile",
+          "talents",
+          "onboardingStep"
+        ]
+      },
+      "AuthSessionDto": {
+        "type": "object",
+        "properties": {
+          "tokens": {
+            "$ref": "#/components/schemas/TokenPairDto"
+          },
+          "isNewUser": {
+            "type": "boolean",
+            "description": "True when this sign-in created the account."
+          },
+          "me": {
+            "$ref": "#/components/schemas/MeDto"
+          }
+        },
+        "required": [
+          "tokens",
+          "isNewUser",
+          "me"
+        ]
+      },
+      "RefreshTokenDto": {
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "refreshToken"
+        ]
+      },
+      "SetTalentsDto": {
+        "type": "object",
+        "properties": {
+          "categoryIds": {
+            "minItems": 1,
+            "maxItems": 5,
+            "description": "Replaces the full list.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "primaryCategoryId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The talent shown first on the profile. Defaults to the first id in the list."
+          }
+        },
+        "required": [
+          "categoryIds"
+        ]
+      },
+      "UpdateProfileDto": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string",
+            "example": "Amara Okafor",
+            "minLength": 2,
+            "maxLength": 50
+          },
+          "username": {
+            "type": "string",
+            "example": "amara_sings",
+            "pattern": "^[a-z0-9_]{3,24}$"
+          },
+          "city": {
+            "type": "string",
+            "example": "Lagos",
+            "minLength": 2,
+            "maxLength": 80
+          },
+          "bio": {
+            "type": "string",
+            "maxLength": 280
+          }
+        },
+        "required": [
+          "displayName",
+          "username",
+          "city"
+        ]
+      },
+      "UsernameStatus": {
+        "type": "string",
+        "enum": [
+          "available",
+          "taken",
+          "reserved"
+        ]
+      },
+      "UsernameAvailabilityDto": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "amara_sings"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UsernameStatus"
+              }
+            ]
+          }
+        },
+        "required": [
+          "username",
+          "status"
+        ]
+      },
+      "TalentCategoryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "slug": {
+            "type": "string",
+            "example": "spoken-word",
+            "description": "Stable key. Safe to switch on."
+          },
+          "name": {
+            "type": "string",
+            "example": "Spoken word"
+          },
+          "icon": {
+            "type": "string",
+            "example": "spoken-word",
+            "description": "Key into the client icon set."
+          }
+        },
+        "required": [
+          "id",
+          "slug",
+          "name",
+          "icon"
+        ]
+      },
+      "HealthDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ok"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      }
+    }
+  }
+}
