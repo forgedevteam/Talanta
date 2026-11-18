@@ -23,11 +23,11 @@ _Me _$MeFromJson(Map<String, dynamic> json) => _Me(
 
 Map<String, dynamic> _$MeToJson(_Me instance) => <String, dynamic>{
   'id': instance.id,
-  'phone': instance.phone,
-  'country': instance.country,
+  'phone': ?instance.phone,
+  'country': ?instance.country,
   'language': instance.language,
   'role': instance.role,
-  'profile': instance.profile,
+  'profile': ?instance.profile,
   'talents': instance.talents,
   'onboardingStep': instance.onboardingStep,
 };

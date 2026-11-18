@@ -17,6 +17,6 @@ Map<String, dynamic> _$VerifyOtpToJson(_VerifyOtp instance) =>
     <String, dynamic>{
       'phone': instance.phone,
       'code': instance.code,
-      'country': instance.country,
-      'deviceName': instance.deviceName,
+      'country': ?instance.country,
+      'deviceName': ?instance.deviceName,
     };

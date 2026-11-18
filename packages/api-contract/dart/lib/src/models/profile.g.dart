@@ -18,8 +18,8 @@ _Profile _$ProfileFromJson(Map<String, dynamic> json) => _Profile(
 Map<String, dynamic> _$ProfileToJson(_Profile instance) => <String, dynamic>{
   'username': instance.username,
   'displayName': instance.displayName,
-  'bio': instance.bio,
-  'avatarUrl': instance.avatarUrl,
-  'city': instance.city,
+  'bio': ?instance.bio,
+  'avatarUrl': ?instance.avatarUrl,
+  'city': ?instance.city,
   'isVerified': instance.isVerified,
 };

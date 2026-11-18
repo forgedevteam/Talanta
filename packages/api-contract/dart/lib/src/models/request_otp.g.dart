@@ -12,4 +12,4 @@ _RequestOtp _$RequestOtpFromJson(Map<String, dynamic> json) => _RequestOtp(
 );
 
 Map<String, dynamic> _$RequestOtpToJson(_RequestOtp instance) =>
-    <String, dynamic>{'phone': instance.phone, 'country': instance.country};
+    <String, dynamic>{'phone': instance.phone, 'country': ?instance.country};

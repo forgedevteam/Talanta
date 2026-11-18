@@ -19,5 +19,5 @@ Map<String, dynamic> _$UpdateProfileToJson(_UpdateProfile instance) =>
       'displayName': instance.displayName,
       'username': instance.username,
       'city': instance.city,
-      'bio': instance.bio,
+      'bio': ?instance.bio,
     };

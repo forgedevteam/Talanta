@@ -1,0 +1,7 @@
+targets:
+  $default:
+    builders:
+      json_serializable:
+        options:
+          # Leave unset optional fields out of request bodies instead of sending null.
+          include_if_null: false

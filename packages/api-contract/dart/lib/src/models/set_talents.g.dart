@@ -16,5 +16,5 @@ _SetTalents _$SetTalentsFromJson(Map<String, dynamic> json) => _SetTalents(
 Map<String, dynamic> _$SetTalentsToJson(_SetTalents instance) =>
     <String, dynamic>{
       'categoryIds': instance.categoryIds,
-      'primaryCategoryId': instance.primaryCategoryId,
+      'primaryCategoryId': ?instance.primaryCategoryId,
     };

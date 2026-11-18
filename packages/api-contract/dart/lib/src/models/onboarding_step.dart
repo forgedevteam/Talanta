@@ -30,7 +30,7 @@ enum OnboardingStep {
       throw StateError('Cannot convert enum value with null JSON representation to String. '
           'This usually happens for \$unknown or @JsonValue(null) entries.');
     }
-    return value as String;
+    return value;
   }
 
   @override

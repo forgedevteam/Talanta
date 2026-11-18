@@ -19,6 +19,6 @@ _Problem _$ProblemFromJson(Map<String, dynamic> json) => _Problem(
 Map<String, dynamic> _$ProblemToJson(_Problem instance) => <String, dynamic>{
   'code': instance.code,
   'message': instance.message,
-  'retryAfterSeconds': instance.retryAfterSeconds,
-  'fields': instance.fields,
+  'retryAfterSeconds': ?instance.retryAfterSeconds,
+  'fields': ?instance.fields,
 };
