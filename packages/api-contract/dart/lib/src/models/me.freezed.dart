@@ -15,7 +15,9 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Me {
 
- String get id; String? get phone; String? get country; String get language; UserRole get role; Profile? get profile; List<UserTalent> get talents;/// The next onboarding screen to show, or `done`.
+ String get id; String? get phone; String? get country; String get language; UserRole get role;/// YYYY-MM-DD.
+ String? get dateOfBirth;/// Under 18. Null until a date of birth is given.
+ bool? get isMinor; Profile? get profile; List<UserTalent> get talents;/// The next onboarding screen to show, or `done`.
  OnboardingStep get onboardingStep;
 /// Create a copy of Me
 /// with the given fields replaced by the non-null parameter values.
@@ -29,16 +31,16 @@ $MeCopyWith<Me> get copyWith => _$MeCopyWithImpl<Me>(this as Me, _$identity);
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Me&&(identical(other.id, id) || other.id == id)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.country, country) || other.country == country)&&(identical(other.language, language) || other.language == language)&&(identical(other.role, role) || other.role == role)&&(identical(other.profile, profile) || other.profile == profile)&&const DeepCollectionEquality().equals(other.talents, talents)&&(identical(other.onboardingStep, onboardingStep) || other.onboardingStep == onboardingStep));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Me&&(identical(other.id, id) || other.id == id)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.country, country) || other.country == country)&&(identical(other.language, language) || other.language == language)&&(identical(other.role, role) || other.role == role)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth)&&(identical(other.isMinor, isMinor) || other.isMinor == isMinor)&&(identical(other.profile, profile) || other.profile == profile)&&const DeepCollectionEquality().equals(other.talents, talents)&&(identical(other.onboardingStep, onboardingStep) || other.onboardingStep == onboardingStep));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,phone,country,language,role,profile,const DeepCollectionEquality().hash(talents),onboardingStep);
+int get hashCode => Object.hash(runtimeType,id,phone,country,language,role,dateOfBirth,isMinor,profile,const DeepCollectionEquality().hash(talents),onboardingStep);
 
 @override
 String toString() {
-  return 'Me(id: $id, phone: $phone, country: $country, language: $language, role: $role, profile: $profile, talents: $talents, onboardingStep: $onboardingStep)';
+  return 'Me(id: $id, phone: $phone, country: $country, language: $language, role: $role, dateOfBirth: $dateOfBirth, isMinor: $isMinor, profile: $profile, talents: $talents, onboardingStep: $onboardingStep)';
 }
 
 
@@ -49,7 +51,7 @@ abstract mixin class $MeCopyWith<$Res>  {
   factory $MeCopyWith(Me value, $Res Function(Me) _then) = _$MeCopyWithImpl;
 @useResult
 $Res call({
- String id, String? phone, String? country, String language, UserRole role, Profile? profile, List<UserTalent> talents, OnboardingStep onboardingStep
+ String id, String? phone, String? country, String language, UserRole role, String? dateOfBirth, bool? isMinor, Profile? profile, List<UserTalent> talents, OnboardingStep onboardingStep
 });
 
 
@@ -66,14 +68,16 @@ class _$MeCopyWithImpl<$Res>
 
 /// Create a copy of Me
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? phone = freezed,Object? country = freezed,Object? language = null,Object? role = null,Object? profile = freezed,Object? talents = null,Object? onboardingStep = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? phone = freezed,Object? country = freezed,Object? language = null,Object? role = null,Object? dateOfBirth = freezed,Object? isMinor = freezed,Object? profile = freezed,Object? talents = null,Object? onboardingStep = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
 as String?,country: freezed == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
 as String?,language: null == language ? _self.language : language // ignore: cast_nullable_to_non_nullable
 as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
-as UserRole,profile: freezed == profile ? _self.profile : profile // ignore: cast_nullable_to_non_nullable
+as UserRole,dateOfBirth: freezed == dateOfBirth ? _self.dateOfBirth : dateOfBirth // ignore: cast_nullable_to_non_nullable
+as String?,isMinor: freezed == isMinor ? _self.isMinor : isMinor // ignore: cast_nullable_to_non_nullable
+as bool?,profile: freezed == profile ? _self.profile : profile // ignore: cast_nullable_to_non_nullable
 as Profile?,talents: null == talents ? _self.talents : talents // ignore: cast_nullable_to_non_nullable
 as List<UserTalent>,onboardingStep: null == onboardingStep ? _self.onboardingStep : onboardingStep // ignore: cast_nullable_to_non_nullable
 as OnboardingStep,
@@ -173,10 +177,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? phone,  String? country,  String language,  UserRole role,  Profile? profile,  List<UserTalent> talents,  OnboardingStep onboardingStep)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? phone,  String? country,  String language,  UserRole role,  String? dateOfBirth,  bool? isMinor,  Profile? profile,  List<UserTalent> talents,  OnboardingStep onboardingStep)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Me() when $default != null:
-return $default(_that.id,_that.phone,_that.country,_that.language,_that.role,_that.profile,_that.talents,_that.onboardingStep);case _:
+return $default(_that.id,_that.phone,_that.country,_that.language,_that.role,_that.dateOfBirth,_that.isMinor,_that.profile,_that.talents,_that.onboardingStep);case _:
   return orElse();
 
 }
@@ -194,10 +198,10 @@ return $default(_that.id,_that.phone,_that.country,_that.language,_that.role,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? phone,  String? country,  String language,  UserRole role,  Profile? profile,  List<UserTalent> talents,  OnboardingStep onboardingStep)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? phone,  String? country,  String language,  UserRole role,  String? dateOfBirth,  bool? isMinor,  Profile? profile,  List<UserTalent> talents,  OnboardingStep onboardingStep)  $default,) {final _that = this;
 switch (_that) {
 case _Me():
-return $default(_that.id,_that.phone,_that.country,_that.language,_that.role,_that.profile,_that.talents,_that.onboardingStep);case _:
+return $default(_that.id,_that.phone,_that.country,_that.language,_that.role,_that.dateOfBirth,_that.isMinor,_that.profile,_that.talents,_that.onboardingStep);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -214,10 +218,10 @@ return $default(_that.id,_that.phone,_that.country,_that.language,_that.role,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? phone,  String? country,  String language,  UserRole role,  Profile? profile,  List<UserTalent> talents,  OnboardingStep onboardingStep)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? phone,  String? country,  String language,  UserRole role,  String? dateOfBirth,  bool? isMinor,  Profile? profile,  List<UserTalent> talents,  OnboardingStep onboardingStep)?  $default,) {final _that = this;
 switch (_that) {
 case _Me() when $default != null:
-return $default(_that.id,_that.phone,_that.country,_that.language,_that.role,_that.profile,_that.talents,_that.onboardingStep);case _:
+return $default(_that.id,_that.phone,_that.country,_that.language,_that.role,_that.dateOfBirth,_that.isMinor,_that.profile,_that.talents,_that.onboardingStep);case _:
   return null;
 
 }
@@ -229,7 +233,7 @@ return $default(_that.id,_that.phone,_that.country,_that.language,_that.role,_th
 @JsonSerializable()
 
 class _Me implements Me {
-  const _Me({required this.id, required this.phone, required this.country, required this.language, required this.role, required this.profile, required final  List<UserTalent> talents, required this.onboardingStep}): _talents = talents;
+  const _Me({required this.id, required this.phone, required this.country, required this.language, required this.role, required this.dateOfBirth, required this.isMinor, required this.profile, required final  List<UserTalent> talents, required this.onboardingStep}): _talents = talents;
   factory _Me.fromJson(Map<String, dynamic> json) => _$MeFromJson(json);
 
 @override final  String id;
@@ -237,6 +241,10 @@ class _Me implements Me {
 @override final  String? country;
 @override final  String language;
 @override final  UserRole role;
+/// YYYY-MM-DD.
+@override final  String? dateOfBirth;
+/// Under 18. Null until a date of birth is given.
+@override final  bool? isMinor;
 @override final  Profile? profile;
  final  List<UserTalent> _talents;
 @override List<UserTalent> get talents {
@@ -261,16 +269,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Me&&(identical(other.id, id) || other.id == id)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.country, country) || other.country == country)&&(identical(other.language, language) || other.language == language)&&(identical(other.role, role) || other.role == role)&&(identical(other.profile, profile) || other.profile == profile)&&const DeepCollectionEquality().equals(other._talents, _talents)&&(identical(other.onboardingStep, onboardingStep) || other.onboardingStep == onboardingStep));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Me&&(identical(other.id, id) || other.id == id)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.country, country) || other.country == country)&&(identical(other.language, language) || other.language == language)&&(identical(other.role, role) || other.role == role)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth)&&(identical(other.isMinor, isMinor) || other.isMinor == isMinor)&&(identical(other.profile, profile) || other.profile == profile)&&const DeepCollectionEquality().equals(other._talents, _talents)&&(identical(other.onboardingStep, onboardingStep) || other.onboardingStep == onboardingStep));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,phone,country,language,role,profile,const DeepCollectionEquality().hash(_talents),onboardingStep);
+int get hashCode => Object.hash(runtimeType,id,phone,country,language,role,dateOfBirth,isMinor,profile,const DeepCollectionEquality().hash(_talents),onboardingStep);
 
 @override
 String toString() {
-  return 'Me(id: $id, phone: $phone, country: $country, language: $language, role: $role, profile: $profile, talents: $talents, onboardingStep: $onboardingStep)';
+  return 'Me(id: $id, phone: $phone, country: $country, language: $language, role: $role, dateOfBirth: $dateOfBirth, isMinor: $isMinor, profile: $profile, talents: $talents, onboardingStep: $onboardingStep)';
 }
 
 
@@ -281,7 +289,7 @@ abstract mixin class _$MeCopyWith<$Res> implements $MeCopyWith<$Res> {
   factory _$MeCopyWith(_Me value, $Res Function(_Me) _then) = __$MeCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String? phone, String? country, String language, UserRole role, Profile? profile, List<UserTalent> talents, OnboardingStep onboardingStep
+ String id, String? phone, String? country, String language, UserRole role, String? dateOfBirth, bool? isMinor, Profile? profile, List<UserTalent> talents, OnboardingStep onboardingStep
 });
 
 
@@ -298,14 +306,16 @@ class __$MeCopyWithImpl<$Res>
 
 /// Create a copy of Me
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? phone = freezed,Object? country = freezed,Object? language = null,Object? role = null,Object? profile = freezed,Object? talents = null,Object? onboardingStep = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? phone = freezed,Object? country = freezed,Object? language = null,Object? role = null,Object? dateOfBirth = freezed,Object? isMinor = freezed,Object? profile = freezed,Object? talents = null,Object? onboardingStep = null,}) {
   return _then(_Me(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
 as String?,country: freezed == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
 as String?,language: null == language ? _self.language : language // ignore: cast_nullable_to_non_nullable
 as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
-as UserRole,profile: freezed == profile ? _self.profile : profile // ignore: cast_nullable_to_non_nullable
+as UserRole,dateOfBirth: freezed == dateOfBirth ? _self.dateOfBirth : dateOfBirth // ignore: cast_nullable_to_non_nullable
+as String?,isMinor: freezed == isMinor ? _self.isMinor : isMinor // ignore: cast_nullable_to_non_nullable
+as bool?,profile: freezed == profile ? _self.profile : profile // ignore: cast_nullable_to_non_nullable
 as Profile?,talents: null == talents ? _self._talents : talents // ignore: cast_nullable_to_non_nullable
 as List<UserTalent>,onboardingStep: null == onboardingStep ? _self.onboardingStep : onboardingStep // ignore: cast_nullable_to_non_nullable
 as OnboardingStep,

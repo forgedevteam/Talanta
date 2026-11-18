@@ -20,6 +20,12 @@ abstract class Me with _$Me {
     required String? country,
     required String language,
     required UserRole role,
+
+    /// YYYY-MM-DD.
+    required String? dateOfBirth,
+
+    /// Under 18. Null until a date of birth is given.
+    required bool? isMinor,
     required Profile? profile,
     required List<UserTalent> talents,
 

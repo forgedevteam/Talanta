@@ -33,13 +33,31 @@ const envSchema = z
       .optional()
       .or(z.literal('').transform(() => undefined)),
 
-    SMS_PROVIDER: z.enum(['console']).default('console'),
+    SMS_PROVIDER: z.enum(['console', 'africastalking']).default('console'),
     SMS_ALLOWED_COUNTRIES: z.string().default('NG,KE,GH,ZA'),
+    /** `sandbox` sends to the Africa's Talking simulator instead of real phones. */
+    AFRICASTALKING_USERNAME: z.string().min(1).optional(),
+    AFRICASTALKING_API_KEY: z.string().min(1).optional(),
+    /** Registered sender ID or short code. Optional: without one the network default is used. */
+    AFRICASTALKING_SENDER_ID: z.string().min(1).optional(),
+
+    /** Younger people cannot create a profile. */
+    MIN_SIGNUP_AGE: z.coerce.number().int().min(13).max(21).default(13),
 
     TRUST_PROXY_HOPS: z.coerce.number().int().min(0).default(0),
     CORS_ORIGINS: z.string().default(''),
   })
   .superRefine((env, ctx) => {
+    if (
+      env.SMS_PROVIDER === 'africastalking' &&
+      (!env.AFRICASTALKING_USERNAME || !env.AFRICASTALKING_API_KEY)
+    ) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['SMS_PROVIDER'],
+        message: 'africastalking needs AFRICASTALKING_USERNAME and AFRICASTALKING_API_KEY',
+      });
+    }
     if (env.NODE_ENV !== 'production') return;
     if (!env.REDIS_URL) {
       ctx.addIssue({
@@ -91,9 +109,17 @@ export interface AppConfig {
     readonly devFixedCode: string | undefined;
   };
   readonly sms: {
-    readonly provider: 'console';
+    readonly provider: 'console' | 'africastalking';
     /** ISO 3166-1 alpha-2 codes we send codes to. Limits SMS-pumping fraud. */
     readonly allowedCountries: readonly string[];
+    readonly africasTalking: {
+      readonly username: string;
+      readonly apiKey: string;
+      readonly senderId: string | undefined;
+    } | null;
+  };
+  readonly safety: {
+    readonly minSignupAge: number;
   };
 }
 
@@ -132,6 +158,17 @@ export function loadConfig(source: NodeJS.ProcessEnv = process.env): AppConfig {
     sms: {
       provider: env.SMS_PROVIDER,
       allowedCountries: csv(env.SMS_ALLOWED_COUNTRIES).map((code) => code.toUpperCase()),
+      africasTalking:
+        env.AFRICASTALKING_USERNAME && env.AFRICASTALKING_API_KEY
+          ? {
+              username: env.AFRICASTALKING_USERNAME,
+              apiKey: env.AFRICASTALKING_API_KEY,
+              senderId: env.AFRICASTALKING_SENDER_ID,
+            }
+          : null,
+    },
+    safety: {
+      minSignupAge: env.MIN_SIGNUP_AGE,
     },
   };
 }

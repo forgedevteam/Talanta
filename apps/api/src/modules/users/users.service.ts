@@ -21,6 +21,11 @@ export class UsersService {
     return user ?? null;
   }
 
+  /** `YYYY-MM-DD`. */
+  async setDateOfBirth(userId: string, dateOfBirth: string): Promise<void> {
+    await this.db.update(users).set({ dateOfBirth }).where(eq(users.id, userId));
+  }
+
   /**
    * Signing in with a new number creates the account. Insert-then-select keeps
    * two simultaneous first sign-ins from creating two users.

@@ -15,7 +15,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UpdateProfile {
 
- String get displayName; String get username; String get city; String? get bio;
+ String get displayName; String get username; String get city; String? get bio;/// YYYY-MM-DD. Required the first time a profile is saved, and cannot be changed afterwards.
+ String? get dateOfBirth;
 /// Create a copy of UpdateProfile
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +29,16 @@ $UpdateProfileCopyWith<UpdateProfile> get copyWith => _$UpdateProfileCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateProfile&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.username, username) || other.username == username)&&(identical(other.city, city) || other.city == city)&&(identical(other.bio, bio) || other.bio == bio));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateProfile&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.username, username) || other.username == username)&&(identical(other.city, city) || other.city == city)&&(identical(other.bio, bio) || other.bio == bio)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,displayName,username,city,bio);
+int get hashCode => Object.hash(runtimeType,displayName,username,city,bio,dateOfBirth);
 
 @override
 String toString() {
-  return 'UpdateProfile(displayName: $displayName, username: $username, city: $city, bio: $bio)';
+  return 'UpdateProfile(displayName: $displayName, username: $username, city: $city, bio: $bio, dateOfBirth: $dateOfBirth)';
 }
 
 
@@ -48,7 +49,7 @@ abstract mixin class $UpdateProfileCopyWith<$Res>  {
   factory $UpdateProfileCopyWith(UpdateProfile value, $Res Function(UpdateProfile) _then) = _$UpdateProfileCopyWithImpl;
 @useResult
 $Res call({
- String displayName, String username, String city, String? bio
+ String displayName, String username, String city, String? bio, String? dateOfBirth
 });
 
 
@@ -65,12 +66,13 @@ class _$UpdateProfileCopyWithImpl<$Res>
 
 /// Create a copy of UpdateProfile
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? displayName = null,Object? username = null,Object? city = null,Object? bio = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? displayName = null,Object? username = null,Object? city = null,Object? bio = freezed,Object? dateOfBirth = freezed,}) {
   return _then(_self.copyWith(
 displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
 as String,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,city: null == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
 as String,bio: freezed == bio ? _self.bio : bio // ignore: cast_nullable_to_non_nullable
+as String?,dateOfBirth: freezed == dateOfBirth ? _self.dateOfBirth : dateOfBirth // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -156,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String displayName,  String username,  String city,  String? bio)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String displayName,  String username,  String city,  String? bio,  String? dateOfBirth)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UpdateProfile() when $default != null:
-return $default(_that.displayName,_that.username,_that.city,_that.bio);case _:
+return $default(_that.displayName,_that.username,_that.city,_that.bio,_that.dateOfBirth);case _:
   return orElse();
 
 }
@@ -177,10 +179,10 @@ return $default(_that.displayName,_that.username,_that.city,_that.bio);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String displayName,  String username,  String city,  String? bio)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String displayName,  String username,  String city,  String? bio,  String? dateOfBirth)  $default,) {final _that = this;
 switch (_that) {
 case _UpdateProfile():
-return $default(_that.displayName,_that.username,_that.city,_that.bio);case _:
+return $default(_that.displayName,_that.username,_that.city,_that.bio,_that.dateOfBirth);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +199,10 @@ return $default(_that.displayName,_that.username,_that.city,_that.bio);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String displayName,  String username,  String city,  String? bio)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String displayName,  String username,  String city,  String? bio,  String? dateOfBirth)?  $default,) {final _that = this;
 switch (_that) {
 case _UpdateProfile() when $default != null:
-return $default(_that.displayName,_that.username,_that.city,_that.bio);case _:
+return $default(_that.displayName,_that.username,_that.city,_that.bio,_that.dateOfBirth);case _:
   return null;
 
 }
@@ -212,13 +214,15 @@ return $default(_that.displayName,_that.username,_that.city,_that.bio);case _:
 @JsonSerializable()
 
 class _UpdateProfile implements UpdateProfile {
-  const _UpdateProfile({required this.displayName, required this.username, required this.city, this.bio});
+  const _UpdateProfile({required this.displayName, required this.username, required this.city, this.bio, this.dateOfBirth});
   factory _UpdateProfile.fromJson(Map<String, dynamic> json) => _$UpdateProfileFromJson(json);
 
 @override final  String displayName;
 @override final  String username;
 @override final  String city;
 @override final  String? bio;
+/// YYYY-MM-DD. Required the first time a profile is saved, and cannot be changed afterwards.
+@override final  String? dateOfBirth;
 
 /// Create a copy of UpdateProfile
 /// with the given fields replaced by the non-null parameter values.
@@ -233,16 +237,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UpdateProfile&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.username, username) || other.username == username)&&(identical(other.city, city) || other.city == city)&&(identical(other.bio, bio) || other.bio == bio));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UpdateProfile&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.username, username) || other.username == username)&&(identical(other.city, city) || other.city == city)&&(identical(other.bio, bio) || other.bio == bio)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,displayName,username,city,bio);
+int get hashCode => Object.hash(runtimeType,displayName,username,city,bio,dateOfBirth);
 
 @override
 String toString() {
-  return 'UpdateProfile(displayName: $displayName, username: $username, city: $city, bio: $bio)';
+  return 'UpdateProfile(displayName: $displayName, username: $username, city: $city, bio: $bio, dateOfBirth: $dateOfBirth)';
 }
 
 
@@ -253,7 +257,7 @@ abstract mixin class _$UpdateProfileCopyWith<$Res> implements $UpdateProfileCopy
   factory _$UpdateProfileCopyWith(_UpdateProfile value, $Res Function(_UpdateProfile) _then) = __$UpdateProfileCopyWithImpl;
 @override @useResult
 $Res call({
- String displayName, String username, String city, String? bio
+ String displayName, String username, String city, String? bio, String? dateOfBirth
 });
 
 
@@ -270,12 +274,13 @@ class __$UpdateProfileCopyWithImpl<$Res>
 
 /// Create a copy of UpdateProfile
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? displayName = null,Object? username = null,Object? city = null,Object? bio = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? displayName = null,Object? username = null,Object? city = null,Object? bio = freezed,Object? dateOfBirth = freezed,}) {
   return _then(_UpdateProfile(
 displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
 as String,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,city: null == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
 as String,bio: freezed == bio ? _self.bio : bio // ignore: cast_nullable_to_non_nullable
+as String?,dateOfBirth: freezed == dateOfBirth ? _self.dateOfBirth : dateOfBirth // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

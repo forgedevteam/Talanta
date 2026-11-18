@@ -24,6 +24,21 @@ export class MeDto {
   @ApiProperty({ enum: USER_ROLES, enumName: 'UserRole' })
   role: (typeof USER_ROLES)[number];
 
+  @ApiProperty({
+    type: String,
+    nullable: true,
+    example: '2001-06-14',
+    description: 'YYYY-MM-DD.',
+  })
+  dateOfBirth: string | null;
+
+  @ApiProperty({
+    type: Boolean,
+    nullable: true,
+    description: 'Under 18. Null until a date of birth is given.',
+  })
+  isMinor: boolean | null;
+
   @ApiProperty({ type: () => ProfileDto, nullable: true })
   profile: ProfileDto | null;
 

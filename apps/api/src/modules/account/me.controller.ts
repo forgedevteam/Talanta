@@ -39,6 +39,6 @@ export class MeController {
   @ApiOperation({ summary: 'Create or update my profile' })
   @ApiOkResponse({ type: MeDto })
   saveMyProfile(@CurrentUser() user: AuthUser, @Body() body: UpdateProfileDto): Promise<MeDto> {
-    return this.account.saveProfile(user.id, body);
+    return this.account.saveProfile(user.id, body, body.dateOfBirth);
   }
 }

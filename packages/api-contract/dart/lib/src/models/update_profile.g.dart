@@ -12,6 +12,7 @@ _UpdateProfile _$UpdateProfileFromJson(Map<String, dynamic> json) =>
       username: json['username'] as String,
       city: json['city'] as String,
       bio: json['bio'] as String?,
+      dateOfBirth: json['dateOfBirth'] as String?,
     );
 
 Map<String, dynamic> _$UpdateProfileToJson(_UpdateProfile instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$UpdateProfileToJson(_UpdateProfile instance) =>
       'username': instance.username,
       'city': instance.city,
       'bio': ?instance.bio,
+      'dateOfBirth': ?instance.dateOfBirth,
     };

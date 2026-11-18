@@ -4,6 +4,7 @@ import { IsOptional, IsString, Length, Matches, MaxLength } from 'class-validato
 import { CleanText, Lowercase } from '../../../common/validation/transforms.js';
 import { USERNAME_PATTERN } from '../username.js';
 
+const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const USERNAME_RULE = 'Use 3 to 24 letters, numbers or underscores.';
 
 export class ProfileDto {
@@ -51,6 +52,17 @@ export class UpdateProfileDto {
   @IsString()
   @MaxLength(280, { message: 'Keep your bio under 280 characters.' })
   bio?: string;
+
+  @ApiPropertyOptional({
+    example: '2001-06-14',
+    pattern: DATE_PATTERN.source,
+    description:
+      'YYYY-MM-DD. Required the first time a profile is saved, and cannot be changed afterwards.',
+  })
+  @IsOptional()
+  @IsString()
+  @Matches(DATE_PATTERN, { message: 'Enter your date of birth.' })
+  dateOfBirth?: string;
 }
 
 export class UsernameQueryDto {

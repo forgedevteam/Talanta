@@ -471,7 +471,8 @@
           "account_suspended",
           "username_taken",
           "username_reserved",
-          "talent_category_unknown"
+          "talent_category_unknown",
+          "age_below_minimum"
         ]
       },
       "ProblemDto": {
@@ -731,6 +732,17 @@
               }
             ]
           },
+          "dateOfBirth": {
+            "type": "string",
+            "nullable": true,
+            "example": "2001-06-14",
+            "description": "YYYY-MM-DD."
+          },
+          "isMinor": {
+            "type": "boolean",
+            "nullable": true,
+            "description": "Under 18. Null until a date of birth is given."
+          },
           "profile": {
             "nullable": true,
             "type": "object",
@@ -761,6 +773,8 @@
           "country",
           "language",
           "role",
+          "dateOfBirth",
+          "isMinor",
           "profile",
           "talents",
           "onboardingStep"
@@ -843,6 +857,12 @@
           "bio": {
             "type": "string",
             "maxLength": 280
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "example": "2001-06-14",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "description": "YYYY-MM-DD. Required the first time a profile is saved, and cannot be changed afterwards."
           }
         },
         "required": [

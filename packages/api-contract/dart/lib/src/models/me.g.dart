@@ -12,6 +12,8 @@ _Me _$MeFromJson(Map<String, dynamic> json) => _Me(
   country: json['country'] as String?,
   language: json['language'] as String,
   role: UserRole.fromJson(json['role'] as String),
+  dateOfBirth: json['dateOfBirth'] as String?,
+  isMinor: json['isMinor'] as bool?,
   profile: json['profile'] == null
       ? null
       : Profile.fromJson(json['profile'] as Map<String, dynamic>),
@@ -27,6 +29,8 @@ Map<String, dynamic> _$MeToJson(_Me instance) => <String, dynamic>{
   'country': ?instance.country,
   'language': instance.language,
   'role': instance.role,
+  'dateOfBirth': ?instance.dateOfBirth,
+  'isMinor': ?instance.isMinor,
   'profile': ?instance.profile,
   'talents': instance.talents,
   'onboardingStep': instance.onboardingStep,

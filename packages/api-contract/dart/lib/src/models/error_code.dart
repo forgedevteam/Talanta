@@ -48,6 +48,8 @@ enum ErrorCode {
   usernameReserved('username_reserved'),
   @JsonValue('talent_category_unknown')
   talentCategoryUnknown('talent_category_unknown'),
+  @JsonValue('age_below_minimum')
+  ageBelowMinimum('age_below_minimum'),
   /// Default value for all unparsed values, allows backward compatibility when adding new values on the backend.
   $unknown(null);
 
@@ -65,7 +67,7 @@ enum ErrorCode {
       throw StateError('Cannot convert enum value with null JSON representation to String. '
           'This usually happens for \$unknown or @JsonValue(null) entries.');
     }
-    return value;
+    return value as String;
   }
 
   @override

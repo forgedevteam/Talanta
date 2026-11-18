@@ -24,6 +24,7 @@ export const ERROR_CODES = [
   'username_taken',
   'username_reserved',
   'talent_category_unknown',
+  'age_below_minimum',
 ] as const;
 
 export type ErrorCode = (typeof ERROR_CODES)[number];

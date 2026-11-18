@@ -14,6 +14,9 @@ abstract class UpdateProfile with _$UpdateProfile {
     required String username,
     required String city,
     String? bio,
+
+    /// YYYY-MM-DD. Required the first time a profile is saved, and cannot be changed afterwards.
+    String? dateOfBirth,
   }) = _UpdateProfile;
   
   factory UpdateProfile.fromJson(Map<String, Object?> json) => _$UpdateProfileFromJson(json);

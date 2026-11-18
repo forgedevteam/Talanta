@@ -35,7 +35,14 @@ describe('onboarding', () => {
       .set(...bearer(session))
       .send(body);
 
+  /** Adds an adult date of birth unless the body sets its own. */
   const saveProfile = (session: SignedIn, body: object) =>
+    app.http
+      .put('/v1/me/profile')
+      .set(...bearer(session))
+      .send({ dateOfBirth: '2000-05-20', ...body });
+
+  const saveProfileAsIs = (session: SignedIn, body: object) =>
     app.http
       .put('/v1/me/profile')
       .set(...bearer(session))
@@ -213,6 +220,96 @@ describe('onboarding', () => {
 
       const fields = (response.body as { fields: Record<string, string[]> }).fields;
       expect(Object.keys(fields).sort()).toEqual(['city', 'displayName', 'username']);
+    });
+  });
+
+  describe('date of birth', () => {
+    // The test clock reads 2026-11-15.
+    const profile = { displayName: 'Zawadi', username: 'zawadi', city: 'Nairobi' };
+
+    it('is required the first time a profile is saved', async () => {
+      const session = await signIn(app);
+
+      const response = await saveProfileAsIs(session, profile).expect(422);
+
+      expect(response.body).toHaveProperty('fields.dateOfBirth');
+    });
+
+    it('turns away anyone under 13 and stores nothing', async () => {
+      const session = await signIn(app);
+      await setTalents(session, { categoryIds: [idOf('dance')] }).expect(200);
+
+      const response = await saveProfile(session, {
+        ...profile,
+        username: 'too_young',
+        dateOfBirth: '2013-11-16',
+      }).expect(422);
+
+      expect(response.body).toMatchObject({ code: 'age_below_minimum' });
+      const me = await app.http
+        .get('/v1/me')
+        .set(...bearer(session))
+        .expect(200);
+      expect(me.body).toMatchObject({
+        profile: null,
+        dateOfBirth: null,
+        onboardingStep: 'profile',
+      });
+    });
+
+    it('lets someone in on their 13th birthday and marks them as a minor', async () => {
+      const session = await signIn(app);
+      await setTalents(session, { categoryIds: [idOf('dance')] }).expect(200);
+
+      const response = await saveProfile(session, {
+        ...profile,
+        username: 'just_thirteen',
+        dateOfBirth: '2013-11-15',
+      }).expect(200);
+
+      expect(response.body).toMatchObject({
+        dateOfBirth: '2013-11-15',
+        isMinor: true,
+        onboardingStep: 'done',
+      });
+    });
+
+    it('marks adults as not minors', async () => {
+      const session = await signIn(app);
+
+      const response = await saveProfile(session, { ...profile, username: 'grown_up' }).expect(200);
+
+      expect(response.body).toMatchObject({ dateOfBirth: '2000-05-20', isMinor: false });
+    });
+
+    it('rejects impossible and future dates', async () => {
+      const session = await signIn(app);
+
+      for (const dateOfBirth of ['2001-02-30', '2027-01-01', '1890-01-01', '14/06/2001']) {
+        const response = await saveProfile(session, {
+          ...profile,
+          username: 'bad_dates',
+          dateOfBirth,
+        }).expect(422);
+        expect(response.body).toHaveProperty('fields.dateOfBirth');
+      }
+    });
+
+    it('cannot be changed once set, but may be left out or repeated', async () => {
+      const session = await signIn(app);
+      await saveProfile(session, { ...profile, username: 'fixed_dob' }).expect(200);
+
+      await saveProfileAsIs(session, { ...profile, username: 'fixed_dob', city: 'Kisumu' }).expect(
+        200,
+      );
+      await saveProfile(session, { ...profile, username: 'fixed_dob' }).expect(200);
+      const change = await saveProfile(session, {
+        ...profile,
+        username: 'fixed_dob',
+        dateOfBirth: '2012-01-01',
+      }).expect(422);
+
+      expect(change.body).toHaveProperty('fields.dateOfBirth');
     });
   });
 

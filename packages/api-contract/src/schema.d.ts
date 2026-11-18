@@ -202,7 +202,7 @@ export interface components {
             tokens: components["schemas"]["TokenPairDto"];
         };
         /** @enum {string} */
-        ErrorCode: "validation_failed" | "unauthorized" | "forbidden" | "not_found" | "conflict" | "rate_limited" | "internal_error" | "service_unavailable" | "phone_invalid" | "phone_country_unsupported" | "otp_resend_too_soon" | "otp_rate_limited" | "otp_invalid" | "otp_expired" | "otp_too_many_attempts" | "sms_delivery_failed" | "session_expired" | "account_suspended" | "username_taken" | "username_reserved" | "talent_category_unknown";
+        ErrorCode: "validation_failed" | "unauthorized" | "forbidden" | "not_found" | "conflict" | "rate_limited" | "internal_error" | "service_unavailable" | "phone_invalid" | "phone_country_unsupported" | "otp_resend_too_soon" | "otp_rate_limited" | "otp_invalid" | "otp_expired" | "otp_too_many_attempts" | "sms_delivery_failed" | "session_expired" | "account_suspended" | "username_taken" | "username_reserved" | "talent_category_unknown" | "age_below_minimum";
         HealthDto: {
             /** @example ok */
             status: string;
@@ -210,8 +210,15 @@ export interface components {
         MeDto: {
             /** @example NG */
             country: string | null;
+            /**
+             * @description YYYY-MM-DD.
+             * @example 2001-06-14
+             */
+            dateOfBirth: string | null;
             /** Format: uuid */
             id: string;
+            /** @description Under 18. Null until a date of birth is given. */
+            isMinor: boolean | null;
             /** @example en */
             language: string;
             /** @description The next onboarding screen to show, or `done`. */
@@ -320,6 +327,11 @@ export interface components {
             bio?: string;
             /** @example Lagos */
             city: string;
+            /**
+             * @description YYYY-MM-DD. Required the first time a profile is saved, and cannot be changed afterwards.
+             * @example 2001-06-14
+             */
+            dateOfBirth?: string;
             /** @example Amara Okafor */
             displayName: string;
             /** @example amara_sings */
@@ -713,7 +725,7 @@ type ReadonlyArray<T> = [
 ] extends [
     unknown[]
 ] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;
-export const errorCodeValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["ErrorCode"]> = ["validation_failed", "unauthorized", "forbidden", "not_found", "conflict", "rate_limited", "internal_error", "service_unavailable", "phone_invalid", "phone_country_unsupported", "otp_resend_too_soon", "otp_rate_limited", "otp_invalid", "otp_expired", "otp_too_many_attempts", "sms_delivery_failed", "session_expired", "account_suspended", "username_taken", "username_reserved", "talent_category_unknown"];
+export const errorCodeValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["ErrorCode"]> = ["validation_failed", "unauthorized", "forbidden", "not_found", "conflict", "rate_limited", "internal_error", "service_unavailable", "phone_invalid", "phone_country_unsupported", "otp_resend_too_soon", "otp_rate_limited", "otp_invalid", "otp_expired", "otp_too_many_attempts", "sms_delivery_failed", "session_expired", "account_suspended", "username_taken", "username_reserved", "talent_category_unknown", "age_below_minimum"];
 export const onboardingStepValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["OnboardingStep"]> = ["talents", "profile", "done"];
 export const talentLevelValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["TalentLevel"]> = ["emerging", "skilled", "professional"];
 export const usernameStatusValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["UsernameStatus"]> = ["available", "taken", "reserved"];
