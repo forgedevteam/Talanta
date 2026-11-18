@@ -46,7 +46,10 @@ body {
 }
 
 .weave {
-  background-image:
-    radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--talanta-text) 7%, transparent) 1px, transparent 0);
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    color-mix(in srgb, var(--talanta-text) 7%, transparent) 1px,
+    transparent 0
+  );
   background-size: 48px 48px;
 }

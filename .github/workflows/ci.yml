@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  typescript:
+    name: API, web and contract
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Design tokens are up to date
+        run: pnpm --filter @talanta/design-tokens check
+      - run: pnpm lint
+      - run: pnpm format:check
+      - run: pnpm --filter @talanta/api typecheck
+      - run: pnpm --filter @talanta/api test
+      - name: OpenAPI document matches the controllers
+        run: |
+          pnpm --filter @talanta/api openapi
+          git diff --exit-code -- packages/api-contract/openapi.json
+      - run: pnpm --filter @talanta/api-contract build
+      - run: pnpm --filter @talanta/web build
+
+  flutter:
+    name: Mobile
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.41.4
+          channel: stable
+          cache: true
+      - run: dart pub get
+      - name: Formatting
+        run: dart format --output=none --set-exit-if-changed apps/mobile/lib apps/mobile/test
+      - working-directory: apps/mobile
+        run: flutter gen-l10n
+      - working-directory: apps/mobile
+        run: flutter analyze --fatal-infos
+      - working-directory: apps/mobile
+        run: flutter test

@@ -11,6 +11,8 @@ export default tseslint.config(
       '**/.next/**',
       '**/coverage/**',
       '**/generated/**',
+      'packages/api-contract/src/schema.d.ts',
+      '**/next-env.d.ts',
       'apps/mobile/**',
       'packages/**/dart/**',
       '.data/**',
@@ -46,6 +48,11 @@ export default tseslint.config(
   {
     files: ['**/*.{js,mjs,cjs}'],
     ...tseslint.configs.disableTypeChecked,
+  },
+  {
+    // Build scripts run on Node.
+    files: ['**/*.{js,mjs,cjs}'],
+    languageOptions: { globals: { process: 'readonly', console: 'readonly' } },
   },
   {
     files: ['**/*.test.ts', 'apps/api/test/**/*.ts'],

@@ -1,6 +1,8 @@
+import type { ReactElement } from 'react';
+
 import { TALENTS } from '@/lib/talents';
 
-export default function HomePage() {
+export default function HomePage(): ReactElement {
   return (
     <main className="mx-auto flex min-h-dvh max-w-5xl flex-col px-6 py-10 sm:px-10">
       <header className="flex items-center justify-between">
@@ -15,7 +17,9 @@ export default function HomePage() {
 
       <section className="mt-24 grid gap-12 md:mt-32 md:grid-cols-[3fr_2fr] md:items-end">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">Launching in Nigeria, Kenya, Ghana and South Africa</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+            Launching in Nigeria, Kenya, Ghana and South Africa
+          </p>
           <h1 className="font-display mt-5 text-5xl font-semibold leading-[1.02] tracking-tight text-text sm:text-7xl">
             Where Africa&rsquo;s talent lives.
           </h1>
@@ -59,7 +63,9 @@ export default function HomePage() {
       </section>
 
       <section id="talents" className="mt-24">
-        <h2 className="font-display text-2xl font-semibold text-text">Made for every kind of talent</h2>
+        <h2 className="font-display text-2xl font-semibold text-text">
+          Made for every kind of talent
+        </h2>
         <ul className="mt-6 flex flex-wrap gap-2">
           {TALENTS.map((talent) => (
             <li
