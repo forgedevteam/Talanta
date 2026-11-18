@@ -29,6 +29,23 @@ Future<void> waitFor(
   throw TestFailure('Timed out waiting for $finder');
 }
 
+/// Signs out from the Profile tab.
+Future<void> signOutFromProfile(WidgetTester tester) async {
+  await tester.tap(find.byKey(const ValueKey('nav-me')));
+  await waitFor(tester, find.byKey(const ValueKey('me-screen')));
+  await tester.pumpAndSettle();
+  await tester.scrollUntilVisible(
+    find.byKey(const ValueKey('sign-out')),
+    300,
+    scrollable: find.byType(Scrollable).last,
+  );
+  // Bring it fully clear of the navigation bar before tapping.
+  await tester.ensureVisible(find.byKey(const ValueKey('sign-out')));
+  await tester.pumpAndSettle();
+  await tester.tap(find.byKey(const ValueKey('sign-out')));
+  await waitFor(tester, find.byKey(const ValueKey('phone-field')));
+}
+
 Future<void> chooseBirthYear(WidgetTester tester, String year) async {
   final field = find.byKey(const ValueKey('dob-field'));
   await tester.ensureVisible(field);
@@ -73,7 +90,7 @@ void main() {
     await tester.enterText(find.byKey(const ValueKey('phone-field')), phone);
     await tester.tap(find.byKey(const ValueKey('send-code')));
     await waitFor(tester, find.byKey(const ValueKey('otp-field')));
-    expect(find.textContaining('+237 6 7'), findsOneWidget);
+    expect(find.textContaining('+237 6 7'), findsOneWidget);
 
     // A wrong code, then the right one.
     const wrong = otpCode == '000000' ? '111111' : '000000';
@@ -112,16 +129,37 @@ void main() {
     // Then an adult date of birth.
     await chooseBirthYear(tester, (DateTime.now().year - 25).toString());
     await tester.tap(find.byKey(const ValueKey('finish-profile')));
-    await waitFor(tester, find.byKey(const ValueKey('home-welcome')));
+    await waitFor(tester, find.byKey(const ValueKey('calls-screen')));
 
-    expect(find.text(l10n.homeWelcome('Amara Okafor')), findsOneWidget);
-    expect(find.text('@$username · Lagos'), findsOneWidget);
-    expect(find.text('Dance'), findsOneWidget);
-    expect(find.text('Music'), findsOneWidget);
+    // Open Calls from the real server, then apply to the first one listed.
+    final firstCall = find
+        .byWidgetPredicate(
+          (w) =>
+              w.key is ValueKey<String> &&
+              (w.key! as ValueKey<String>).value.startsWith('call-'),
+        )
+        .first;
+    await waitFor(tester, firstCall);
+    await tester.tap(firstCall);
+    await waitFor(tester, find.text(l10n.callSafety));
+    final applyButton = find.byKey(const ValueKey('apply'));
+    if (applyButton.evaluate().isNotEmpty) {
+      await tester.tap(applyButton);
+      await tester.pumpAndSettle();
+      await tester.enterText(
+        find.byKey(const ValueKey('apply-message')),
+        'I perform every weekend in Douala and I am free on that date.',
+      );
+      await tester.tap(find.byKey(const ValueKey('send-application')));
+      await waitFor(tester, find.byKey(const ValueKey('my-status')));
+    }
+    await tester.pageBack();
+    await tester.pumpAndSettle();
 
-    // Sign out.
-    await tester.tap(find.byKey(const ValueKey('sign-out')));
-    await waitFor(tester, find.byKey(const ValueKey('phone-field')));
+    // My profile shows who I am; then sign out.
+    await tester.tap(find.byKey(const ValueKey('nav-me')));
+    await waitFor(tester, find.text('Amara Okafor'));
+    await signOutFromProfile(tester);
     expect(await SecureTokenStorage().read(), isNull);
   });
 }

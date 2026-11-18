@@ -117,7 +117,7 @@ void main() {
     await tester.tap(find.byKey(const ValueKey('finish-profile')));
     await tester.pumpAndSettle();
 
-    expect(find.byKey(const ValueKey('home-welcome')), findsOneWidget);
+    expect(find.byKey(const ValueKey('calls-screen')), findsOneWidget);
     expect(api.profile?['displayName'], 'Wanjiru');
   });
 
@@ -138,7 +138,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text(l10n.profileErrorTooYoung), findsOneWidget);
-    expect(find.byKey(const ValueKey('home-welcome')), findsNothing);
+    expect(find.byKey(const ValueKey('calls-screen')), findsNothing);
   });
 
   testWidgets('does not ask again for a date of birth already on file', (

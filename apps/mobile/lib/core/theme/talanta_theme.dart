@@ -142,7 +142,7 @@ abstract final class TalantaTheme {
           foregroundColor: palette.onPrimary,
           disabledBackgroundColor: palette.surfaceRaised,
           disabledForegroundColor: palette.textMuted,
-          minimumSize: const Size.fromHeight(56),
+          minimumSize: const Size(64, 52),
           shape: smallShape,
           textStyle: textTheme.labelLarge,
         ),
@@ -150,7 +150,7 @@ abstract final class TalantaTheme {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: palette.text,
-          minimumSize: const Size.fromHeight(56),
+          minimumSize: const Size(64, 52),
           shape: smallShape,
           side: BorderSide(color: palette.outline),
           textStyle: textTheme.labelLarge,

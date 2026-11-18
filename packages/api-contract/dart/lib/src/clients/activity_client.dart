@@ -5,7 +5,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../models/notification_page.dart';
+import '../models/activity_page.dart';
 import '../models/unread_count.dart';
 
 part 'activity_client.g.dart';
@@ -18,7 +18,7 @@ abstract class ActivityClient {
   ///
   /// [cursor] - The `nextCursor` from the previous page.
   @GET('/v1/me/notifications')
-  Future<NotificationPage> listNotifications({
+  Future<ActivityPage> listNotifications({
     @Query('limit') num? limit = 20,
     @Query('cursor') String? cursor,
   });

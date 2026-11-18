@@ -70,7 +70,13 @@ class _TalentsScreenState extends ConsumerState<TalentsScreen> {
           .saveTalents(categoryIds: List.of(_picked));
       // Move on explicitly: people who finished onboarding may come back here
       // to edit, so the router does not push them forward on its own.
-      if (mounted) context.go(Routes.profile);
+      if (!mounted) return;
+      // Opened from the Profile tab to edit: go back there.
+      if (context.canPop()) {
+        context.pop();
+      } else {
+        context.go(Routes.profile);
+      }
     } on ApiFailure catch (failure) {
       if (mounted) {
         TalantaSnack.show(

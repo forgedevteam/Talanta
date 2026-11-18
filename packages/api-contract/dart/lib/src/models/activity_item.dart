@@ -8,12 +8,12 @@ import 'application_status.dart';
 import 'notification_type.dart';
 import 'person_summary.dart';
 
-part 'notification.freezed.dart';
-part 'notification.g.dart';
+part 'activity_item.freezed.dart';
+part 'activity_item.g.dart';
 
 @Freezed()
-abstract class Notification with _$Notification {
-  const factory Notification({
+abstract class ActivityItem with _$ActivityItem {
+  const factory ActivityItem({
     required String id,
     required NotificationType type,
     required PersonSummary? actor,
@@ -24,7 +24,7 @@ abstract class Notification with _$Notification {
     required ApplicationStatus? applicationStatus,
     required bool isRead,
     required DateTime createdAt,
-  }) = _Notification;
+  }) = _ActivityItem;
   
-  factory Notification.fromJson(Map<String, Object?> json) => _$NotificationFromJson(json);
+  factory ActivityItem.fromJson(Map<String, Object?> json) => _$ActivityItemFromJson(json);
 }

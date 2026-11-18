@@ -193,7 +193,13 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
             dateOfBirth: _needsDateOfBirth ? _dateOfBirth : null,
           );
       unawaited(HapticFeedback.mediumImpact());
-      if (mounted) context.go(Routes.home);
+      if (!mounted) return;
+      // Opened from the Profile tab to edit: go back there.
+      if (context.canPop()) {
+        context.pop();
+      } else {
+        context.go(Routes.home);
+      }
     } on ApiFailure catch (failure) {
       if (!mounted) return;
       if (failure is ProblemFailure) {

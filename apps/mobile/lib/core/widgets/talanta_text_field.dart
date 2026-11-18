@@ -22,6 +22,8 @@ class TalantaTextField extends StatelessWidget {
     this.autofillHints,
     this.inputFormatters,
     this.maxLength,
+    this.minLines,
+    this.maxLines = 1,
     this.autofocus = false,
     this.enabled = true,
     this.onChanged,
@@ -42,6 +44,8 @@ class TalantaTextField extends StatelessWidget {
   final Iterable<String>? autofillHints;
   final List<TextInputFormatter>? inputFormatters;
   final int? maxLength;
+  final int? minLines;
+  final int? maxLines;
   final bool autofocus;
   final bool enabled;
   final ValueChanged<String>? onChanged;
@@ -68,6 +72,8 @@ class TalantaTextField extends StatelessWidget {
           autofillHints: autofillHints,
           inputFormatters: inputFormatters,
           maxLength: maxLength,
+          minLines: minLines,
+          maxLines: maxLines,
           autofocus: autofocus,
           enabled: enabled,
           onChanged: onChanged,

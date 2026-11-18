@@ -16,3 +16,5 @@ linter:
     public_member_api_docs: false
     # Riverpod notifiers and screens are long by nature.
     lines_longer_than_80_chars: false
+    # Riverpod provider types are long generics the declaration already spells out.
+    specify_nonobvious_property_types: false

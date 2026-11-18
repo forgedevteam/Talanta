@@ -157,19 +157,26 @@ void main() {
       await tester.pumpAndSettle();
 
       final now = clock.now();
-      expect(api.requests.last.path, '/v1/me/profile');
-      expect(api.requests.last.body, {
+      final saved = api.requests.lastWhere((r) => r.path == '/v1/me/profile');
+      expect(saved.body, {
         'displayName': 'Amara Okafor',
         'username': 'amara_sings',
         'city': 'Lagos',
         'dateOfBirth': isoDate(DateTime(now.year - 18, now.month, now.day)),
       });
 
-      // Home.
-      expect(find.text(l10n.homeWelcome('Amara Okafor')), findsOneWidget);
-      expect(find.text('Dance'), findsOneWidget);
+      // Lands on Open Calls, with the featured row first.
+      expect(find.byKey(const ValueKey('calls-screen')), findsOneWidget);
+      expect(find.text(l10n.callsFeatured), findsWidgets);
 
-      // Sign out returns to the phone screen.
+      // Sign out from the Profile tab returns to the phone screen.
+      await tester.tap(find.byKey(const ValueKey('nav-me')));
+      await tester.pumpAndSettle();
+      await tester.scrollUntilVisible(
+        find.byKey(const ValueKey('sign-out')),
+        200,
+        scrollable: find.byType(Scrollable).last,
+      );
       await tester.tap(find.byKey(const ValueKey('sign-out')));
       await tester.pumpAndSettle();
       expect(find.byKey(const ValueKey('phone-field')), findsOneWidget);

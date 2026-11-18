@@ -25,6 +25,7 @@ dependencies:
     path: ../../packages/api-contract/dart
   talanta_tokens:
     path: ../../packages/design-tokens/dart
+  url_launcher: ^6.3.3
 
 dev_dependencies:
   build_runner: ^2.4.0

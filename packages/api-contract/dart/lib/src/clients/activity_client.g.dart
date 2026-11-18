@@ -21,7 +21,7 @@ class _ActivityClient implements ActivityClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<NotificationPage> listNotifications({
+  Future<ActivityPage> listNotifications({
     num? limit = 20,
     String? cursor,
   }) async {
@@ -33,7 +33,7 @@ class _ActivityClient implements ActivityClient {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<NotificationPage>(
+    final _options = _setStreamType<ActivityPage>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -44,9 +44,9 @@ class _ActivityClient implements ActivityClient {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, Object?>>(_options);
-    late NotificationPage _value;
+    late ActivityPage _value;
     try {
-      _value = NotificationPage.fromJson(_result.data!);
+      _value = ActivityPage.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

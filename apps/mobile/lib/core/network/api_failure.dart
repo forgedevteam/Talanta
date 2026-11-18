@@ -60,11 +60,19 @@ final class ProblemFailure extends ApiFailure {
     ErrorCode.otpExpired => l10n.otpErrorExpired,
     ErrorCode.otpTooManyAttempts => l10n.otpErrorTooManyAttempts,
     ErrorCode.otpResendTooSoon => l10n.otpErrorResendTooSoon,
-    ErrorCode.otpRateLimited ||
-    ErrorCode.rateLimited => l10n.otpErrorRateLimited,
+    ErrorCode.otpRateLimited => l10n.otpErrorRateLimited,
+    ErrorCode.rateLimited => l10n.errorRateLimited,
     ErrorCode.usernameTaken => l10n.profileUsernameTaken,
     ErrorCode.usernameReserved => l10n.profileUsernameReserved,
     ErrorCode.ageBelowMinimum => l10n.profileErrorTooYoung,
+    ErrorCode.adultsOnly => l10n.errorAdultsOnly,
+    ErrorCode.profileRequired => l10n.errorProfileRequired,
+    ErrorCode.alreadyApplied => l10n.errorAlreadyApplied,
+    ErrorCode.opportunityClosed => l10n.errorCallClosed,
+    ErrorCode.cannotApplyToOwn => l10n.errorCannotApplyOwn,
+    ErrorCode.limitReached => l10n.errorLimitReached,
+    ErrorCode.linkNotAllowed => l10n.errorLinkNotAllowed,
+    ErrorCode.notFound => l10n.errorNotFound,
     ErrorCode.sessionExpired ||
     ErrorCode.unauthorized => l10n.errorSessionEnded,
     ErrorCode.internalError ||

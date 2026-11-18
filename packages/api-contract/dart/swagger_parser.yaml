@@ -25,3 +25,8 @@ swagger_parser:
   replacement_rules:
     - pattern: 'Dto$'
       replacement: ''
+    # Flutter already has a Notification class.
+    - pattern: '^Notification$'
+      replacement: 'ActivityItem'
+    - pattern: '^NotificationPage$'
+      replacement: 'ActivityPage'

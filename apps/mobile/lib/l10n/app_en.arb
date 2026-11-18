@@ -122,5 +122,256 @@
   "errorTimeout": "That took too long. Check your connection and try again.",
   "errorServer": "Something went wrong on our side. Try again in a moment.",
   "errorUnknown": "Something went wrong. Try again.",
-  "errorSessionEnded": "Your session ended. Sign in again."
+  "errorSessionEnded": "Your session ended. Sign in again.",
+  "navCalls": "Open Calls",
+  "navDiscover": "Discover",
+  "navActivity": "Activity",
+  "navProfile": "Profile",
+  "cancel": "Cancel",
+  "timeJustNow": "now",
+  "timeMinutes": "{count} min",
+  "@timeMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "timeHours": "{count} h",
+  "@timeHours": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "timeDays": "{count} d",
+  "@timeDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "callsTitle": "Open Calls",
+  "callsSubtitle": "Paid gigs, castings and auditions near you.",
+  "callsAll": "All",
+  "callsFeatured": "Featured",
+  "callsSponsored": "Sponsored",
+  "callsLatest": "Latest calls",
+  "callsEmpty": "No calls here yet",
+  "callsEmptyBody": "New calls arrive every week. Check back soon, or post your own.",
+  "callsPost": "Post a call",
+  "callsApplicants": "{count, plural, =0{No applicants yet} =1{1 applicant} other{{count} applicants}}",
+  "@callsApplicants": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "callsUnpaid": "Unpaid",
+  "callsNegotiable": "Pay to discuss",
+  "callsCloses": "Closes {date}",
+  "@callsCloses": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "callsClosed": "Closed",
+  "callAbout": "About the work",
+  "callPostedBy": "Posted by",
+  "callSafety": "Talanta never asks you to pay to apply. If anyone asks you for money, report them.",
+  "callApply": "Apply",
+  "callYourApplication": "Your application",
+  "callViewApplicants": "See applicants ({count})",
+  "@callViewApplicants": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "callClose": "Close this call",
+  "callCloseConfirm": "Stop taking applications? You cannot reopen it.",
+  "callReport": "Report this call",
+  "callIsClosed": "This call is closed.",
+  "statusSubmitted": "Sent",
+  "statusShortlisted": "Shortlisted",
+  "statusDeclined": "Not selected",
+  "statusHired": "Hired",
+  "applyTitle": "Apply to this call",
+  "applyMessageLabel": "Your message",
+  "applyMessageHint": "Why you're right for it, and when you're free.",
+  "applyAttach": "Show a piece of your work",
+  "applyNoPortfolio": "Add work to your profile to show it here.",
+  "applyNone": "No attachment",
+  "applySend": "Send application",
+  "applySent": "Application sent. Good luck!",
+  "applyMessageTooShort": "Write at least 10 characters.",
+  "postTitle": "Post an Open Call",
+  "postSubtitle": "Describe the work clearly. Real calls get real talent.",
+  "postTitleLabel": "Title",
+  "postTitleHint": "Singer for a wedding in Douala",
+  "postTalentLabel": "Talent you need",
+  "postCityLabel": "City",
+  "postDescriptionLabel": "Describe the work",
+  "postDescriptionHint": "Date, place, what you need and what you provide.",
+  "postPayLabel": "Pay",
+  "postPaid": "Paid",
+  "postNegotiable": "To discuss",
+  "postUnpaid": "Unpaid",
+  "postAmountLabel": "Amount (FCFA)",
+  "postDeadlineLabel": "Closing date (optional)",
+  "postDeadlineHint": "Choose a date",
+  "postSubmit": "Publish",
+  "postPublished": "Your call is live.",
+  "postErrorTitle": "Use 5 to 100 characters.",
+  "postErrorDescription": "Write at least 20 characters.",
+  "postErrorAmount": "Enter the amount you'll pay.",
+  "postErrorTalent": "Choose a talent.",
+  "applicantsTitle": "Applicants",
+  "applicantsEmpty": "No applications yet",
+  "applicantsEmptyBody": "Applications appear here as soon as they arrive.",
+  "actionShortlist": "Shortlist",
+  "actionDecline": "Decline",
+  "actionHire": "Hire",
+  "viewWork": "View work",
+  "myCallsTitle": "My calls",
+  "myCallsEmpty": "You haven't posted a call yet.",
+  "discoverTitle": "Discover",
+  "discoverSearchHint": "Search creators",
+  "discoverCreators": "Creators",
+  "discoverFollowing": "Following",
+  "discoverEmpty": "No one matches yet",
+  "followingEmpty": "Follow creators to see their new work here.",
+  "followersCount": "{count, plural, =1{1 follower} other{{count} followers}}",
+  "@followersCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "followingCount": "{count} following",
+  "@followingCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "worksCount": "{count, plural, =1{1 piece} other{{count} pieces}}",
+  "@worksCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "follow": "Follow",
+  "followingButton": "Following",
+  "verified": "Verified",
+  "portfolioTitle": "Portfolio",
+  "portfolioEmpty": "No work yet.",
+  "portfolioEmptyMine": "Add links to your best work on YouTube, TikTok, Audiomack and more.",
+  "portfolioAdd": "Add work",
+  "portfolioTitleLabel": "Title",
+  "portfolioTitleHint": "Live at Institut Français",
+  "portfolioLinkLabel": "Link",
+  "portfolioLinkHelp": "Paste the link from YouTube, TikTok, Instagram, Audiomack or Boomplay.",
+  "portfolioSave": "Add to portfolio",
+  "portfolioAdded": "Added to your portfolio.",
+  "portfolioRemoveConfirm": "Remove this piece from your portfolio?",
+  "remove": "Remove",
+  "portfolioErrorTitle": "Give it a title of 2 to 80 characters.",
+  "reportUser": "Report this person",
+  "reportTitle": "What's wrong?",
+  "reasonScam": "Scam, or asks for money",
+  "reasonHarassment": "Harassment",
+  "reasonInappropriate": "Inappropriate content",
+  "reasonSpam": "Spam",
+  "reasonUnderage": "Involves a minor",
+  "reasonOther": "Something else",
+  "reportThanks": "Thanks. Our team will look into it.",
+  "profileMenuCalls": "My calls",
+  "profileMenuEdit": "Edit profile",
+  "profileMenuTalents": "Edit talents",
+  "profileMenuDelete": "Delete my account",
+  "deleteTitle": "Delete your account?",
+  "deleteBody": "Your profile, portfolio and calls are removed and you're signed out everywhere. This can't be undone.",
+  "deleteConfirm": "Delete",
+  "activityTitle": "Activity",
+  "activityNotifications": "Notifications",
+  "activityApplications": "My applications",
+  "activityEmpty": "Nothing new yet",
+  "activityEmptyBody": "Applications, decisions and new followers show up here.",
+  "applicationsEmpty": "You haven't applied to a call yet",
+  "applicationsEmptyBody": "Find a call that fits you and apply in a minute.",
+  "browseCalls": "Browse calls",
+  "someone": "Someone",
+  "notifApplicationReceived": "{name} applied to “{title}”",
+  "@notifApplicationReceived": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "notifShortlisted": "You're shortlisted for “{title}”",
+  "@notifShortlisted": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "notifHired": "You got the job: “{title}”",
+  "@notifHired": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "notifDeclined": "“{title}”: not selected this time",
+  "@notifDeclined": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "notifUpdate": "Update on “{title}”",
+  "@notifUpdate": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "notifNewFollower": "{name} started following you",
+  "@notifNewFollower": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "errorAdultsOnly": "Open Calls are for people 18 and over.",
+  "errorProfileRequired": "Finish your profile first.",
+  "errorAlreadyApplied": "You've already applied.",
+  "errorCallClosed": "This call is closed.",
+  "errorLimitReached": "You've reached the limit.",
+  "errorLinkNotAllowed": "Paste a full link starting with https://",
+  "errorLinkFailed": "That link couldn't be opened.",
+  "errorRateLimited": "You've done that a lot today. Try again later.",
+  "errorNotFound": "This is no longer available.",
+  "errorCannotApplyOwn": "You posted this call.",
+  "portfolioTalentLabel": "Which talent does it show? (optional)"
 }

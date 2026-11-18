@@ -9,6 +9,13 @@ and the packages they share.
 
 ## What works today
 
+- **Open Calls**: organisers post paid gigs and castings; talent applies in a
+  minute and follows each application from sent to hired
+- **Portfolios** linking to work on YouTube, TikTok, Audiomack and more
+- **Discover** creators by talent and city; follow them and see their new work
+- **Activity**: new applicants, decisions and followers
+- Featured calls and labelled sponsored cards (the revenue model)
+- Reporting, an admin review queue, account deletion
 - Phone sign-in with one-time codes, rotating sessions and sign-out
 - Onboarding: pick your talents, create your profile, date of birth with a minimum age of 13
 - Mobile app for Android and iOS covering splash, phone, code, talents,
@@ -31,6 +38,7 @@ pnpm dev:db                   # PostgreSQL 16 from node_modules, keep it running
 
 cp apps/api/.env.example apps/api/.env   # then fill in the two secrets
 pnpm --filter @talanta/api db:migrate
+pnpm --filter @talanta/api db:seed-demo   # optional: demo creators, calls and test accounts
 pnpm dev:api                  # http://localhost:3000, API docs at /docs
 ```
 
@@ -60,3 +68,4 @@ pnpm lint && pnpm typecheck
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): decisions and why
 - [docs/BLUEPRINT.md](docs/BLUEPRINT.md): the product blueprint
 - [docs/RELEASING.md](docs/RELEASING.md): accounts you need, signing and building the app
+- [docs/SECURITY.md](docs/SECURITY.md): threat model, protections and launch checklist

@@ -41,7 +41,8 @@ abstract final class ApiClientFactory {
         retryDio: bare,
         onSessionEnded: onSessionEnded,
       ),
-      if (logRequests) LogInterceptor(requestHeader: false),
+      if (logRequests) // Bodies (codes, tokens) are left out of the log by default.
+        LogInterceptor(requestHeader: false),
     ]);
     return dio;
   }

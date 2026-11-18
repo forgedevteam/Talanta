@@ -565,6 +565,864 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your session ended. Sign in again.'**
   String get errorSessionEnded;
+
+  /// No description provided for @navCalls.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Calls'**
+  String get navCalls;
+
+  /// No description provided for @navDiscover.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover'**
+  String get navDiscover;
+
+  /// No description provided for @navActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity'**
+  String get navActivity;
+
+  /// No description provided for @navProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get navProfile;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @timeJustNow.
+  ///
+  /// In en, this message translates to:
+  /// **'now'**
+  String get timeJustNow;
+
+  /// No description provided for @timeMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} min'**
+  String timeMinutes(int count);
+
+  /// No description provided for @timeHours.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} h'**
+  String timeHours(int count);
+
+  /// No description provided for @timeDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} d'**
+  String timeDays(int count);
+
+  /// No description provided for @callsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Calls'**
+  String get callsTitle;
+
+  /// No description provided for @callsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid gigs, castings and auditions near you.'**
+  String get callsSubtitle;
+
+  /// No description provided for @callsAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get callsAll;
+
+  /// No description provided for @callsFeatured.
+  ///
+  /// In en, this message translates to:
+  /// **'Featured'**
+  String get callsFeatured;
+
+  /// No description provided for @callsSponsored.
+  ///
+  /// In en, this message translates to:
+  /// **'Sponsored'**
+  String get callsSponsored;
+
+  /// No description provided for @callsLatest.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest calls'**
+  String get callsLatest;
+
+  /// No description provided for @callsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No calls here yet'**
+  String get callsEmpty;
+
+  /// No description provided for @callsEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'New calls arrive every week. Check back soon, or post your own.'**
+  String get callsEmptyBody;
+
+  /// No description provided for @callsPost.
+  ///
+  /// In en, this message translates to:
+  /// **'Post a call'**
+  String get callsPost;
+
+  /// No description provided for @callsApplicants.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No applicants yet} =1{1 applicant} other{{count} applicants}}'**
+  String callsApplicants(int count);
+
+  /// No description provided for @callsUnpaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpaid'**
+  String get callsUnpaid;
+
+  /// No description provided for @callsNegotiable.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay to discuss'**
+  String get callsNegotiable;
+
+  /// No description provided for @callsCloses.
+  ///
+  /// In en, this message translates to:
+  /// **'Closes {date}'**
+  String callsCloses(String date);
+
+  /// No description provided for @callsClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'Closed'**
+  String get callsClosed;
+
+  /// No description provided for @callAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'About the work'**
+  String get callAbout;
+
+  /// No description provided for @callPostedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Posted by'**
+  String get callPostedBy;
+
+  /// No description provided for @callSafety.
+  ///
+  /// In en, this message translates to:
+  /// **'Talanta never asks you to pay to apply. If anyone asks you for money, report them.'**
+  String get callSafety;
+
+  /// No description provided for @callApply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get callApply;
+
+  /// No description provided for @callYourApplication.
+  ///
+  /// In en, this message translates to:
+  /// **'Your application'**
+  String get callYourApplication;
+
+  /// No description provided for @callViewApplicants.
+  ///
+  /// In en, this message translates to:
+  /// **'See applicants ({count})'**
+  String callViewApplicants(int count);
+
+  /// No description provided for @callClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close this call'**
+  String get callClose;
+
+  /// No description provided for @callCloseConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop taking applications? You cannot reopen it.'**
+  String get callCloseConfirm;
+
+  /// No description provided for @callReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Report this call'**
+  String get callReport;
+
+  /// No description provided for @callIsClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'This call is closed.'**
+  String get callIsClosed;
+
+  /// No description provided for @statusSubmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent'**
+  String get statusSubmitted;
+
+  /// No description provided for @statusShortlisted.
+  ///
+  /// In en, this message translates to:
+  /// **'Shortlisted'**
+  String get statusShortlisted;
+
+  /// No description provided for @statusDeclined.
+  ///
+  /// In en, this message translates to:
+  /// **'Not selected'**
+  String get statusDeclined;
+
+  /// No description provided for @statusHired.
+  ///
+  /// In en, this message translates to:
+  /// **'Hired'**
+  String get statusHired;
+
+  /// No description provided for @applyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply to this call'**
+  String get applyTitle;
+
+  /// No description provided for @applyMessageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your message'**
+  String get applyMessageLabel;
+
+  /// No description provided for @applyMessageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Why you\'re right for it, and when you\'re free.'**
+  String get applyMessageHint;
+
+  /// No description provided for @applyAttach.
+  ///
+  /// In en, this message translates to:
+  /// **'Show a piece of your work'**
+  String get applyAttach;
+
+  /// No description provided for @applyNoPortfolio.
+  ///
+  /// In en, this message translates to:
+  /// **'Add work to your profile to show it here.'**
+  String get applyNoPortfolio;
+
+  /// No description provided for @applyNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No attachment'**
+  String get applyNone;
+
+  /// No description provided for @applySend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send application'**
+  String get applySend;
+
+  /// No description provided for @applySent.
+  ///
+  /// In en, this message translates to:
+  /// **'Application sent. Good luck!'**
+  String get applySent;
+
+  /// No description provided for @applyMessageTooShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Write at least 10 characters.'**
+  String get applyMessageTooShort;
+
+  /// No description provided for @postTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Post an Open Call'**
+  String get postTitle;
+
+  /// No description provided for @postSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Describe the work clearly. Real calls get real talent.'**
+  String get postSubtitle;
+
+  /// No description provided for @postTitleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get postTitleLabel;
+
+  /// No description provided for @postTitleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Singer for a wedding in Douala'**
+  String get postTitleHint;
+
+  /// No description provided for @postTalentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Talent you need'**
+  String get postTalentLabel;
+
+  /// No description provided for @postCityLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'City'**
+  String get postCityLabel;
+
+  /// No description provided for @postDescriptionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Describe the work'**
+  String get postDescriptionLabel;
+
+  /// No description provided for @postDescriptionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Date, place, what you need and what you provide.'**
+  String get postDescriptionHint;
+
+  /// No description provided for @postPayLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay'**
+  String get postPayLabel;
+
+  /// No description provided for @postPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid'**
+  String get postPaid;
+
+  /// No description provided for @postNegotiable.
+  ///
+  /// In en, this message translates to:
+  /// **'To discuss'**
+  String get postNegotiable;
+
+  /// No description provided for @postUnpaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpaid'**
+  String get postUnpaid;
+
+  /// No description provided for @postAmountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount (FCFA)'**
+  String get postAmountLabel;
+
+  /// No description provided for @postDeadlineLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Closing date (optional)'**
+  String get postDeadlineLabel;
+
+  /// No description provided for @postDeadlineHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a date'**
+  String get postDeadlineHint;
+
+  /// No description provided for @postSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish'**
+  String get postSubmit;
+
+  /// No description provided for @postPublished.
+  ///
+  /// In en, this message translates to:
+  /// **'Your call is live.'**
+  String get postPublished;
+
+  /// No description provided for @postErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Use 5 to 100 characters.'**
+  String get postErrorTitle;
+
+  /// No description provided for @postErrorDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Write at least 20 characters.'**
+  String get postErrorDescription;
+
+  /// No description provided for @postErrorAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the amount you\'ll pay.'**
+  String get postErrorAmount;
+
+  /// No description provided for @postErrorTalent.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a talent.'**
+  String get postErrorTalent;
+
+  /// No description provided for @applicantsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Applicants'**
+  String get applicantsTitle;
+
+  /// No description provided for @applicantsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No applications yet'**
+  String get applicantsEmpty;
+
+  /// No description provided for @applicantsEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Applications appear here as soon as they arrive.'**
+  String get applicantsEmptyBody;
+
+  /// No description provided for @actionShortlist.
+  ///
+  /// In en, this message translates to:
+  /// **'Shortlist'**
+  String get actionShortlist;
+
+  /// No description provided for @actionDecline.
+  ///
+  /// In en, this message translates to:
+  /// **'Decline'**
+  String get actionDecline;
+
+  /// No description provided for @actionHire.
+  ///
+  /// In en, this message translates to:
+  /// **'Hire'**
+  String get actionHire;
+
+  /// No description provided for @viewWork.
+  ///
+  /// In en, this message translates to:
+  /// **'View work'**
+  String get viewWork;
+
+  /// No description provided for @myCallsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My calls'**
+  String get myCallsTitle;
+
+  /// No description provided for @myCallsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven\'t posted a call yet.'**
+  String get myCallsEmpty;
+
+  /// No description provided for @discoverTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover'**
+  String get discoverTitle;
+
+  /// No description provided for @discoverSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search creators'**
+  String get discoverSearchHint;
+
+  /// No description provided for @discoverCreators.
+  ///
+  /// In en, this message translates to:
+  /// **'Creators'**
+  String get discoverCreators;
+
+  /// No description provided for @discoverFollowing.
+  ///
+  /// In en, this message translates to:
+  /// **'Following'**
+  String get discoverFollowing;
+
+  /// No description provided for @discoverEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No one matches yet'**
+  String get discoverEmpty;
+
+  /// No description provided for @followingEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow creators to see their new work here.'**
+  String get followingEmpty;
+
+  /// No description provided for @followersCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 follower} other{{count} followers}}'**
+  String followersCount(int count);
+
+  /// No description provided for @followingCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} following'**
+  String followingCount(int count);
+
+  /// No description provided for @worksCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 piece} other{{count} pieces}}'**
+  String worksCount(int count);
+
+  /// No description provided for @follow.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow'**
+  String get follow;
+
+  /// No description provided for @followingButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Following'**
+  String get followingButton;
+
+  /// No description provided for @verified.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified'**
+  String get verified;
+
+  /// No description provided for @portfolioTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Portfolio'**
+  String get portfolioTitle;
+
+  /// No description provided for @portfolioEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No work yet.'**
+  String get portfolioEmpty;
+
+  /// No description provided for @portfolioEmptyMine.
+  ///
+  /// In en, this message translates to:
+  /// **'Add links to your best work on YouTube, TikTok, Audiomack and more.'**
+  String get portfolioEmptyMine;
+
+  /// No description provided for @portfolioAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add work'**
+  String get portfolioAdd;
+
+  /// No description provided for @portfolioTitleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get portfolioTitleLabel;
+
+  /// No description provided for @portfolioTitleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Live at Institut Français'**
+  String get portfolioTitleHint;
+
+  /// No description provided for @portfolioLinkLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Link'**
+  String get portfolioLinkLabel;
+
+  /// No description provided for @portfolioLinkHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste the link from YouTube, TikTok, Instagram, Audiomack or Boomplay.'**
+  String get portfolioLinkHelp;
+
+  /// No description provided for @portfolioSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to portfolio'**
+  String get portfolioSave;
+
+  /// No description provided for @portfolioAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Added to your portfolio.'**
+  String get portfolioAdded;
+
+  /// No description provided for @portfolioRemoveConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove this piece from your portfolio?'**
+  String get portfolioRemoveConfirm;
+
+  /// No description provided for @remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get remove;
+
+  /// No description provided for @portfolioErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Give it a title of 2 to 80 characters.'**
+  String get portfolioErrorTitle;
+
+  /// No description provided for @reportUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Report this person'**
+  String get reportUser;
+
+  /// No description provided for @reportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s wrong?'**
+  String get reportTitle;
+
+  /// No description provided for @reasonScam.
+  ///
+  /// In en, this message translates to:
+  /// **'Scam, or asks for money'**
+  String get reasonScam;
+
+  /// No description provided for @reasonHarassment.
+  ///
+  /// In en, this message translates to:
+  /// **'Harassment'**
+  String get reasonHarassment;
+
+  /// No description provided for @reasonInappropriate.
+  ///
+  /// In en, this message translates to:
+  /// **'Inappropriate content'**
+  String get reasonInappropriate;
+
+  /// No description provided for @reasonSpam.
+  ///
+  /// In en, this message translates to:
+  /// **'Spam'**
+  String get reasonSpam;
+
+  /// No description provided for @reasonUnderage.
+  ///
+  /// In en, this message translates to:
+  /// **'Involves a minor'**
+  String get reasonUnderage;
+
+  /// No description provided for @reasonOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Something else'**
+  String get reasonOther;
+
+  /// No description provided for @reportThanks.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks. Our team will look into it.'**
+  String get reportThanks;
+
+  /// No description provided for @profileMenuCalls.
+  ///
+  /// In en, this message translates to:
+  /// **'My calls'**
+  String get profileMenuCalls;
+
+  /// No description provided for @profileMenuEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit profile'**
+  String get profileMenuEdit;
+
+  /// No description provided for @profileMenuTalents.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit talents'**
+  String get profileMenuTalents;
+
+  /// No description provided for @profileMenuDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete my account'**
+  String get profileMenuDelete;
+
+  /// No description provided for @deleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete your account?'**
+  String get deleteTitle;
+
+  /// No description provided for @deleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your profile, portfolio and calls are removed and you\'re signed out everywhere. This can\'t be undone.'**
+  String get deleteBody;
+
+  /// No description provided for @deleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get deleteConfirm;
+
+  /// No description provided for @activityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity'**
+  String get activityTitle;
+
+  /// No description provided for @activityNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get activityNotifications;
+
+  /// No description provided for @activityApplications.
+  ///
+  /// In en, this message translates to:
+  /// **'My applications'**
+  String get activityApplications;
+
+  /// No description provided for @activityEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing new yet'**
+  String get activityEmpty;
+
+  /// No description provided for @activityEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Applications, decisions and new followers show up here.'**
+  String get activityEmptyBody;
+
+  /// No description provided for @applicationsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven\'t applied to a call yet'**
+  String get applicationsEmpty;
+
+  /// No description provided for @applicationsEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Find a call that fits you and apply in a minute.'**
+  String get applicationsEmptyBody;
+
+  /// No description provided for @browseCalls.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse calls'**
+  String get browseCalls;
+
+  /// No description provided for @someone.
+  ///
+  /// In en, this message translates to:
+  /// **'Someone'**
+  String get someone;
+
+  /// No description provided for @notifApplicationReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} applied to “{title}”'**
+  String notifApplicationReceived(String name, String title);
+
+  /// No description provided for @notifShortlisted.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re shortlisted for “{title}”'**
+  String notifShortlisted(String title);
+
+  /// No description provided for @notifHired.
+  ///
+  /// In en, this message translates to:
+  /// **'You got the job: “{title}”'**
+  String notifHired(String title);
+
+  /// No description provided for @notifDeclined.
+  ///
+  /// In en, this message translates to:
+  /// **'“{title}”: not selected this time'**
+  String notifDeclined(String title);
+
+  /// No description provided for @notifUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Update on “{title}”'**
+  String notifUpdate(String title);
+
+  /// No description provided for @notifNewFollower.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} started following you'**
+  String notifNewFollower(String name);
+
+  /// No description provided for @errorAdultsOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Calls are for people 18 and over.'**
+  String get errorAdultsOnly;
+
+  /// No description provided for @errorProfileRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish your profile first.'**
+  String get errorProfileRequired;
+
+  /// No description provided for @errorAlreadyApplied.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve already applied.'**
+  String get errorAlreadyApplied;
+
+  /// No description provided for @errorCallClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'This call is closed.'**
+  String get errorCallClosed;
+
+  /// No description provided for @errorLimitReached.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve reached the limit.'**
+  String get errorLimitReached;
+
+  /// No description provided for @errorLinkNotAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste a full link starting with https://'**
+  String get errorLinkNotAllowed;
+
+  /// No description provided for @errorLinkFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'That link couldn\'t be opened.'**
+  String get errorLinkFailed;
+
+  /// No description provided for @errorRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve done that a lot today. Try again later.'**
+  String get errorRateLimited;
+
+  /// No description provided for @errorNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'This is no longer available.'**
+  String get errorNotFound;
+
+  /// No description provided for @errorCannotApplyOwn.
+  ///
+  /// In en, this message translates to:
+  /// **'You posted this call.'**
+  String get errorCannotApplyOwn;
+
+  /// No description provided for @portfolioTalentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Which talent does it show? (optional)'**
+  String get portfolioTalentLabel;
 }
 
 class _AppLocalizationsDelegate

@@ -120,6 +120,44 @@ are translated in the app by their stable `slug`, so the server stays
 language-neutral; an unknown slug falls back to the server's name. The API
 returns `displayPhone`, the number grouped the way it is written locally.
 
+## 11. Product core: Open Calls
+
+The problem Talanta solves first: in Cameroon, paid creative work is found
+through WhatsApp groups and personal contacts. Organisers cannot find
+reliable talent, talent cannot find the work, and fake castings prey on
+both. Open Calls make that market visible and safer.
+
+- **Open Calls** (`opportunities` module, owns `opportunities` and
+  `applications`): organisers post briefs; adults with a profile apply with
+  a message and a portfolio piece; posters shortlist, decline or hire.
+- **Portfolio** (`portfolio`): links to work on YouTube, TikTok, Audiomack
+  and the rest. Talanta indexes work where it already lives instead of
+  hosting video, which keeps costs near zero until video hosting is worth it.
+- **Discover and follow** (`creators`, `social`): search by name, talent and
+  city; a stream of new work from people you follow.
+- **Activity** (`notifications` stores references; `activity` turns them
+  into text-ready items): new applicants, decisions, new followers.
+
+Why people return: new paid calls every week, the status of their
+applications, and new work from creators they follow.
+
+## 12. Revenue: native ads
+
+- **Featured calls**: organisers pay to pin a call in the Featured row for a
+  number of days (`featured_until`, set by an admin after payment; it
+  expires on its own).
+- **Sponsored cards** (`promotions`): one labelled card after the third call
+  in the feed, linking to a sponsor page or to a screen in the app.
+
+Both are relevant to the reader and always labelled. Payment collection
+(MTN MoMo, Orange Money) comes next; until then, featuring is done by an
+admin after payment is received.
+
+## 13. Security
+
+See [SECURITY.md](SECURITY.md) for the threat model, what is tested, and
+the launch checklist.
+
 ## Before launch
 
 - Accounts and decisions listed in [RELEASING.md](RELEASING.md): SMS

@@ -104,7 +104,6 @@ void main() {
         'isVerified': false,
       };
     await pumpApp(tester, api, tokens: _tokens);
-    final l10n = l10nOf(tester);
-    expect(find.text(l10n.homeWelcome('Kwame')), findsOneWidget);
+    expect(find.byKey(const ValueKey('calls-screen')), findsOneWidget);
   });
 }

@@ -15,7 +15,11 @@ import 'package:talanta/app/app.dart';
 import 'package:talanta/core/storage/token_storage.dart';
 import 'package:talanta/l10n/generated/app_localizations.dart';
 
-import 'onboarding_e2e_test.dart' show chooseBirthYear, otpCode, waitFor;
+import 'onboarding_e2e_test.dart'
+    show chooseBirthYear, otpCode, signOutFromProfile, waitFor;
+
+/// Test accounts from `db:seed-demo`, signed in with OTP_TEST_CODE.
+const testCode = String.fromEnvironment('TEST_CODE', defaultValue: '123456');
 
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -129,11 +133,101 @@ void main() {
 
     await chooseBirthYear(tester, (DateTime.now().year - 24).toString());
     await tester.tap(find.byKey(const ValueKey('finish-profile')));
-    await waitFor(tester, find.byKey(const ValueKey('home-welcome')));
-    await capture('home');
+    await waitFor(tester, find.byKey(const ValueKey('calls-screen')));
+    await capture('calls-new-member');
+    await signOutFromProfile(tester);
 
-    await tester.tap(find.byKey(const ValueKey('sign-out')));
-    await waitFor(tester, find.byKey(const ValueKey('phone-field')));
-    await capture('signed-out');
+    // ---- The demo talent: applications, notifications, follows. ----
+    Future<void> signInAs(String number) async {
+      await tester.enterText(find.byKey(const ValueKey('phone-field')), number);
+      await tester.tap(find.byKey(const ValueKey('send-code')));
+      await waitFor(tester, find.byKey(const ValueKey('otp-field')));
+      await tester.enterText(find.byKey(const ValueKey('otp-field')), testCode);
+      await waitFor(tester, find.byKey(const ValueKey('calls-screen')));
+      await tester.pump(const Duration(seconds: 2));
+    }
+
+    await signInAs('6 99 00 00 01');
+    await capture('calls-feed');
+    await tester.scrollUntilVisible(
+      find.textContaining(l10n.callsSponsored),
+      400,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await capture('calls-sponsored');
+    await tester.fling(
+      find.byType(Scrollable).first,
+      const Offset(0, 3000),
+      4000,
+    );
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.textContaining('mariage').first);
+    await waitFor(tester, find.text(l10n.callSafety));
+    await capture('call-applied');
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const ValueKey('nav-activity')));
+    await waitFor(tester, find.byKey(const ValueKey('activity-screen')));
+    await tester.pump(const Duration(seconds: 2));
+    await capture('activity-notifications');
+    await tester.tap(find.byKey(const ValueKey('tab-applications')));
+    await tester.pump(const Duration(seconds: 2));
+    await capture('activity-applications');
+
+    await tester.tap(find.byKey(const ValueKey('nav-discover')));
+    await waitFor(tester, find.byKey(const ValueKey('discover-search')));
+    await tester.pump(const Duration(seconds: 2));
+    await capture('discover');
+    await tester.enterText(
+      find.byKey(const ValueKey('discover-search')),
+      'Awa',
+    );
+    await waitFor(tester, find.byKey(const ValueKey('creator-awa_danse')));
+    await capture('discover-search');
+    await tester.tap(find.byKey(const ValueKey('creator-awa_danse')));
+    await waitFor(tester, find.byKey(const ValueKey('follow-button')));
+    await capture('creator-profile');
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const ValueKey('tab-following')));
+    await tester.pump(const Duration(seconds: 2));
+    await capture('following');
+
+    await tester.tap(find.byKey(const ValueKey('nav-me')));
+    await waitFor(tester, find.byKey(const ValueKey('add-work')));
+    await capture('my-profile');
+    await tester.tap(find.byKey(const ValueKey('add-work')));
+    await tester.pumpAndSettle();
+    await capture('add-work');
+    Navigator.of(
+      tester.element(find.byKey(const ValueKey('work-title'))),
+    ).pop();
+    await tester.pumpAndSettle();
+    await signOutFromProfile(tester);
+
+    // ---- The demo organiser: posting and reviewing applicants. ----
+    await signInAs('6 99 00 00 02');
+    await tester.tap(find.byKey(const ValueKey('post-call')));
+    await tester.pumpAndSettle();
+    await capture('post-call');
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const ValueKey('nav-me')));
+    await waitFor(tester, find.byKey(const ValueKey('menu-my-calls')));
+    await tester.tap(find.byKey(const ValueKey('menu-my-calls')));
+    await waitFor(tester, find.textContaining('FCFA'));
+    await capture('my-calls');
+    await tester.scrollUntilVisible(
+      find.textContaining('mariage'),
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.tap(find.textContaining('mariage').first);
+    await waitFor(tester, find.byKey(const ValueKey('view-applicants')));
+    await tester.tap(find.byKey(const ValueKey('view-applicants')));
+    await waitFor(tester, find.textContaining('Nkeng'));
+    await capture('applicants');
   });
 }

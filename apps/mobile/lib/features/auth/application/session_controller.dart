@@ -102,6 +102,12 @@ class SessionController extends Notifier<SessionState> {
     }
   }
 
+  /// The server has deleted the account; forget it on this phone too.
+  Future<void> accountDeleted() async {
+    await _storage.clear();
+    state = const SignedOut();
+  }
+
   /// The refresh token was rejected: the server ended the session.
   void sessionEnded() {
     state = const SignedOut();

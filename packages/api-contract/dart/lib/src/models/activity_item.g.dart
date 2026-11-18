@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'notification.dart';
+part of 'activity_item.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_Notification _$NotificationFromJson(Map<String, dynamic> json) =>
-    _Notification(
+_ActivityItem _$ActivityItemFromJson(Map<String, dynamic> json) =>
+    _ActivityItem(
       id: json['id'] as String,
       type: NotificationType.fromJson(json['type'] as String),
       actor: json['actor'] == null
@@ -22,7 +22,7 @@ _Notification _$NotificationFromJson(Map<String, dynamic> json) =>
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
-Map<String, dynamic> _$NotificationToJson(_Notification instance) =>
+Map<String, dynamic> _$ActivityItemToJson(_ActivityItem instance) =>
     <String, dynamic>{
       'id': instance.id,
       'type': instance.type,

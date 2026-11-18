@@ -1,42 +1,47 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:talanta/app/home_shell.dart';
 import 'package:talanta/app/routes.dart';
+import 'package:talanta/features/activity/presentation/activity_screen.dart';
 import 'package:talanta/features/auth/application/session_controller.dart';
 import 'package:talanta/features/auth/presentation/otp_screen.dart';
 import 'package:talanta/features/auth/presentation/phone_screen.dart';
 import 'package:talanta/features/auth/presentation/splash_screen.dart';
-import 'package:talanta/features/home/presentation/home_screen.dart';
+import 'package:talanta/features/discover/presentation/creator_profile_view.dart';
+import 'package:talanta/features/discover/presentation/discover_screen.dart';
 import 'package:talanta/features/onboarding/presentation/create_profile_screen.dart';
 import 'package:talanta/features/onboarding/presentation/talents_screen.dart';
+import 'package:talanta/features/opportunities/presentation/applicants_screen.dart';
+import 'package:talanta/features/opportunities/presentation/my_opportunities_screen.dart';
+import 'package:talanta/features/opportunities/presentation/opportunities_screen.dart';
+import 'package:talanta/features/opportunities/presentation/opportunity_detail_screen.dart';
+import 'package:talanta/features/opportunities/presentation/post_opportunity_screen.dart';
+import 'package:talanta/features/profile/presentation/my_profile_screen.dart';
 import 'package:talanta_api/talanta_api.dart';
 
 /// Where the session says the person should be. Navigation never has to
 /// know about onboarding order; it only follows this.
 String? redirectFor(SessionState session, String location) {
+  final signingIn = location == Routes.phone || location == Routes.otp;
   switch (session) {
     case SessionUnknown() || SessionUnreachable():
       return location == Routes.splash ? null : Routes.splash;
     case SignedOut():
-      final onSignIn = location == Routes.phone || location == Routes.otp;
-      return onSignIn ? null : Routes.phone;
+      return signingIn ? null : Routes.phone;
     case SignedIn(:final me):
-      final target = switch (me.onboardingStep) {
-        OnboardingStep.talents => Routes.talents,
-        OnboardingStep.profile => Routes.profile,
-        OnboardingStep.done || OnboardingStep.$unknown => Routes.home,
-      };
-      // Finished people may still revisit the onboarding screens to edit.
-      final editing =
-          me.onboardingStep == OnboardingStep.done &&
-          (location == Routes.talents || location == Routes.profile);
-      if (editing || location == target) return null;
-      // Finished talents may go on to profile, but never skip ahead.
-      if (me.onboardingStep == OnboardingStep.profile &&
-          location == Routes.talents) {
-        return null;
+      switch (me.onboardingStep) {
+        case OnboardingStep.talents:
+          return location == Routes.talents ? null : Routes.talents;
+        case OnboardingStep.profile:
+          // Going back to change talents is fine; skipping ahead is not.
+          return location == Routes.profile || location == Routes.talents
+              ? null
+              : Routes.profile;
+        case OnboardingStep.done || OnboardingStep.$unknown:
+          // Everything is open, including the onboarding screens for editing.
+          return location == Routes.splash || signingIn ? Routes.home : null;
       }
-      return target;
   }
 }
 
@@ -47,11 +52,14 @@ class _SessionListenable extends ChangeNotifier {
   }
 }
 
+final _rootKey = GlobalKey<NavigatorState>();
+
 final routerProvider = Provider<GoRouter>((ref) {
   final listenable = _SessionListenable(ref);
   ref.onDispose(listenable.dispose);
 
   return GoRouter(
+    navigatorKey: _rootKey,
     initialLocation: Routes.splash,
     refreshListenable: listenable,
     redirect: (context, state) =>
@@ -65,7 +73,72 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: Routes.profile,
         builder: (_, _) => const CreateProfileScreen(),
       ),
-      GoRoute(path: Routes.home, builder: (_, _) => const HomeScreen()),
+      StatefulShellRoute.indexedStack(
+        builder: (_, _, shell) => HomeShell(shell: shell),
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.calls,
+                builder: (_, _) => const OpportunitiesScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.discover,
+                builder: (_, _) => const DiscoverScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.activity,
+                builder: (_, _) => const ActivityScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.me,
+                builder: (_, _) => const MyProfileScreen(),
+              ),
+            ],
+          ),
+        ],
+      ),
+      // Full-screen pages over the tabs.
+      GoRoute(
+        parentNavigatorKey: _rootKey,
+        path: Routes.postCall,
+        builder: (_, _) => const PostOpportunityScreen(),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootKey,
+        path: Routes.myCalls,
+        builder: (_, _) => const MyOpportunitiesScreen(),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootKey,
+        path: '/calls/:id',
+        builder: (_, state) =>
+            OpportunityDetailScreen(id: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootKey,
+        path: '/calls/:id/applicants',
+        builder: (_, state) =>
+            ApplicantsScreen(opportunityId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootKey,
+        path: '/creators/:username',
+        builder: (_, state) =>
+            CreatorProfileScreen(username: state.pathParameters['username']!),
+      ),
     ],
   );
 });
