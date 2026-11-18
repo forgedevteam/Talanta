@@ -171,9 +171,208 @@ class FakeApi implements HttpClientAdapter {
     'username': username,
     'displayName': name,
     'city': 'Yaoundé',
+    'avatarUrl': null,
     'isVerified': true,
     'primaryTalent': null,
   };
+
+  // --- Posts ------------------------------------------------------------
+
+  static const postId = '01000000-0000-7000-8000-0000000f1001';
+  static const photoPostId = '01000000-0000-7000-8000-0000000f1002';
+
+  /// Posts by id, in feed order.
+  final Map<String, Map<String, Object?>> posts = {
+    photoPostId: post(
+      photoPostId,
+      person('awa_danse', 'Awa Ngono'),
+      'Rehearsal for Saturday at Akwa. #bikutsi',
+      media: [
+        {
+          'id': '01000000-0000-7000-8000-0000000f2001',
+          'kind': 'image',
+          'url': '/media/images/a.jpg',
+          'width': 1200,
+          'height': 900,
+        },
+      ],
+    ),
+    postId: post(
+      postId,
+      person('brice_events', 'Brice Mbarga'),
+      'Looking for two dancers this weekend in Douala.',
+    ),
+  };
+
+  final List<Map<String, Object?>> comments = [];
+  final List<String> uploads = [];
+  final List<String> shared = [];
+
+  static Map<String, Object?> post(
+    String id,
+    Map<String, Object?> author,
+    String? body, {
+    List<Map<String, Object?>> media = const [],
+    bool mine = false,
+    bool reel = false,
+  }) => {
+    'id': id,
+    'author': author,
+    'kind': media.isEmpty
+        ? 'text'
+        : media.first['kind'] == 'video'
+        ? 'video'
+        : 'photo',
+    'body': body,
+    'media': media,
+    'isReel': reel,
+    'likeCount': 4,
+    'commentCount': 0,
+    'shareCount': 0,
+    'likedByMe': false,
+    'isMine': mine,
+    'createdAt': '2026-11-18T09:00:00.000Z',
+  };
+
+  Map<String, Object?> get _meAsPerson => {
+    ...person(
+      (profile?['username'] as String?) ?? 'me',
+      (profile?['displayName'] as String?) ?? 'Me',
+    ),
+    'id': '01000000-0000-7000-8000-00000000aaaa',
+    'avatarUrl': profile?['avatarUrl'],
+    'isVerified': false,
+  };
+
+  Map<String, Object?> _page(Iterable<Map<String, Object?>> items) => {
+    'items': items.toList(),
+    'nextCursor': null,
+  };
+
+  FakeResponse? _handlePosts(String key, Map<String, Object?> json) {
+    final like = RegExp(
+      r'^(POST|DELETE) /v1/posts/([0-9a-f-]+)/like$',
+    ).firstMatch(key);
+    if (like != null) {
+      final item = posts[like.group(2)]!;
+      final liking = like.group(1) == 'POST';
+      if (item['likedByMe'] != liking) {
+        item['likedByMe'] = liking;
+        item['likeCount'] = (item['likeCount']! as int) + (liking ? 1 : -1);
+      }
+      return FakeResponse(200, {
+        'liked': item['likedByMe'],
+        'likeCount': item['likeCount'],
+      });
+    }
+    final share = RegExp(
+      r'^POST /v1/posts/([0-9a-f-]+)/share$',
+    ).firstMatch(key);
+    if (share != null) {
+      final id = share.group(1)!;
+      shared.add(id);
+      return FakeResponse(200, {
+        'url': 'https://talanta.app/p/$id',
+        'shareCount': 1,
+      });
+    }
+    if (RegExp(r'^GET /v1/posts/[0-9a-f-]+/comments$').hasMatch(key)) {
+      return FakeResponse(200, _page(comments));
+    }
+    final addComment = RegExp(
+      r'^POST /v1/posts/([0-9a-f-]+)/comments$',
+    ).firstMatch(key);
+    if (addComment != null) {
+      final comment = <String, Object?>{
+        'id': '01000000-0000-7000-8000-0000000f300${comments.length}',
+        'postId': addComment.group(1),
+        'author': _meAsPerson,
+        'body': json['body'],
+        'canDelete': true,
+        'createdAt': '2026-11-18T09:00:00.000Z',
+      };
+      comments.add(comment);
+      return FakeResponse(201, comment);
+    }
+    final one = RegExp(
+      r'^(GET|DELETE) /v1/posts/([0-9a-f-]+)$',
+    ).firstMatch(key);
+    if (one != null) {
+      final id = one.group(2)!;
+      if (!posts.containsKey(id)) return problem(404, 'not_found');
+      if (one.group(1) == 'DELETE') {
+        posts.remove(id);
+        return const FakeResponse(204, null);
+      }
+      return FakeResponse(200, posts[id]);
+    }
+    final byCreator = RegExp(
+      r'^GET /v1/creators/([a-z0-9_]+)/posts$',
+    ).firstMatch(key);
+    if (byCreator != null) {
+      final username = byCreator.group(1);
+      return FakeResponse(
+        200,
+        _page(
+          posts.values.where(
+            (p) =>
+                (p['author']! as Map<String, Object?>)['username'] == username,
+          ),
+        ),
+      );
+    }
+    switch (key) {
+      case 'GET /v1/feed':
+        return FakeResponse(200, _page(posts.values));
+      case 'GET /v1/reels':
+        return FakeResponse(
+          200,
+          _page(posts.values.where((p) => p['isReel'] == true)),
+        );
+      case 'POST /v1/media':
+        final id =
+            '01000000-0000-7000-8000-0000000f40${uploads.length.toString().padLeft(2, '0')}';
+        uploads.add(id);
+        return FakeResponse(201, {
+          'id': id,
+          'kind': 'image',
+          'url': '/media/images/$id.jpg',
+          'width': 640,
+          'height': 640,
+        });
+      case 'PUT /v1/me/avatar':
+        profile = {
+          ...?profile,
+          'avatarUrl': '/media/images/${json['mediaId']}.jpg',
+        };
+        return FakeResponse(200, me);
+      case 'DELETE /v1/me/avatar':
+        profile = {...?profile, 'avatarUrl': null};
+        return FakeResponse(200, me);
+      case 'POST /v1/posts':
+        const id = '01000000-0000-7000-8000-0000000f1099';
+        final ids = (json['mediaIds'] as List?)?.cast<String>() ?? const [];
+        final created = post(
+          id,
+          _meAsPerson,
+          json['body'] as String?,
+          mine: true,
+          media: [
+            for (final mediaId in ids)
+              {
+                'id': mediaId,
+                'kind': 'image',
+                'url': '/media/images/$mediaId.jpg',
+                'width': 640,
+                'height': 640,
+              },
+          ],
+        );
+        posts[id] = created;
+        return FakeResponse(201, created);
+    }
+    return null;
+  }
 
   static Map<String, Object?> _call(
     String id,
@@ -216,9 +415,11 @@ class FakeApi implements HttpClientAdapter {
     'username': profile?['username'] ?? 'me',
     'displayName': profile?['displayName'] ?? 'Me',
     'city': profile?['city'],
+    'avatarUrl': profile?['avatarUrl'],
     'isVerified': false,
     'primaryTalent': null,
-    'bio': null,
+    'bio': profile?['bio'],
+    'postCount': 0,
     'talents': const <Object?>[],
     'portfolio': portfolio,
     'followerCount': 3,
@@ -336,7 +537,7 @@ class FakeApi implements HttpClientAdapter {
     final json = body is Map<String, Object?>
         ? body
         : const <String, Object?>{};
-    final social = _handleSocial(key, json);
+    final social = _handlePosts(key, json) ?? _handleSocial(key, json);
     if (social != null) return social;
     switch (key) {
       case 'POST /v1/auth/otp/request':
@@ -387,8 +588,8 @@ class FakeApi implements HttpClientAdapter {
         profile = {
           'username': username,
           'displayName': json['displayName'],
-          'bio': json['bio'],
-          'avatarUrl': null,
+          'bio': json['bio'] ?? profile?['bio'],
+          'avatarUrl': profile?['avatarUrl'],
           'city': json['city'],
           'isVerified': false,
         };

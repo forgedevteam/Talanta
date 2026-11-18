@@ -1,28 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:talanta/core/media/media.dart';
 import 'package:talanta/core/theme/talanta_theme.dart';
 import 'package:talanta_tokens/talanta_tokens.dart';
 
-/// Initials on a colour picked from the name, so each person looks the same
-/// everywhere. Stands in for photos until uploads arrive.
-class TalantaAvatar extends StatelessWidget {
+/// A person's picture, or their initials on a colour picked from the name
+/// so each person looks the same everywhere.
+class TalantaAvatar extends ConsumerWidget {
   const TalantaAvatar({
     required this.name,
     super.key,
+    this.imageUrl,
     this.size = 44,
     this.verified = false,
+    this.ring = false,
   });
 
   final String name;
+  final String? imageUrl;
   final double size;
   final bool verified;
 
+  /// An orange ring, for people with something new to see.
+  final bool ring;
+
   static const _tones = [
-    TalantaBrand.primary,
-    TalantaBrand.secondary,
-    Color(0xFF1F9E8A),
-    Color(0xFFC2410C),
-    Color(0xFF2563EB),
-    Color(0xFFB4236B),
+    Color(0xFF6C2BD9),
+    Color(0xFFA0521D),
+    Color(0xFF1F7A63),
+    Color(0xFF9B2C5E),
+    Color(0xFF2E5AAC),
+    Color(0xFFB4561F),
   ];
 
   String get _initials {
@@ -32,31 +40,60 @@ class TalantaAvatar extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final tone = _tones[name.hashCode.abs() % _tones.length];
-    return SizedBox(
-      width: size,
-      height: size,
+    final initials = Container(
+      alignment: Alignment.center,
+      color: tone,
+      child: Text(
+        _initials,
+        style: context.text.titleSmall?.copyWith(
+          color: const Color(0xFFF7F5FA),
+          fontSize: size * 0.36,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
+    final url = imageUrl;
+    Widget face = ClipOval(
+      child: SizedBox.square(
+        dimension: size,
+        child: url == null
+            ? initials
+            : Image(
+                image: ref.watch(networkImageProvider)(url),
+                fit: BoxFit.cover,
+                errorBuilder: (_, _, _) => initials,
+                frameBuilder: (_, child, frame, wasSynchronous) =>
+                    frame == null && !wasSynchronous ? initials : child,
+              ),
+      ),
+    );
+    if (ring) {
+      face = Container(
+        padding: const EdgeInsets.all(2.5),
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: TalantaBrand.primary,
+        ),
+        child: Container(
+          padding: const EdgeInsets.all(2),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: context.palette.background,
+          ),
+          child: face,
+        ),
+      );
+    }
+
+    return Semantics(
+      label: name,
+      image: true,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          Container(
-            width: size,
-            height: size,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: tone.withValues(alpha: 0.22),
-              border: Border.all(color: tone.withValues(alpha: 0.6)),
-            ),
-            child: Text(
-              _initials,
-              style: context.text.titleSmall?.copyWith(
-                color: context.palette.text,
-                fontSize: size * 0.36,
-              ),
-            ),
-          ),
+          face,
           if (verified)
             Positioned(
               right: -2,
@@ -69,7 +106,7 @@ class TalantaAvatar extends StatelessWidget {
                 ),
                 child: Icon(
                   Icons.verified_rounded,
-                  size: size * 0.34,
+                  size: (size * 0.34).clamp(12, 22),
                   color: TalantaBrand.gold,
                 ),
               ),

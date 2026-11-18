@@ -31,6 +31,10 @@ abstract final class Formatters {
     return parsed == null ? isoDate : shortDate(context, parsed);
   }
 
+  /// Counts on posts: "86", "2.4k", "1.2M"; "2,4 k" in French.
+  static String compact(BuildContext context, num value) =>
+      NumberFormat.compact(locale: _locale(context)).format(value);
+
   /// "now", "5 min", "3 h", "2 d", then a date.
   static String ago(BuildContext context, DateTime moment, DateTime now) {
     final l10n = AppLocalizations.of(context);

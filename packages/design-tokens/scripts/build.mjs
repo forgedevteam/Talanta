@@ -81,7 +81,7 @@ ${Object.entries(tokens.radius)
   .map(([name, px]) => `  --radius-${name}: ${px}px;`)
   .join('\n')}
   --spacing: ${tokens.spacing.x1}px;
-  --font-display: var(--font-clash-display), '${tokens.font.display}', system-ui, sans-serif;
+  --font-display: var(--font-bricolage), '${tokens.font.display}', system-ui, sans-serif;
   --font-sans: var(--font-inter), '${tokens.font.body}', system-ui, sans-serif;
 }
 `;

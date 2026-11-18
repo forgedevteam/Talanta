@@ -392,12 +392,6 @@ abstract class AppLocalizations {
   /// **'Change photo'**
   String get profileChangePhoto;
 
-  /// No description provided for @profilePhotoLater.
-  ///
-  /// In en, this message translates to:
-  /// **'Photo uploads land with the next release. Your pick stays on this phone until then.'**
-  String get profilePhotoLater;
-
   /// No description provided for @profileNameLabel.
   ///
   /// In en, this message translates to:
@@ -845,7 +839,7 @@ abstract class AppLocalizations {
   /// No description provided for @postTitle.
   ///
   /// In en, this message translates to:
-  /// **'Post an Open Call'**
+  /// **'Post'**
   String get postTitle;
 
   /// No description provided for @postSubtitle.
@@ -1423,6 +1417,690 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Which talent does it show? (optional)'**
   String get portfolioTalentLabel;
+
+  /// No description provided for @navHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get navHome;
+
+  /// No description provided for @navReels.
+  ///
+  /// In en, this message translates to:
+  /// **'Reels'**
+  String get navReels;
+
+  /// No description provided for @openMyProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'My profile'**
+  String get openMyProfile;
+
+  /// No description provided for @settingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsTitle;
+
+  /// No description provided for @commonCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get commonCancel;
+
+  /// No description provided for @commonClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get commonClose;
+
+  /// No description provided for @errorGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Try again.'**
+  String get errorGeneric;
+
+  /// No description provided for @createTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get createTitle;
+
+  /// No description provided for @createPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo'**
+  String get createPhoto;
+
+  /// No description provided for @createPhotoHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Up to 10 photos'**
+  String get createPhotoHint;
+
+  /// No description provided for @createReel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reel'**
+  String get createReel;
+
+  /// No description provided for @createReelHint.
+  ///
+  /// In en, this message translates to:
+  /// **'A short vertical video'**
+  String get createReelHint;
+
+  /// No description provided for @createText.
+  ///
+  /// In en, this message translates to:
+  /// **'Write'**
+  String get createText;
+
+  /// No description provided for @createTextHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Share news or an idea'**
+  String get createTextHint;
+
+  /// No description provided for @createCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Call'**
+  String get createCall;
+
+  /// No description provided for @createCallHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Hire talent for paid work'**
+  String get createCallHint;
+
+  /// No description provided for @composeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New post'**
+  String get composeTitle;
+
+  /// No description provided for @composeReelTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New reel'**
+  String get composeReelTitle;
+
+  /// No description provided for @composePost.
+  ///
+  /// In en, this message translates to:
+  /// **'Post'**
+  String get composePost;
+
+  /// No description provided for @composeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s happening in your craft?'**
+  String get composeHint;
+
+  /// No description provided for @composeCaptionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a caption… #makossa @friend'**
+  String get composeCaptionHint;
+
+  /// No description provided for @composePhotos.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos'**
+  String get composePhotos;
+
+  /// No description provided for @composePhotosCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}/{max} photos'**
+  String composePhotosCount(int count, int max);
+
+  /// No description provided for @composeCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get composeCamera;
+
+  /// No description provided for @composeVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Video'**
+  String get composeVideo;
+
+  /// No description provided for @composeRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'Record'**
+  String get composeRecord;
+
+  /// No description provided for @composeAsReel.
+  ///
+  /// In en, this message translates to:
+  /// **'Also show in Reels'**
+  String get composeAsReel;
+
+  /// No description provided for @composeAsReelHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Best for vertical videos under 3 minutes'**
+  String get composeAsReelHint;
+
+  /// No description provided for @composeOneVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'A post holds one video, or up to 10 photos. Remove the video first.'**
+  String get composeOneVideo;
+
+  /// No description provided for @composeVideoTooBig.
+  ///
+  /// In en, this message translates to:
+  /// **'That video is over 60 MB. Trim it or record a shorter one.'**
+  String get composeVideoTooBig;
+
+  /// No description provided for @composePosted.
+  ///
+  /// In en, this message translates to:
+  /// **'Posted. People can see it now.'**
+  String get composePosted;
+
+  /// No description provided for @feedForYou.
+  ///
+  /// In en, this message translates to:
+  /// **'For you'**
+  String get feedForYou;
+
+  /// No description provided for @feedFollowing.
+  ///
+  /// In en, this message translates to:
+  /// **'Following'**
+  String get feedFollowing;
+
+  /// No description provided for @feedComposePrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s new, {name}?'**
+  String feedComposePrompt(String name);
+
+  /// No description provided for @feedEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing here yet'**
+  String get feedEmpty;
+
+  /// No description provided for @feedEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Be the first to share your talent with Cameroon.'**
+  String get feedEmptyBody;
+
+  /// No description provided for @feedPostFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Share something'**
+  String get feedPostFirst;
+
+  /// No description provided for @feedFollowingEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow creators to fill this feed'**
+  String get feedFollowingEmpty;
+
+  /// No description provided for @feedFollowingEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Their photos, videos and news will show up here.'**
+  String get feedFollowingEmptyBody;
+
+  /// No description provided for @feedFindCreators.
+  ///
+  /// In en, this message translates to:
+  /// **'Find creators'**
+  String get feedFindCreators;
+
+  /// No description provided for @feedEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re all caught up'**
+  String get feedEnd;
+
+  /// No description provided for @feedPaidWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid work this week'**
+  String get feedPaidWork;
+
+  /// No description provided for @feedSeeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'See all'**
+  String get feedSeeAll;
+
+  /// No description provided for @postLike.
+  ///
+  /// In en, this message translates to:
+  /// **'Like'**
+  String get postLike;
+
+  /// No description provided for @postUnlike.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlike'**
+  String get postUnlike;
+
+  /// No description provided for @postComment.
+  ///
+  /// In en, this message translates to:
+  /// **'Comment'**
+  String get postComment;
+
+  /// No description provided for @postShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get postShare;
+
+  /// No description provided for @postMore.
+  ///
+  /// In en, this message translates to:
+  /// **'More'**
+  String get postMore;
+
+  /// No description provided for @postMoreText.
+  ///
+  /// In en, this message translates to:
+  /// **'more'**
+  String get postMoreText;
+
+  /// No description provided for @postViewComments.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{View 1 comment} other{View all {count} comments}}'**
+  String postViewComments(int count);
+
+  /// No description provided for @postDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete post'**
+  String get postDelete;
+
+  /// No description provided for @postDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this post?'**
+  String get postDeleteTitle;
+
+  /// No description provided for @postDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It will disappear from your profile and every feed. This cannot be undone.'**
+  String get postDeleteBody;
+
+  /// No description provided for @postDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Post deleted'**
+  String get postDeleted;
+
+  /// No description provided for @postReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Report post'**
+  String get postReport;
+
+  /// No description provided for @commentsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Comments'**
+  String get commentsTitle;
+
+  /// No description provided for @commentsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No comments yet. Start the conversation.'**
+  String get commentsEmpty;
+
+  /// No description provided for @commentsMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more comments'**
+  String get commentsMore;
+
+  /// No description provided for @commentHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a kind comment…'**
+  String get commentHint;
+
+  /// No description provided for @commentSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get commentSend;
+
+  /// No description provided for @commentDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete comment'**
+  String get commentDelete;
+
+  /// No description provided for @commentReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Report comment'**
+  String get commentReport;
+
+  /// No description provided for @commentAuthorBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Author'**
+  String get commentAuthorBadge;
+
+  /// No description provided for @videoPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play video'**
+  String get videoPlay;
+
+  /// No description provided for @videoRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get videoRetry;
+
+  /// No description provided for @videoMute.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute'**
+  String get videoMute;
+
+  /// No description provided for @videoUnmute.
+  ///
+  /// In en, this message translates to:
+  /// **'Unmute'**
+  String get videoUnmute;
+
+  /// No description provided for @reelsEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your stage is ready'**
+  String get reelsEmptyTitle;
+
+  /// No description provided for @reelsEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Post a short vertical video of your talent. Dance, sing, make people laugh.'**
+  String get reelsEmptyBody;
+
+  /// No description provided for @reelsEmptyAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Post a reel'**
+  String get reelsEmptyAction;
+
+  /// No description provided for @profileShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Share profile'**
+  String get profileShare;
+
+  /// No description provided for @profileStatPosts.
+  ///
+  /// In en, this message translates to:
+  /// **'Posts'**
+  String get profileStatPosts;
+
+  /// No description provided for @profileStatFollowers.
+  ///
+  /// In en, this message translates to:
+  /// **'Followers'**
+  String get profileStatFollowers;
+
+  /// No description provided for @profileStatFollowing.
+  ///
+  /// In en, this message translates to:
+  /// **'Following'**
+  String get profileStatFollowing;
+
+  /// No description provided for @profileStatWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Work'**
+  String get profileStatWork;
+
+  /// No description provided for @profileTabPosts.
+  ///
+  /// In en, this message translates to:
+  /// **'Posts'**
+  String get profileTabPosts;
+
+  /// No description provided for @profileTabWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Work'**
+  String get profileTabWork;
+
+  /// No description provided for @profileNewPost.
+  ///
+  /// In en, this message translates to:
+  /// **'New post'**
+  String get profileNewPost;
+
+  /// No description provided for @profileNoPosts.
+  ///
+  /// In en, this message translates to:
+  /// **'No posts yet'**
+  String get profileNoPosts;
+
+  /// No description provided for @profileNoPostsMine.
+  ///
+  /// In en, this message translates to:
+  /// **'Share your first post'**
+  String get profileNoPostsMine;
+
+  /// No description provided for @profileNoPostsMineBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos and videos of your work help organisers pick you.'**
+  String get profileNoPostsMineBody;
+
+  /// No description provided for @profilePhotoFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Your profile is saved, but the photo didn\'t upload. Add it again from Edit profile.'**
+  String get profilePhotoFailed;
+
+  /// No description provided for @portfolioIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Work on YouTube, TikTok, Audiomack and more.'**
+  String get portfolioIntro;
+
+  /// No description provided for @portfolioIntroMine.
+  ///
+  /// In en, this message translates to:
+  /// **'Link your best work on YouTube, TikTok or Audiomack. Organisers check here first.'**
+  String get portfolioIntroMine;
+
+  /// No description provided for @editSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get editSave;
+
+  /// No description provided for @editSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile updated'**
+  String get editSaved;
+
+  /// No description provided for @editBioLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Bio'**
+  String get editBioLabel;
+
+  /// No description provided for @editBioHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What you do, and what people can book you for'**
+  String get editBioHint;
+
+  /// No description provided for @editBioTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your bio under 280 characters.'**
+  String get editBioTooLong;
+
+  /// No description provided for @editPictureGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from gallery'**
+  String get editPictureGallery;
+
+  /// No description provided for @editPictureCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a photo'**
+  String get editPictureCamera;
+
+  /// No description provided for @editPictureRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove photo'**
+  String get editPictureRemove;
+
+  /// No description provided for @editPictureSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile photo updated'**
+  String get editPictureSaved;
+
+  /// No description provided for @editTalents.
+  ///
+  /// In en, this message translates to:
+  /// **'Talents'**
+  String get editTalents;
+
+  /// No description provided for @editChange.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get editChange;
+
+  /// No description provided for @editPrimary.
+  ///
+  /// In en, this message translates to:
+  /// **'main'**
+  String get editPrimary;
+
+  /// No description provided for @editBirthdayFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'Your date of birth is set and only support can change it. It keeps younger members protected.'**
+  String get editBirthdayFixed;
+
+  /// No description provided for @editDiscardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard changes?'**
+  String get editDiscardTitle;
+
+  /// No description provided for @editDiscardBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your changes haven\'t been saved.'**
+  String get editDiscardBody;
+
+  /// No description provided for @editKeepEditing.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep editing'**
+  String get editKeepEditing;
+
+  /// No description provided for @editDiscard.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get editDiscard;
+
+  /// No description provided for @settingsAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get settingsAccount;
+
+  /// No description provided for @settingsSafety.
+  ///
+  /// In en, this message translates to:
+  /// **'Safety'**
+  String get settingsSafety;
+
+  /// No description provided for @settingsApp.
+  ///
+  /// In en, this message translates to:
+  /// **'App'**
+  String get settingsApp;
+
+  /// No description provided for @settingsLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settingsLanguage;
+
+  /// No description provided for @settingsLanguageValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Your phone\'s language'**
+  String get settingsLanguageValue;
+
+  /// No description provided for @settingsAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get settingsAbout;
+
+  /// No description provided for @safetyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Staying safe'**
+  String get safetyTitle;
+
+  /// No description provided for @safetyTipPay.
+  ///
+  /// In en, this message translates to:
+  /// **'Never pay to apply. Real organisers pay you, not the other way round.'**
+  String get safetyTipPay;
+
+  /// No description provided for @safetyTipMeet.
+  ///
+  /// In en, this message translates to:
+  /// **'Meet new clients in public places, and tell someone where you are going.'**
+  String get safetyTipMeet;
+
+  /// No description provided for @safetyTipMinors.
+  ///
+  /// In en, this message translates to:
+  /// **'Under 18? Bring a parent or guardian to any audition or job.'**
+  String get safetyTipMinors;
+
+  /// No description provided for @safetyTipReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Something feels wrong? Report it. Our team reads every report.'**
+  String get safetyTipReport;
+
+  /// No description provided for @notifPostLiked.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} liked your post'**
+  String notifPostLiked(String name);
+
+  /// No description provided for @notifPostCommented.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} commented: {text}'**
+  String notifPostCommented(String name, String text);
 }
 
 class _AppLocalizationsDelegate

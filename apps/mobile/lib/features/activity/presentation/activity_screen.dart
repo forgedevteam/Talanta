@@ -26,6 +26,11 @@ String notificationText(AppLocalizations l10n, ActivityItem n) {
       title,
     ),
     NotificationType.newFollower => l10n.notifNewFollower(name),
+    NotificationType.postLiked => l10n.notifPostLiked(name),
+    NotificationType.postCommented => l10n.notifPostCommented(
+      name,
+      n.snippet ?? '',
+    ),
     NotificationType.applicationStatus => switch (n.applicationStatus) {
       ApplicationStatus.shortlisted => l10n.notifShortlisted(title),
       ApplicationStatus.hired => l10n.notifHired(title),
@@ -66,23 +71,13 @@ class _ActivityScreenState extends ConsumerState<ActivityScreen> {
     final l10n = AppLocalizations.of(context);
     return Scaffold(
       key: const ValueKey('activity-screen'),
+      appBar: AppBar(title: Text(l10n.activityTitle)),
       body: SafeArea(
+        top: false,
         bottom: false,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(
-                TalantaSpacing.x5,
-                TalantaSpacing.x5,
-                TalantaSpacing.x5,
-                TalantaSpacing.x3,
-              ),
-              child: Text(
-                l10n.activityTitle,
-                style: context.text.headlineLarge,
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: TalantaSpacing.x5,
@@ -155,12 +150,16 @@ class _Notifications extends ConsumerWidget {
                 itemBuilder: (_, index) {
                   final n = data.items[index];
                   final opportunityId = n.opportunityId;
+                  final postId = n.postId;
                   final actor = n.actor;
                   return TalantaCard(
                     key: ValueKey('notification-${n.id}'),
                     raised: !n.isRead,
                     onTap: () {
-                      if (n.type == NotificationType.applicationReceived &&
+                      if (postId != null) {
+                        unawaited(context.push(Routes.post(postId)));
+                      } else if (n.type ==
+                              NotificationType.applicationReceived &&
                           opportunityId != null) {
                         unawaited(
                           context.push(Routes.applicants(opportunityId)),
@@ -175,6 +174,7 @@ class _Notifications extends ConsumerWidget {
                       children: [
                         TalantaAvatar(
                           name: actor?.displayName ?? '?',
+                          imageUrl: actor?.avatarUrl,
                           size: 40,
                         ),
                         const SizedBox(width: TalantaSpacing.x3),

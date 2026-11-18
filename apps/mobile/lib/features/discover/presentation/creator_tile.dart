@@ -25,6 +25,7 @@ class CreatorTile extends StatelessWidget {
         children: [
           TalantaAvatar(
             name: creator.displayName,
+            imageUrl: creator.avatarUrl,
             size: 52,
             verified: creator.isVerified,
           ),

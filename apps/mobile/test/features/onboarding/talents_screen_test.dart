@@ -104,6 +104,6 @@ void main() {
         'isVerified': false,
       };
     await pumpApp(tester, api, tokens: _tokens);
-    expect(find.byKey(const ValueKey('calls-screen')), findsOneWidget);
+    expect(find.byKey(const ValueKey('home-screen')), findsOneWidget);
   });
 }

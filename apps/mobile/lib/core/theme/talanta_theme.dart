@@ -13,7 +13,9 @@ class TalantaColors extends ThemeExtension<TalantaColors> {
   Color get surface => palette.surface;
   Color get surfaceRaised => palette.surfaceRaised;
   Color get outline => palette.outline;
+  Color get outlineStrong => palette.outlineStrong;
   Color get text => palette.text;
+  Color get textSecondary => palette.textSecondary;
   Color get textMuted => palette.textMuted;
   Color get onPrimary => palette.onPrimary;
   Color get success => palette.success;
@@ -33,7 +35,9 @@ class TalantaColors extends ThemeExtension<TalantaColors> {
         surface: mix(surface, other.surface),
         surfaceRaised: mix(surfaceRaised, other.surfaceRaised),
         outline: mix(outline, other.outline),
+        outlineStrong: mix(outlineStrong, other.outlineStrong),
         text: mix(text, other.text),
+        textSecondary: mix(textSecondary, other.textSecondary),
         textMuted: mix(textMuted, other.textMuted),
         onPrimary: mix(onPrimary, other.onPrimary),
         success: mix(success, other.success),
@@ -48,7 +52,7 @@ extension TalantaThemeContext on BuildContext {
   TextTheme get text => Theme.of(this).textTheme;
 }
 
-/// The app's own look: dark by default, flat surfaces, 12/20 radii, no
+/// The app's own look: dark by default, flat surfaces, pill buttons, no
 /// Material defaults showing through.
 abstract final class TalantaTheme {
   static ThemeData dark() => _build(TalantaPalette.dark, Brightness.dark);
@@ -86,6 +90,7 @@ abstract final class TalantaTheme {
           ),
           borderSide: BorderSide(color: color, width: width),
         );
+    const pill = StadiumBorder();
     const largeShape = RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(TalantaRadii.lg)),
     );
@@ -142,17 +147,17 @@ abstract final class TalantaTheme {
           foregroundColor: palette.onPrimary,
           disabledBackgroundColor: palette.surfaceRaised,
           disabledForegroundColor: palette.textMuted,
-          minimumSize: const Size(64, 52),
-          shape: smallShape,
+          minimumSize: const Size(64, 50),
+          shape: pill,
           textStyle: textTheme.labelLarge,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: palette.text,
-          minimumSize: const Size(64, 52),
-          shape: smallShape,
-          side: BorderSide(color: palette.outline),
+          minimumSize: const Size(64, 50),
+          shape: pill,
+          side: BorderSide(color: palette.outlineStrong, width: 1.2),
           textStyle: textTheme.labelLarge,
         ),
       ),
@@ -160,8 +165,11 @@ abstract final class TalantaTheme {
         style: TextButton.styleFrom(
           foregroundColor: TalantaBrand.primary,
           textStyle: textTheme.labelLarge,
-          shape: smallShape,
+          shape: pill,
         ),
+      ),
+      iconButtonTheme: IconButtonThemeData(
+        style: IconButton.styleFrom(foregroundColor: palette.text),
       ),
       snackBarTheme: SnackBarThemeData(
         backgroundColor: palette.surfaceRaised,

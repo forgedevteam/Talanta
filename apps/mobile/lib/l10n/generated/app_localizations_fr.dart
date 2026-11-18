@@ -178,10 +178,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get profileChangePhoto => 'Changer de photo';
 
   @override
-  String get profilePhotoLater =>
-      'L\'envoi de photos arrive avec la prochaine version. D\'ici là, ta photo reste sur ce téléphone.';
-
-  @override
   String get profileNameLabel => 'Ton nom';
 
   @override
@@ -442,7 +438,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get applyMessageTooShort => 'Écris au moins 10 caractères.';
 
   @override
-  String get postTitle => 'Publier une offre';
+  String get postTitle => 'Publication';
 
   @override
   String get postSubtitle =>
@@ -774,4 +770,380 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get portfolioTalentLabel => 'Quel talent montre-t-il ? (facultatif)';
+
+  @override
+  String get navHome => 'Accueil';
+
+  @override
+  String get navReels => 'Reels';
+
+  @override
+  String get openMyProfile => 'Mon profil';
+
+  @override
+  String get settingsTitle => 'Paramètres';
+
+  @override
+  String get commonCancel => 'Annuler';
+
+  @override
+  String get commonClose => 'Fermer';
+
+  @override
+  String get errorGeneric => 'Un souci est survenu. Réessaie.';
+
+  @override
+  String get createTitle => 'Créer';
+
+  @override
+  String get createPhoto => 'Photo';
+
+  @override
+  String get createPhotoHint => 'Jusqu\'à 10 photos';
+
+  @override
+  String get createReel => 'Reel';
+
+  @override
+  String get createReelHint => 'Une courte vidéo verticale';
+
+  @override
+  String get createText => 'Écrire';
+
+  @override
+  String get createTextHint => 'Partage une nouvelle ou une idée';
+
+  @override
+  String get createCall => 'Appel à talents';
+
+  @override
+  String get createCallHint => 'Recrute pour un travail payé';
+
+  @override
+  String get composeTitle => 'Nouvelle publication';
+
+  @override
+  String get composeReelTitle => 'Nouveau reel';
+
+  @override
+  String get composePost => 'Publier';
+
+  @override
+  String get composeHint => 'Quoi de neuf dans ton art ?';
+
+  @override
+  String get composeCaptionHint => 'Écris une légende… #makossa @ami';
+
+  @override
+  String get composePhotos => 'Photos';
+
+  @override
+  String composePhotosCount(int count, int max) {
+    return '$count/$max photos';
+  }
+
+  @override
+  String get composeCamera => 'Appareil';
+
+  @override
+  String get composeVideo => 'Vidéo';
+
+  @override
+  String get composeRecord => 'Filmer';
+
+  @override
+  String get composeAsReel => 'Afficher aussi dans Reels';
+
+  @override
+  String get composeAsReelHint =>
+      'Idéal pour les vidéos verticales de moins de 3 minutes';
+
+  @override
+  String get composeOneVideo =>
+      'Une publication contient une vidéo, ou jusqu\'à 10 photos. Retire d\'abord la vidéo.';
+
+  @override
+  String get composeVideoTooBig =>
+      'Cette vidéo dépasse 60 Mo. Coupe-la ou filme-en une plus courte.';
+
+  @override
+  String get composePosted => 'Publié. Tout le monde peut le voir.';
+
+  @override
+  String get feedForYou => 'Pour toi';
+
+  @override
+  String get feedFollowing => 'Abonnements';
+
+  @override
+  String feedComposePrompt(String name) {
+    return 'Quoi de neuf, $name ?';
+  }
+
+  @override
+  String get feedEmpty => 'Rien pour l\'instant';
+
+  @override
+  String get feedEmptyBody =>
+      'Sois le premier à montrer ton talent au Cameroun.';
+
+  @override
+  String get feedPostFirst => 'Publier quelque chose';
+
+  @override
+  String get feedFollowingEmpty =>
+      'Abonne-toi à des créateurs pour remplir ce fil';
+
+  @override
+  String get feedFollowingEmptyBody =>
+      'Leurs photos, vidéos et nouvelles apparaîtront ici.';
+
+  @override
+  String get feedFindCreators => 'Trouver des créateurs';
+
+  @override
+  String get feedEnd => 'Tu as tout vu';
+
+  @override
+  String get feedPaidWork => 'Travail payé cette semaine';
+
+  @override
+  String get feedSeeAll => 'Tout voir';
+
+  @override
+  String get postLike => 'J\'aime';
+
+  @override
+  String get postUnlike => 'Je n\'aime plus';
+
+  @override
+  String get postComment => 'Commenter';
+
+  @override
+  String get postShare => 'Partager';
+
+  @override
+  String get postMore => 'Plus';
+
+  @override
+  String get postMoreText => 'plus';
+
+  @override
+  String postViewComments(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Voir les $count commentaires',
+      one: 'Voir 1 commentaire',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get postDelete => 'Supprimer';
+
+  @override
+  String get postDeleteTitle => 'Supprimer cette publication ?';
+
+  @override
+  String get postDeleteBody =>
+      'Elle disparaîtra de ton profil et de tous les fils. Impossible de revenir en arrière.';
+
+  @override
+  String get postDeleted => 'Publication supprimée';
+
+  @override
+  String get postReport => 'Signaler';
+
+  @override
+  String get commentsTitle => 'Commentaires';
+
+  @override
+  String get commentsEmpty =>
+      'Pas encore de commentaires. Lance la discussion.';
+
+  @override
+  String get commentsMore => 'Plus de commentaires';
+
+  @override
+  String get commentHint => 'Ajoute un commentaire bienveillant…';
+
+  @override
+  String get commentSend => 'Envoyer';
+
+  @override
+  String get commentDelete => 'Supprimer le commentaire';
+
+  @override
+  String get commentReport => 'Signaler le commentaire';
+
+  @override
+  String get commentAuthorBadge => 'Auteur';
+
+  @override
+  String get videoPlay => 'Lire la vidéo';
+
+  @override
+  String get videoRetry => 'Réessayer';
+
+  @override
+  String get videoMute => 'Couper le son';
+
+  @override
+  String get videoUnmute => 'Activer le son';
+
+  @override
+  String get reelsEmptyTitle => 'Ta scène est prête';
+
+  @override
+  String get reelsEmptyBody =>
+      'Publie une courte vidéo verticale de ton talent. Danse, chante, fais rire.';
+
+  @override
+  String get reelsEmptyAction => 'Publier un reel';
+
+  @override
+  String get profileShare => 'Partager le profil';
+
+  @override
+  String get profileStatPosts => 'Publications';
+
+  @override
+  String get profileStatFollowers => 'Abonnés';
+
+  @override
+  String get profileStatFollowing => 'Abonnements';
+
+  @override
+  String get profileStatWork => 'Œuvres';
+
+  @override
+  String get profileTabPosts => 'Publications';
+
+  @override
+  String get profileTabWork => 'Œuvres';
+
+  @override
+  String get profileNewPost => 'Publier';
+
+  @override
+  String get profileNoPosts => 'Aucune publication';
+
+  @override
+  String get profileNoPostsMine => 'Partage ta première publication';
+
+  @override
+  String get profileNoPostsMineBody =>
+      'Les photos et vidéos de ton travail aident les organisateurs à te choisir.';
+
+  @override
+  String get profilePhotoFailed =>
+      'Ton profil est enregistré, mais la photo n\'est pas passée. Ajoute-la depuis Modifier le profil.';
+
+  @override
+  String get portfolioIntro =>
+      'Œuvres sur YouTube, TikTok, Audiomack et ailleurs.';
+
+  @override
+  String get portfolioIntroMine =>
+      'Ajoute tes meilleures œuvres sur YouTube, TikTok ou Audiomack. Les organisateurs regardent ici en premier.';
+
+  @override
+  String get editSave => 'Enregistrer';
+
+  @override
+  String get editSaved => 'Profil mis à jour';
+
+  @override
+  String get editBioLabel => 'Bio';
+
+  @override
+  String get editBioHint => 'Ce que tu fais, et pour quoi on peut te réserver';
+
+  @override
+  String get editBioTooLong => 'Garde ta bio sous 280 caractères.';
+
+  @override
+  String get editPictureGallery => 'Choisir dans la galerie';
+
+  @override
+  String get editPictureCamera => 'Prendre une photo';
+
+  @override
+  String get editPictureRemove => 'Retirer la photo';
+
+  @override
+  String get editPictureSaved => 'Photo de profil mise à jour';
+
+  @override
+  String get editTalents => 'Talents';
+
+  @override
+  String get editChange => 'Modifier';
+
+  @override
+  String get editPrimary => 'principal';
+
+  @override
+  String get editBirthdayFixed =>
+      'Ta date de naissance est fixée ; seul le support peut la changer. Cela protège les plus jeunes.';
+
+  @override
+  String get editDiscardTitle => 'Abandonner les modifications ?';
+
+  @override
+  String get editDiscardBody => 'Tes modifications ne sont pas enregistrées.';
+
+  @override
+  String get editKeepEditing => 'Continuer';
+
+  @override
+  String get editDiscard => 'Abandonner';
+
+  @override
+  String get settingsAccount => 'Compte';
+
+  @override
+  String get settingsSafety => 'Sécurité';
+
+  @override
+  String get settingsApp => 'Application';
+
+  @override
+  String get settingsLanguage => 'Langue';
+
+  @override
+  String get settingsLanguageValue => 'Langue du téléphone';
+
+  @override
+  String get settingsAbout => 'À propos';
+
+  @override
+  String get safetyTitle => 'Rester en sécurité';
+
+  @override
+  String get safetyTipPay =>
+      'Ne paie jamais pour postuler. Les vrais organisateurs te paient, pas l\'inverse.';
+
+  @override
+  String get safetyTipMeet =>
+      'Rencontre les nouveaux clients dans des lieux publics, et dis à quelqu’un où tu vas.';
+
+  @override
+  String get safetyTipMinors =>
+      'Moins de 18 ans ? Viens avec un parent ou tuteur à toute audition ou mission.';
+
+  @override
+  String get safetyTipReport =>
+      'Quelque chose cloche ? Signale-le. Notre équipe lit chaque signalement.';
+
+  @override
+  String notifPostLiked(String name) {
+    return '$name a aimé ta publication';
+  }
+
+  @override
+  String notifPostCommented(String name, String text) {
+    return '$name a commenté : $text';
+  }
 }

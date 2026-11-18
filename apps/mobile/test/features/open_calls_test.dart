@@ -29,8 +29,14 @@ FakeApi member() => FakeApi()
 Object? asJson(Object? body) => jsonDecode(jsonEncode(body));
 
 Future<void> openTab(WidgetTester tester, String key) async {
-  await tester.tap(find.byKey(ValueKey(key)));
+  await tester.tap(find.byKey(ValueKey(key)).first);
   await tester.pumpAndSettle();
+}
+
+/// The app opened on the Calls tab.
+Future<void> pumpCalls(WidgetTester tester, FakeApi api) async {
+  await pumpApp(tester, api, tokens: _tokens);
+  await openTab(tester, 'nav-calls');
 }
 
 void main() {
@@ -40,7 +46,7 @@ void main() {
       (
         tester,
       ) async {
-        await pumpApp(tester, member(), tokens: _tokens);
+        await pumpCalls(tester, member());
         final l10n = l10nOf(tester);
 
         expect(find.text(l10n.callsFeatured), findsWidgets);
@@ -52,7 +58,7 @@ void main() {
 
     testWidgets('filters by talent', (tester) async {
       final api = member();
-      await pumpApp(tester, api, tokens: _tokens);
+      await pumpCalls(tester, api);
 
       await tester.tap(find.byKey(const ValueKey('filter-dance')));
       await tester.pumpAndSettle();
@@ -75,7 +81,7 @@ void main() {
           'title': 'Call number $i',
         };
       }
-      await pumpApp(tester, api, tokens: _tokens);
+      await pumpCalls(tester, api);
       final l10n = l10nOf(tester);
 
       await tester.scrollUntilVisible(
@@ -92,7 +98,7 @@ void main() {
       tester,
     ) async {
       final api = member();
-      await pumpApp(tester, api, tokens: _tokens);
+      await pumpCalls(tester, api);
       final l10n = l10nOf(tester);
 
       await tester.tap(find.text('Singer for a wedding in Douala'));
@@ -123,7 +129,7 @@ void main() {
 
     testWidgets('lets anyone report it', (tester) async {
       final api = member();
-      await pumpApp(tester, api, tokens: _tokens);
+      await pumpCalls(tester, api);
       final l10n = l10nOf(tester);
 
       await tester.tap(find.text('Singer for a wedding in Douala'));
@@ -148,7 +154,7 @@ void main() {
       tester,
     ) async {
       final api = member();
-      await pumpApp(tester, api, tokens: _tokens);
+      await pumpCalls(tester, api);
       final l10n = l10nOf(tester);
 
       await tester.tap(find.byKey(const ValueKey('post-call')));
@@ -241,7 +247,7 @@ void main() {
       final l10n = l10nOf(tester);
 
       expect(find.text('2'), findsOneWidget);
-      await openTab(tester, 'nav-activity');
+      await openTab(tester, 'open-activity');
 
       expect(
         find.text(l10n.notifShortlisted('Singer for a wedding in Douala')),
@@ -270,7 +276,8 @@ void main() {
       final api = member();
       await pumpApp(tester, api, tokens: _tokens);
       final l10n = l10nOf(tester);
-      await openTab(tester, 'nav-me');
+      await openTab(tester, 'my-avatar');
+      await openTab(tester, 'profile-tab-work');
 
       await tester.tap(find.byKey(const ValueKey('add-work')));
       await tester.pumpAndSettle();
@@ -301,13 +308,15 @@ void main() {
     testWidgets('deletes the account after confirming', (tester) async {
       final api = member();
       await pumpApp(tester, api, tokens: _tokens);
-      await openTab(tester, 'nav-me');
+      await openTab(tester, 'open-settings');
 
       await tester.scrollUntilVisible(
         find.byKey(const ValueKey('delete-account')),
         200,
         scrollable: find.byType(Scrollable).last,
       );
+      await tester.ensureVisible(find.byKey(const ValueKey('delete-account')));
+      await tester.pumpAndSettle();
       await tester.tap(find.byKey(const ValueKey('delete-account')));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const ValueKey('confirm-delete')));

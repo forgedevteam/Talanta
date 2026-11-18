@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talanta/app/routes.dart';
+import 'package:talanta/app/talanta_app_bar.dart';
 import 'package:talanta/core/links.dart';
 import 'package:talanta/core/theme/talanta_theme.dart';
 import 'package:talanta/core/widgets/widgets.dart';
@@ -84,6 +85,7 @@ class _OpportunitiesScreenState extends ConsumerState<OpportunitiesScreen> {
 
     return Scaffold(
       key: const ValueKey('calls-screen'),
+      appBar: TalantaAppBar(title: l10n.callsTitle),
       floatingActionButton: FloatingActionButton.extended(
         key: const ValueKey('post-call'),
         backgroundColor: TalantaBrand.primary,
@@ -107,7 +109,7 @@ class _OpportunitiesScreenState extends ConsumerState<OpportunitiesScreen> {
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(
                   TalantaSpacing.x5,
-                  TalantaSpacing.x5,
+                  0,
                   TalantaSpacing.x5,
                   TalantaSpacing.x2,
                 ),
@@ -115,8 +117,6 @@ class _OpportunitiesScreenState extends ConsumerState<OpportunitiesScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(l10n.callsTitle, style: context.text.headlineLarge),
-                      const SizedBox(height: TalantaSpacing.x1),
                       Text(
                         l10n.callsSubtitle,
                         style: context.text.bodyMedium?.copyWith(

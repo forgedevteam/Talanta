@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talanta/app/routes.dart';
+import 'package:talanta/app/talanta_app_bar.dart';
 import 'package:talanta/core/format/formatters.dart';
 import 'package:talanta/core/links.dart';
 import 'package:talanta/core/theme/talanta_theme.dart';
@@ -56,23 +57,13 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
 
     return Scaffold(
       key: const ValueKey('discover-screen'),
+      appBar: TalantaAppBar(title: l10n.discoverTitle),
       body: SafeArea(
+        top: false,
         bottom: false,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(
-                TalantaSpacing.x5,
-                TalantaSpacing.x5,
-                TalantaSpacing.x5,
-                TalantaSpacing.x3,
-              ),
-              child: Text(
-                l10n.discoverTitle,
-                style: context.text.headlineLarge,
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: TalantaSpacing.x5,
@@ -247,6 +238,7 @@ class _FollowingFeed extends ConsumerWidget {
                           children: [
                             TalantaAvatar(
                               name: work.creator.displayName,
+                              imageUrl: work.creator.avatarUrl,
                               size: 32,
                               verified: work.creator.isVerified,
                             ),

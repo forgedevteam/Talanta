@@ -9,15 +9,19 @@
   --color-surface: var(--talanta-surface);
   --color-surface-raised: var(--talanta-surface-raised);
   --color-outline: var(--talanta-outline);
+  --color-outline-strong: var(--talanta-outline-strong);
   --color-text: var(--talanta-text);
+  --color-text-secondary: var(--talanta-text-secondary);
   --color-text-muted: var(--talanta-text-muted);
   --color-on-primary: var(--talanta-on-primary);
   --color-success: var(--talanta-success);
   --color-danger: var(--talanta-danger);
   --radius-sm: 12px;
+  --radius-md: 16px;
   --radius-lg: 20px;
+  --radius-xl: 24px;
   --radius-pill: 999px;
   --spacing: 4px;
-  --font-display: var(--font-clash-display), 'Clash Display', system-ui, sans-serif;
+  --font-display: var(--font-bricolage), 'Bricolage Grotesque', system-ui, sans-serif;
   --font-sans: var(--font-inter), 'Inter', system-ui, sans-serif;
 }

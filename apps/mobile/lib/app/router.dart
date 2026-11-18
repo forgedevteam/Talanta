@@ -8,7 +8,6 @@ import 'package:talanta/features/auth/application/session_controller.dart';
 import 'package:talanta/features/auth/presentation/otp_screen.dart';
 import 'package:talanta/features/auth/presentation/phone_screen.dart';
 import 'package:talanta/features/auth/presentation/splash_screen.dart';
-import 'package:talanta/features/discover/presentation/creator_profile_view.dart';
 import 'package:talanta/features/discover/presentation/discover_screen.dart';
 import 'package:talanta/features/onboarding/presentation/create_profile_screen.dart';
 import 'package:talanta/features/onboarding/presentation/talents_screen.dart';
@@ -17,7 +16,14 @@ import 'package:talanta/features/opportunities/presentation/my_opportunities_scr
 import 'package:talanta/features/opportunities/presentation/opportunities_screen.dart';
 import 'package:talanta/features/opportunities/presentation/opportunity_detail_screen.dart';
 import 'package:talanta/features/opportunities/presentation/post_opportunity_screen.dart';
-import 'package:talanta/features/profile/presentation/my_profile_screen.dart';
+import 'package:talanta/features/posts/presentation/composer_screen.dart';
+import 'package:talanta/features/posts/presentation/create_sheet.dart';
+import 'package:talanta/features/posts/presentation/home_screen.dart';
+import 'package:talanta/features/posts/presentation/post_detail_screen.dart';
+import 'package:talanta/features/posts/presentation/reels_screen.dart';
+import 'package:talanta/features/profile/presentation/edit_profile_screen.dart';
+import 'package:talanta/features/profile/presentation/profile_screen.dart';
+import 'package:talanta/features/settings/settings_screen.dart';
 import 'package:talanta_api/talanta_api.dart';
 
 /// Where the session says the person should be. Navigation never has to
@@ -78,6 +84,19 @@ final routerProvider = Provider<GoRouter>((ref) {
         branches: [
           StatefulShellBranch(
             routes: [
+              GoRoute(path: Routes.home, builder: (_, _) => const HomeScreen()),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.reels,
+                builder: (_, _) => const ReelsScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
               GoRoute(
                 path: Routes.calls,
                 builder: (_, _) => const OpportunitiesScreen(),
@@ -92,25 +111,45 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: Routes.activity,
-                builder: (_, _) => const ActivityScreen(),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: Routes.me,
-                builder: (_, _) => const MyProfileScreen(),
-              ),
-            ],
-          ),
         ],
       ),
       // Full-screen pages over the tabs.
+      GoRoute(
+        parentNavigatorKey: _rootKey,
+        path: Routes.activity,
+        builder: (_, _) => const ActivityScreen(),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootKey,
+        path: Routes.me,
+        builder: (_, _) => const MyProfileScreen(),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootKey,
+        path: Routes.settings,
+        builder: (_, _) => const SettingsScreen(),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootKey,
+        path: Routes.editProfile,
+        builder: (_, _) => const EditProfileScreen(),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootKey,
+        path: Routes.compose,
+        builder: (_, state) => ComposerScreen(
+          mode: ComposeMode.values.firstWhere(
+            (mode) => mode.name == state.uri.queryParameters['mode'],
+            orElse: () => ComposeMode.text,
+          ),
+        ),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootKey,
+        path: '/posts/:id',
+        builder: (_, state) =>
+            PostDetailScreen(postId: state.pathParameters['id']!),
+      ),
       GoRoute(
         parentNavigatorKey: _rootKey,
         path: Routes.postCall,
@@ -137,7 +176,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         parentNavigatorKey: _rootKey,
         path: '/creators/:username',
         builder: (_, state) =>
-            CreatorProfileScreen(username: state.pathParameters['username']!),
+            ProfileScreen(username: state.pathParameters['username']!),
       ),
     ],
   );

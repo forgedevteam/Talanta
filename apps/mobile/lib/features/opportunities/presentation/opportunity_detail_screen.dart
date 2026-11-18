@@ -257,6 +257,7 @@ class _BodyState extends ConsumerState<_Body> {
                       children: [
                         TalantaAvatar(
                           name: poster.displayName,
+                          imageUrl: poster.avatarUrl,
                           verified: poster.isVerified,
                         ),
                         const SizedBox(width: TalantaSpacing.x3),

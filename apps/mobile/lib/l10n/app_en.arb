@@ -80,7 +80,6 @@
   "profileSubtitle": "This is how people will find you on Talanta.",
   "profileAddPhoto": "Add photo",
   "profileChangePhoto": "Change photo",
-  "profilePhotoLater": "Photo uploads land with the next release. Your pick stays on this phone until then.",
   "profileNameLabel": "Your name",
   "profileNameHint": "Your full name",
   "profileUsernameLabel": "Username",
@@ -211,7 +210,7 @@
   "applySend": "Send application",
   "applySent": "Application sent. Good luck!",
   "applyMessageTooShort": "Write at least 10 characters.",
-  "postTitle": "Post an Open Call",
+  "postTitle": "Post",
   "postSubtitle": "Describe the work clearly. Real calls get real talent.",
   "postTitleLabel": "Title",
   "postTitleHint": "Singer for a wedding in Douala",
@@ -373,5 +372,160 @@
   "errorRateLimited": "You've done that a lot today. Try again later.",
   "errorNotFound": "This is no longer available.",
   "errorCannotApplyOwn": "You posted this call.",
-  "portfolioTalentLabel": "Which talent does it show? (optional)"
+  "portfolioTalentLabel": "Which talent does it show? (optional)",
+  "navHome": "Home",
+  "navReels": "Reels",
+  "openMyProfile": "My profile",
+  "settingsTitle": "Settings",
+  "commonCancel": "Cancel",
+  "commonClose": "Close",
+  "errorGeneric": "Something went wrong. Try again.",
+  "createTitle": "Create",
+  "createPhoto": "Photo",
+  "createPhotoHint": "Up to 10 photos",
+  "createReel": "Reel",
+  "createReelHint": "A short vertical video",
+  "createText": "Write",
+  "createTextHint": "Share news or an idea",
+  "createCall": "Open Call",
+  "createCallHint": "Hire talent for paid work",
+  "composeTitle": "New post",
+  "composeReelTitle": "New reel",
+  "composePost": "Post",
+  "composeHint": "What's happening in your craft?",
+  "composeCaptionHint": "Write a caption… #makossa @friend",
+  "composePhotos": "Photos",
+  "composePhotosCount": "{count}/{max} photos",
+  "@composePhotosCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "composeCamera": "Camera",
+  "composeVideo": "Video",
+  "composeRecord": "Record",
+  "composeAsReel": "Also show in Reels",
+  "composeAsReelHint": "Best for vertical videos under 3 minutes",
+  "composeOneVideo": "A post holds one video, or up to 10 photos. Remove the video first.",
+  "composeVideoTooBig": "That video is over 60 MB. Trim it or record a shorter one.",
+  "composePosted": "Posted. People can see it now.",
+  "feedForYou": "For you",
+  "feedFollowing": "Following",
+  "feedComposePrompt": "What's new, {name}?",
+  "@feedComposePrompt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "feedEmpty": "Nothing here yet",
+  "feedEmptyBody": "Be the first to share your talent with Cameroon.",
+  "feedPostFirst": "Share something",
+  "feedFollowingEmpty": "Follow creators to fill this feed",
+  "feedFollowingEmptyBody": "Their photos, videos and news will show up here.",
+  "feedFindCreators": "Find creators",
+  "feedEnd": "You're all caught up",
+  "feedPaidWork": "Paid work this week",
+  "feedSeeAll": "See all",
+  "postLike": "Like",
+  "postUnlike": "Unlike",
+  "postComment": "Comment",
+  "postShare": "Share",
+  "postMore": "More",
+  "postMoreText": "more",
+  "postViewComments": "{count, plural, =1{View 1 comment} other{View all {count} comments}}",
+  "@postViewComments": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "postDelete": "Delete post",
+  "postDeleteTitle": "Delete this post?",
+  "postDeleteBody": "It will disappear from your profile and every feed. This cannot be undone.",
+  "postDeleted": "Post deleted",
+  "postReport": "Report post",
+  "commentsTitle": "Comments",
+  "commentsEmpty": "No comments yet. Start the conversation.",
+  "commentsMore": "Load more comments",
+  "commentHint": "Add a kind comment…",
+  "commentSend": "Send",
+  "commentDelete": "Delete comment",
+  "commentReport": "Report comment",
+  "commentAuthorBadge": "Author",
+  "videoPlay": "Play video",
+  "videoRetry": "Try again",
+  "videoMute": "Mute",
+  "videoUnmute": "Unmute",
+  "reelsEmptyTitle": "Your stage is ready",
+  "reelsEmptyBody": "Post a short vertical video of your talent. Dance, sing, make people laugh.",
+  "reelsEmptyAction": "Post a reel",
+  "profileShare": "Share profile",
+  "profileStatPosts": "Posts",
+  "profileStatFollowers": "Followers",
+  "profileStatFollowing": "Following",
+  "profileStatWork": "Work",
+  "profileTabPosts": "Posts",
+  "profileTabWork": "Work",
+  "profileNewPost": "New post",
+  "profileNoPosts": "No posts yet",
+  "profileNoPostsMine": "Share your first post",
+  "profileNoPostsMineBody": "Photos and videos of your work help organisers pick you.",
+  "profilePhotoFailed": "Your profile is saved, but the photo didn't upload. Add it again from Edit profile.",
+  "portfolioIntro": "Work on YouTube, TikTok, Audiomack and more.",
+  "portfolioIntroMine": "Link your best work on YouTube, TikTok or Audiomack. Organisers check here first.",
+  "editSave": "Save",
+  "editSaved": "Profile updated",
+  "editBioLabel": "Bio",
+  "editBioHint": "What you do, and what people can book you for",
+  "editBioTooLong": "Keep your bio under 280 characters.",
+  "editPictureGallery": "Choose from gallery",
+  "editPictureCamera": "Take a photo",
+  "editPictureRemove": "Remove photo",
+  "editPictureSaved": "Profile photo updated",
+  "editTalents": "Talents",
+  "editChange": "Change",
+  "editPrimary": "main",
+  "editBirthdayFixed": "Your date of birth is set and only support can change it. It keeps younger members protected.",
+  "editDiscardTitle": "Discard changes?",
+  "editDiscardBody": "Your changes haven't been saved.",
+  "editKeepEditing": "Keep editing",
+  "editDiscard": "Discard",
+  "settingsAccount": "Account",
+  "settingsSafety": "Safety",
+  "settingsApp": "App",
+  "settingsLanguage": "Language",
+  "settingsLanguageValue": "Your phone's language",
+  "settingsAbout": "About",
+  "safetyTitle": "Staying safe",
+  "safetyTipPay": "Never pay to apply. Real organisers pay you, not the other way round.",
+  "safetyTipMeet": "Meet new clients in public places, and tell someone where you are going.",
+  "safetyTipMinors": "Under 18? Bring a parent or guardian to any audition or job.",
+  "safetyTipReport": "Something feels wrong? Report it. Our team reads every report.",
+  "notifPostLiked": "{name} liked your post",
+  "@notifPostLiked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "notifPostCommented": "{name} commented: {text}",
+  "@notifPostCommented": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "text": {
+        "type": "String"
+      }
+    }
+  }
 }

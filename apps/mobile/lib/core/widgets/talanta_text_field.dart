@@ -28,6 +28,7 @@ class TalantaTextField extends StatelessWidget {
     this.enabled = true,
     this.onChanged,
     this.onSubmitted,
+    this.showCounter = false,
   });
 
   final String label;
@@ -51,6 +52,9 @@ class TalantaTextField extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onSubmitted;
 
+  /// "38 / 280" beside the label. Needs [controller] and [maxLength].
+  final bool showCounter;
+
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
@@ -58,9 +62,27 @@ class TalantaTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: context.text.labelMedium?.copyWith(color: palette.textMuted),
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                label,
+                style: context.text.labelMedium?.copyWith(
+                  color: palette.textMuted,
+                ),
+              ),
+            ),
+            if (showCounter && controller != null && maxLength != null)
+              ValueListenableBuilder<TextEditingValue>(
+                valueListenable: controller!,
+                builder: (context, value, _) => Text(
+                  '${value.text.characters.length} / $maxLength',
+                  style: context.text.labelSmall?.copyWith(
+                    color: palette.textMuted,
+                  ),
+                ),
+              ),
+          ],
         ),
         const SizedBox(height: TalantaSpacing.x2),
         TextField(

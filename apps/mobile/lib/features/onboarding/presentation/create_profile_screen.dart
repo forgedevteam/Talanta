@@ -15,6 +15,7 @@ import 'package:talanta/core/widgets/widgets.dart';
 import 'package:talanta/features/auth/application/session_controller.dart';
 import 'package:talanta/features/auth/domain/country.dart';
 import 'package:talanta/features/onboarding/application/onboarding_controller.dart';
+import 'package:talanta/features/profile/application/profile_actions.dart';
 import 'package:talanta/l10n/generated/app_localizations.dart';
 import 'package:talanta_api/talanta_api.dart';
 import 'package:talanta_tokens/talanta_tokens.dart';
@@ -124,13 +125,7 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
       maxHeight: 1024,
       imageQuality: 85,
     );
-    if (file != null && mounted) {
-      setState(() => _photo = file);
-      TalantaSnack.show(
-        context,
-        AppLocalizations.of(context).profilePhotoLater,
-      );
-    }
+    if (file != null && mounted) setState(() => _photo = file);
   }
 
   Future<void> _pickDateOfBirth() async {
@@ -192,9 +187,20 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
             city: _city.text.trim(),
             dateOfBirth: _needsDateOfBirth ? _dateOfBirth : null,
           );
+      // The picture needs the profile to exist, so it goes up second. A
+      // failed upload never blocks finishing sign-up.
+      final photo = _photo;
+      if (photo != null) {
+        try {
+          await ref.read(profileActionsProvider).setPicture(photo.path);
+        } on ApiFailure {
+          if (mounted) {
+            TalantaSnack.show(context, l10n.profilePhotoFailed, error: true);
+          }
+        }
+      }
       unawaited(HapticFeedback.mediumImpact());
       if (!mounted) return;
-      // Opened from the Profile tab to edit: go back there.
       if (context.canPop()) {
         context.pop();
       } else {

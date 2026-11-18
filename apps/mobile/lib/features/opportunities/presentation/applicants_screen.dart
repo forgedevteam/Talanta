@@ -112,6 +112,7 @@ class _ApplicantCardState extends ConsumerState<_ApplicantCard> {
               children: [
                 TalantaAvatar(
                   name: person.displayName,
+                  imageUrl: person.avatarUrl,
                   verified: person.isVerified,
                 ),
                 const SizedBox(width: TalantaSpacing.x3),

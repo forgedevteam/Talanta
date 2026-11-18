@@ -165,12 +165,16 @@ void main() {
         'dateOfBirth': isoDate(DateTime(now.year - 18, now.month, now.day)),
       });
 
-      // Lands on Open Calls, with the featured row first.
-      expect(find.byKey(const ValueKey('calls-screen')), findsOneWidget);
-      expect(find.text(l10n.callsFeatured), findsWidgets);
+      // Lands on the home feed, with what creators are sharing.
+      expect(find.byKey(const ValueKey('home-screen')), findsOneWidget);
+      expect(find.text(l10n.feedForYou), findsOneWidget);
+      expect(
+        find.byKey(const ValueKey('post-${FakeApi.photoPostId}')),
+        findsOneWidget,
+      );
 
       // Sign out from the Profile tab returns to the phone screen.
-      await tester.tap(find.byKey(const ValueKey('nav-me')));
+      await tester.tap(find.byKey(const ValueKey('open-settings')).first);
       await tester.pumpAndSettle();
       await tester.scrollUntilVisible(
         find.byKey(const ValueKey('sign-out')),
