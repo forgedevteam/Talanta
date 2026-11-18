@@ -38,6 +38,125 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/admin/opportunities/{id}/feature": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Put a call in the Featured row (paid placement) */
+        post: operations["featureOpportunity"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/opportunities/{id}/remove": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Take down a call */
+        post: operations["removeOpportunity"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/promotions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Schedule a sponsored card */
+        post: operations["createPromotion"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/reports": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Open reports, oldest first */
+        get: operations["listOpenReports"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/reports/{id}/resolve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Close a report */
+        post: operations["resolveReport"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/users/{id}/suspend": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Suspend an account and sign it out everywhere */
+        post: operations["suspendUser"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/applications/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Shortlist, decline or hire an applicant to my call */
+        patch: operations["decideApplication"];
+        trace?: never;
+    };
     "/v1/auth/logout": {
         parameters: {
             query?: never;
@@ -106,6 +225,75 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/creators": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Find creators by name, talent and city */
+        get: operations["searchCreators"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/creators/{username}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** A creator’s public profile and portfolio */
+        get: operations["getCreator"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/creators/{username}/follow": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Follow a creator */
+        post: operations["followCreator"];
+        /** Stop following a creator */
+        delete: operations["unfollowCreator"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/feed/following": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** New work from the creators I follow */
+        get: operations["getFollowingFeed"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/me": {
         parameters: {
             query?: never;
@@ -117,7 +305,128 @@ export interface paths {
         get: operations["getMe"];
         put?: never;
         post?: never;
+        /** Delete my account and the data that identifies me */
+        delete: operations["deleteMyAccount"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/me/applications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Calls I applied to, with where each one stands */
+        get: operations["listMyApplications"];
+        put?: never;
+        post?: never;
         delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/me/notifications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** My notifications, newest first */
+        get: operations["listNotifications"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/me/notifications/read-all": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Mark all my notifications as seen */
+        post: operations["markAllRead"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/me/notifications/unread-count": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** How many notifications I have not seen */
+        get: operations["getUnreadCount"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/me/opportunities": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Calls I posted */
+        get: operations["listMyOpportunities"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/me/portfolio": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** My portfolio, newest first */
+        get: operations["listMyPortfolio"];
+        put?: never;
+        /** Add a link to a piece of my work */
+        post: operations["addPortfolioItem"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/me/portfolio/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Remove a piece from my portfolio */
+        delete: operations["removePortfolioItem"];
         options?: never;
         head?: never;
         patch?: never;
@@ -157,6 +466,76 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/opportunities": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Open Calls, newest first, with featured calls on the first page */
+        get: operations["listOpportunities"];
+        put?: never;
+        /** Post an Open Call */
+        post: operations["postOpportunity"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/opportunities/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** One Open Call, with my application if I applied */
+        get: operations["getOpportunity"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/opportunities/{id}/applications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** People who applied to my call */
+        get: operations["listApplicants"];
+        put?: never;
+        /** Apply to an Open Call */
+        post: operations["applyToOpportunity"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/opportunities/{id}/close": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Stop taking applications for my call */
+        post: operations["closeOpportunity"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/profiles/username-availability": {
         parameters: {
             query?: never;
@@ -168,6 +547,40 @@ export interface paths {
         get: operations["checkUsername"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/promotions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Sponsored cards running now for a placement */
+        get: operations["listPromotions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/reports": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Report a person, call or portfolio piece */
+        post: operations["createReport"];
         delete?: never;
         options?: never;
         head?: never;
@@ -195,6 +608,28 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        ApplicantDto: {
+            applicant: components["schemas"]["PersonSummaryDto"];
+            /** Format: uuid */
+            applicationId: string;
+            /** Format: date-time */
+            createdAt: string;
+            message: string;
+            portfolioItem: components["schemas"]["PortfolioItemDto"] | null;
+            status: components["schemas"]["ApplicationStatus"];
+        };
+        /** @enum {string} */
+        ApplicationDecision: "shortlisted" | "declined" | "hired";
+        /** @enum {string} */
+        ApplicationStatus: "submitted" | "shortlisted" | "declined" | "hired";
+        ApplyDto: {
+            message: string;
+            /**
+             * Format: uuid
+             * @description A piece from your portfolio to show.
+             */
+            portfolioItemId?: string;
+        };
         AuthSessionDto: {
             /** @description True when this sign-in created the account. */
             isNewUser: boolean;
@@ -202,7 +637,129 @@ export interface components {
             tokens: components["schemas"]["TokenPairDto"];
         };
         /** @enum {string} */
-        ErrorCode: "validation_failed" | "unauthorized" | "forbidden" | "not_found" | "conflict" | "rate_limited" | "internal_error" | "service_unavailable" | "phone_invalid" | "phone_country_unsupported" | "otp_resend_too_soon" | "otp_rate_limited" | "otp_invalid" | "otp_expired" | "otp_too_many_attempts" | "sms_delivery_failed" | "session_expired" | "account_suspended" | "username_taken" | "username_reserved" | "talent_category_unknown" | "age_below_minimum";
+        CompensationType: "paid" | "unpaid" | "negotiable";
+        CreateOpportunityDto: {
+            /**
+             * @description Required when the work is paid, so talent knows what to expect.
+             * @example 150000
+             */
+            budgetAmount?: number;
+            /** Format: uuid */
+            categoryId: string;
+            /** @example Douala */
+            city: string;
+            compensation: components["schemas"]["CompensationType"];
+            /** @example 2026-12-20 */
+            deadline?: string;
+            description: string;
+            /** @example Singer for a wedding reception in Douala */
+            title: string;
+        };
+        CreatePortfolioItemDto: {
+            /**
+             * Format: uuid
+             * @description The talent this work shows.
+             */
+            categoryId?: string;
+            description?: string;
+            /** @example Live at Institut Français, Douala */
+            title: string;
+            /** @example https://www.youtube.com/watch?v=abc123 */
+            url: string;
+        };
+        CreatePromotionDto: {
+            body: string;
+            ctaLabel: string;
+            /** Format: date-time */
+            endsAt: string;
+            placement: components["schemas"]["PromotionPlacement"];
+            sponsorName: string;
+            /** Format: date-time */
+            startsAt: string;
+            title: string;
+            /** @example https://example.cm/offer */
+            url: string;
+        };
+        CreateReportDto: {
+            details?: string;
+            reason: components["schemas"]["ReportReason"];
+            /**
+             * Format: uuid
+             * @description For a user, their username is resolved by the client to the id shown on cards.
+             */
+            targetId: string;
+            targetType: components["schemas"]["ReportTarget"];
+        };
+        CreatorCardDto: {
+            /** @example Douala */
+            city: string | null;
+            /** @example Nkeng Ebai */
+            displayName: string;
+            followerCount: number;
+            /** Format: uuid */
+            id: string;
+            isVerified: boolean;
+            portfolioCount: number;
+            primaryTalent: components["schemas"]["TalentCategoryDto"] | null;
+            /** @example nkeng_sings */
+            username: string;
+        };
+        CreatorPageDto: {
+            items: components["schemas"]["CreatorCardDto"][];
+            nextCursor: string | null;
+        };
+        CreatorProfileDto: {
+            bio: string | null;
+            /** @example Douala */
+            city: string | null;
+            /** @example Nkeng Ebai */
+            displayName: string;
+            followerCount: number;
+            followingCount: number;
+            /** Format: uuid */
+            id: string;
+            isFollowing: boolean;
+            /** @description This is the signed-in person. */
+            isMe: boolean;
+            isVerified: boolean;
+            portfolio: components["schemas"]["PortfolioItemDto"][];
+            primaryTalent: components["schemas"]["TalentCategoryDto"] | null;
+            talents: components["schemas"]["UserTalentDto"][];
+            /** @example nkeng_sings */
+            username: string;
+        };
+        DecideApplicationDto: {
+            status: components["schemas"]["ApplicationDecision"];
+        };
+        /** @enum {string} */
+        ErrorCode: "validation_failed" | "unauthorized" | "forbidden" | "not_found" | "conflict" | "rate_limited" | "internal_error" | "service_unavailable" | "phone_invalid" | "phone_country_unsupported" | "otp_resend_too_soon" | "otp_rate_limited" | "otp_invalid" | "otp_expired" | "otp_too_many_attempts" | "sms_delivery_failed" | "session_expired" | "account_suspended" | "username_taken" | "username_reserved" | "talent_category_unknown" | "age_below_minimum" | "adults_only" | "profile_required" | "opportunity_closed" | "already_applied" | "cannot_apply_to_own" | "cannot_follow_self" | "link_not_allowed" | "limit_reached";
+        FeatureOpportunityDto: {
+            /** @description Days to show in the Featured row. */
+            days: number;
+        };
+        FollowingFeedDto: {
+            items: components["schemas"]["FollowingWorkDto"][];
+            nextCursor: string | null;
+        };
+        FollowingWorkDto: {
+            /** @example music */
+            categorySlug: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            creator: components["schemas"]["PersonSummaryDto"];
+            description: string | null;
+            /** Format: uuid */
+            id: string;
+            platform: components["schemas"]["PortfolioPlatform"];
+            /** @example Live at Institut Français, Douala */
+            title: string;
+            /** @example https://www.youtube.com/watch?v=abc123 */
+            url: string;
+        };
+        FollowStateDto: {
+            followerCount: number;
+            isFollowing: boolean;
+        };
         HealthDto: {
             /** @example ok */
             status: string;
@@ -229,11 +786,112 @@ export interface components {
             role: components["schemas"]["UserRole"];
             talents: components["schemas"]["UserTalentDto"][];
         };
+        MyApplicationDto: {
+            /** Format: uuid */
+            applicationId: string;
+            /** Format: date-time */
+            createdAt: string;
+            opportunity: components["schemas"]["OpportunitySummaryDto"];
+            status: components["schemas"]["ApplicationStatus"];
+        };
+        MyApplicationRefDto: {
+            /** Format: uuid */
+            id: string;
+            status: components["schemas"]["ApplicationStatus"];
+        };
+        NotificationDto: {
+            actor: components["schemas"]["PersonSummaryDto"] | null;
+            /** @description The application’s current status, for status notifications. */
+            applicationStatus: components["schemas"]["ApplicationStatus"] | null;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: uuid */
+            id: string;
+            isRead: boolean;
+            /** Format: uuid */
+            opportunityId: string | null;
+            opportunityTitle: string | null;
+            type: components["schemas"]["NotificationType"];
+        };
+        NotificationPageDto: {
+            items: components["schemas"]["NotificationDto"][];
+            nextCursor: string | null;
+        };
+        /** @enum {string} */
+        NotificationType: "application_received" | "application_status" | "new_follower";
         /**
          * @description The next onboarding screen to show, or `done`.
          * @enum {string}
          */
         OnboardingStep: "talents" | "profile" | "done";
+        OpportunityDetailDto: {
+            applicationsCount: number;
+            /** @example 150000 */
+            budgetAmount: number | null;
+            category: components["schemas"]["TalentCategoryDto"];
+            /** @example Douala */
+            city: string;
+            compensation: components["schemas"]["CompensationType"];
+            /** @example CM */
+            country: string;
+            /** Format: date-time */
+            createdAt: string;
+            /** @example XAF */
+            currency: string;
+            /**
+             * @description YYYY-MM-DD.
+             * @example 2026-12-20
+             */
+            deadline: string | null;
+            description: string;
+            /** Format: uuid */
+            id: string;
+            /** @description Paid placement. Show with a Featured label. */
+            isFeatured: boolean;
+            /** @description The signed-in person posted this. */
+            isMine: boolean;
+            myApplication: components["schemas"]["MyApplicationRefDto"] | null;
+            poster: components["schemas"]["PersonSummaryDto"] | null;
+            status: components["schemas"]["OpportunityStatus"];
+            /** @example Singer for a wedding reception in Douala */
+            title: string;
+        };
+        OpportunityFeedDto: {
+            /** @description Paid placements, only on the first page. */
+            featured: components["schemas"]["OpportunitySummaryDto"][];
+            items: components["schemas"]["OpportunitySummaryDto"][];
+            nextCursor: string | null;
+        };
+        /** @enum {string} */
+        OpportunityStatus: "open" | "closed" | "removed";
+        OpportunitySummaryDto: {
+            applicationsCount: number;
+            /** @example 150000 */
+            budgetAmount: number | null;
+            category: components["schemas"]["TalentCategoryDto"];
+            /** @example Douala */
+            city: string;
+            compensation: components["schemas"]["CompensationType"];
+            /** @example CM */
+            country: string;
+            /** Format: date-time */
+            createdAt: string;
+            /** @example XAF */
+            currency: string;
+            /**
+             * @description YYYY-MM-DD.
+             * @example 2026-12-20
+             */
+            deadline: string | null;
+            /** Format: uuid */
+            id: string;
+            /** @description Paid placement. Show with a Featured label. */
+            isFeatured: boolean;
+            poster: components["schemas"]["PersonSummaryDto"] | null;
+            status: components["schemas"]["OpportunityStatus"];
+            /** @example Singer for a wedding reception in Douala */
+            title: string;
+        };
         OtpChallengeDto: {
             /**
              * @description The same number grouped for reading. Show this, send `phone`.
@@ -253,6 +911,34 @@ export interface components {
              */
             resendAfterSeconds: number;
         };
+        PersonSummaryDto: {
+            /** @example Douala */
+            city: string | null;
+            /** @example Nkeng Ebai */
+            displayName: string;
+            /** Format: uuid */
+            id: string;
+            isVerified: boolean;
+            primaryTalent: components["schemas"]["TalentCategoryDto"] | null;
+            /** @example nkeng_sings */
+            username: string;
+        };
+        PortfolioItemDto: {
+            /** @example music */
+            categorySlug: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            description: string | null;
+            /** Format: uuid */
+            id: string;
+            platform: components["schemas"]["PortfolioPlatform"];
+            /** @example Live at Institut Français, Douala */
+            title: string;
+            /** @example https://www.youtube.com/watch?v=abc123 */
+            url: string;
+        };
+        /** @enum {string} */
+        PortfolioPlatform: "youtube" | "tiktok" | "instagram" | "facebook" | "audiomack" | "boomplay" | "soundcloud" | "spotify" | "other";
         ProblemDto: {
             code: components["schemas"]["ErrorCode"];
             /** @description Validation messages keyed by field name. */
@@ -275,9 +961,38 @@ export interface components {
             /** @example amara_sings */
             username: string;
         };
+        PromotionDto: {
+            body: string;
+            /** @example Learn more */
+            ctaLabel: string;
+            /** Format: uuid */
+            id: string;
+            /** @example Talanta */
+            sponsorName: string;
+            title: string;
+            /** @description https:// link, or talanta:<screen> for a screen in the app. */
+            url: string;
+        };
+        /** @enum {string} */
+        PromotionPlacement: "opportunities_feed";
         RefreshTokenDto: {
             refreshToken: string;
         };
+        ReportDto: {
+            /** Format: date-time */
+            createdAt: string;
+            details: string | null;
+            /** Format: uuid */
+            id: string;
+            reason: components["schemas"]["ReportReason"];
+            /** Format: uuid */
+            targetId: string;
+            targetType: components["schemas"]["ReportTarget"];
+        };
+        /** @enum {string} */
+        ReportReason: "scam" | "harassment" | "inappropriate" | "spam" | "underage" | "other";
+        /** @enum {string} */
+        ReportTarget: "user" | "opportunity" | "portfolio_item";
         RequestOtpDto: {
             /**
              * @description ISO 3166-1 alpha-2 country chosen in the picker.
@@ -327,6 +1042,9 @@ export interface components {
             accessTokenExpiresIn: number;
             /** @description Single use. Each refresh returns a new one. */
             refreshToken: string;
+        };
+        UnreadCountDto: {
+            count: number;
         };
         UpdateProfileDto: {
             bio?: string;
@@ -386,20 +1104,55 @@ export interface components {
     headers: never;
     pathItems: never;
 }
+export type SchemaApplicantDto = components['schemas']['ApplicantDto'];
+export type SchemaApplicationDecision = components['schemas']['ApplicationDecision'];
+export type SchemaApplicationStatus = components['schemas']['ApplicationStatus'];
+export type SchemaApplyDto = components['schemas']['ApplyDto'];
 export type SchemaAuthSessionDto = components['schemas']['AuthSessionDto'];
+export type SchemaCompensationType = components['schemas']['CompensationType'];
+export type SchemaCreateOpportunityDto = components['schemas']['CreateOpportunityDto'];
+export type SchemaCreatePortfolioItemDto = components['schemas']['CreatePortfolioItemDto'];
+export type SchemaCreatePromotionDto = components['schemas']['CreatePromotionDto'];
+export type SchemaCreateReportDto = components['schemas']['CreateReportDto'];
+export type SchemaCreatorCardDto = components['schemas']['CreatorCardDto'];
+export type SchemaCreatorPageDto = components['schemas']['CreatorPageDto'];
+export type SchemaCreatorProfileDto = components['schemas']['CreatorProfileDto'];
+export type SchemaDecideApplicationDto = components['schemas']['DecideApplicationDto'];
 export type SchemaErrorCode = components['schemas']['ErrorCode'];
+export type SchemaFeatureOpportunityDto = components['schemas']['FeatureOpportunityDto'];
+export type SchemaFollowingFeedDto = components['schemas']['FollowingFeedDto'];
+export type SchemaFollowingWorkDto = components['schemas']['FollowingWorkDto'];
+export type SchemaFollowStateDto = components['schemas']['FollowStateDto'];
 export type SchemaHealthDto = components['schemas']['HealthDto'];
 export type SchemaMeDto = components['schemas']['MeDto'];
+export type SchemaMyApplicationDto = components['schemas']['MyApplicationDto'];
+export type SchemaMyApplicationRefDto = components['schemas']['MyApplicationRefDto'];
+export type SchemaNotificationDto = components['schemas']['NotificationDto'];
+export type SchemaNotificationPageDto = components['schemas']['NotificationPageDto'];
+export type SchemaNotificationType = components['schemas']['NotificationType'];
 export type SchemaOnboardingStep = components['schemas']['OnboardingStep'];
+export type SchemaOpportunityDetailDto = components['schemas']['OpportunityDetailDto'];
+export type SchemaOpportunityFeedDto = components['schemas']['OpportunityFeedDto'];
+export type SchemaOpportunityStatus = components['schemas']['OpportunityStatus'];
+export type SchemaOpportunitySummaryDto = components['schemas']['OpportunitySummaryDto'];
 export type SchemaOtpChallengeDto = components['schemas']['OtpChallengeDto'];
+export type SchemaPersonSummaryDto = components['schemas']['PersonSummaryDto'];
+export type SchemaPortfolioItemDto = components['schemas']['PortfolioItemDto'];
+export type SchemaPortfolioPlatform = components['schemas']['PortfolioPlatform'];
 export type SchemaProblemDto = components['schemas']['ProblemDto'];
 export type SchemaProfileDto = components['schemas']['ProfileDto'];
+export type SchemaPromotionDto = components['schemas']['PromotionDto'];
+export type SchemaPromotionPlacement = components['schemas']['PromotionPlacement'];
 export type SchemaRefreshTokenDto = components['schemas']['RefreshTokenDto'];
+export type SchemaReportDto = components['schemas']['ReportDto'];
+export type SchemaReportReason = components['schemas']['ReportReason'];
+export type SchemaReportTarget = components['schemas']['ReportTarget'];
 export type SchemaRequestOtpDto = components['schemas']['RequestOtpDto'];
 export type SchemaSetTalentsDto = components['schemas']['SetTalentsDto'];
 export type SchemaTalentCategoryDto = components['schemas']['TalentCategoryDto'];
 export type SchemaTalentLevel = components['schemas']['TalentLevel'];
 export type SchemaTokenPairDto = components['schemas']['TokenPairDto'];
+export type SchemaUnreadCountDto = components['schemas']['UnreadCountDto'];
 export type SchemaUpdateProfileDto = components['schemas']['UpdateProfileDto'];
 export type SchemaUsernameAvailabilityDto = components['schemas']['UsernameAvailabilityDto'];
 export type SchemaUsernameStatus = components['schemas']['UsernameStatus'];
@@ -445,6 +1198,211 @@ export interface operations {
                 };
             };
             503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    featureOpportunity: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["FeatureOpportunityDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OpportunityDetailDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    removeOpportunity: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    createPromotion: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreatePromotionDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PromotionDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    listOpenReports: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReportDto"][];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    resolveReport: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    suspendUser: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    decideApplication: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DecideApplicationDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApplicantDto"];
+                };
+            };
+            default: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -576,6 +1534,159 @@ export interface operations {
             };
         };
     };
+    searchCreators: {
+        parameters: {
+            query?: {
+                city?: string;
+                /** @description The `nextCursor` from the previous page. */
+                cursor?: string;
+                limit?: number;
+                /** @description Matches username or display name. */
+                q?: string;
+                talent?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CreatorPageDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    getCreator: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                username: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CreatorProfileDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    followCreator: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                username: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FollowStateDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    unfollowCreator: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                username: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FollowStateDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    getFollowingFeed: {
+        parameters: {
+            query?: {
+                /** @description The `nextCursor` from the previous page. */
+                cursor?: string;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FollowingFeedDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
     getMe: {
         parameters: {
             query?: never;
@@ -592,6 +1703,253 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["MeDto"];
                 };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    deleteMyAccount: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    listMyApplications: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MyApplicationDto"][];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    listNotifications: {
+        parameters: {
+            query?: {
+                /** @description The `nextCursor` from the previous page. */
+                cursor?: string;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NotificationPageDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    markAllRead: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    getUnreadCount: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UnreadCountDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    listMyOpportunities: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OpportunitySummaryDto"][];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    listMyPortfolio: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PortfolioItemDto"][];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    addPortfolioItem: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreatePortfolioItemDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PortfolioItemDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    removePortfolioItem: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             default: {
                 headers: {
@@ -665,6 +2023,191 @@ export interface operations {
             };
         };
     };
+    listOpportunities: {
+        parameters: {
+            query?: {
+                /** @description Talent category slug. */
+                category?: string;
+                city?: string;
+                /** @description The `nextCursor` from the previous page. */
+                cursor?: string;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OpportunityFeedDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    postOpportunity: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateOpportunityDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OpportunityDetailDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    getOpportunity: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OpportunityDetailDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    listApplicants: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApplicantDto"][];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    applyToOpportunity: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ApplyDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OpportunityDetailDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    closeOpportunity: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OpportunityDetailDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
     checkUsername: {
         parameters: {
             query: {
@@ -683,6 +2226,64 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["UsernameAvailabilityDto"];
                 };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    listPromotions: {
+        parameters: {
+            query: {
+                placement: components["schemas"]["PromotionPlacement"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PromotionDto"][];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    createReport: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateReportDto"];
+            };
+        };
+        responses: {
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             default: {
                 headers: {
@@ -730,8 +2331,17 @@ type ReadonlyArray<T> = [
 ] extends [
     unknown[]
 ] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;
-export const errorCodeValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["ErrorCode"]> = ["validation_failed", "unauthorized", "forbidden", "not_found", "conflict", "rate_limited", "internal_error", "service_unavailable", "phone_invalid", "phone_country_unsupported", "otp_resend_too_soon", "otp_rate_limited", "otp_invalid", "otp_expired", "otp_too_many_attempts", "sms_delivery_failed", "session_expired", "account_suspended", "username_taken", "username_reserved", "talent_category_unknown", "age_below_minimum"];
+export const applicationDecisionValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["ApplicationDecision"]> = ["shortlisted", "declined", "hired"];
+export const applicationStatusValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["ApplicationStatus"]> = ["submitted", "shortlisted", "declined", "hired"];
+export const compensationTypeValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["CompensationType"]> = ["paid", "unpaid", "negotiable"];
+export const errorCodeValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["ErrorCode"]> = ["validation_failed", "unauthorized", "forbidden", "not_found", "conflict", "rate_limited", "internal_error", "service_unavailable", "phone_invalid", "phone_country_unsupported", "otp_resend_too_soon", "otp_rate_limited", "otp_invalid", "otp_expired", "otp_too_many_attempts", "sms_delivery_failed", "session_expired", "account_suspended", "username_taken", "username_reserved", "talent_category_unknown", "age_below_minimum", "adults_only", "profile_required", "opportunity_closed", "already_applied", "cannot_apply_to_own", "cannot_follow_self", "link_not_allowed", "limit_reached"];
+export const notificationTypeValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["NotificationType"]> = ["application_received", "application_status", "new_follower"];
 export const onboardingStepValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["OnboardingStep"]> = ["talents", "profile", "done"];
+export const opportunityStatusValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["OpportunityStatus"]> = ["open", "closed", "removed"];
+export const portfolioPlatformValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["PortfolioPlatform"]> = ["youtube", "tiktok", "instagram", "facebook", "audiomack", "boomplay", "soundcloud", "spotify", "other"];
+export const promotionPlacementValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["PromotionPlacement"]> = ["opportunities_feed"];
+export const reportReasonValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["ReportReason"]> = ["scam", "harassment", "inappropriate", "spam", "underage", "other"];
+export const reportTargetValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["ReportTarget"]> = ["user", "opportunity", "portfolio_item"];
 export const talentLevelValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["TalentLevel"]> = ["emerging", "skilled", "professional"];
 export const usernameStatusValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["UsernameStatus"]> = ["available", "taken", "reserved"];
 export const userRoleValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["UserRole"]> = ["member", "sponsor", "admin"];

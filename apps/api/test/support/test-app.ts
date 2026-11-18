@@ -164,3 +164,50 @@ export const bearer = (session: SignedIn): [string, string] => [
   'Authorization',
   `Bearer ${session.accessToken}`,
 ];
+
+let usernameCounter = 0;
+
+export interface Member extends SignedIn {
+  readonly username: string;
+}
+
+/** Signs in a new number and completes onboarding. Adults unless told otherwise. */
+export async function onboard(
+  app: TestApp,
+  options: { dateOfBirth?: string; talent?: string; city?: string } = {},
+): Promise<Member> {
+  const session = await signIn(app);
+  const categories = (await app.http.get('/v1/talent-categories').expect(200)).body as {
+    id: string;
+    slug: string;
+  }[];
+  const category = categories.find((c) => c.slug === (options.talent ?? 'music')) ?? categories[0];
+  await app.http
+    .put('/v1/me/talents')
+    .set(...bearer(session))
+    .send({ categoryIds: [category?.id] })
+    .expect(200);
+  usernameCounter += 1;
+  const username = `member_${usernameCounter}`;
+  await app.http
+    .put('/v1/me/profile')
+    .set(...bearer(session))
+    .send({
+      displayName: `Member ${usernameCounter}`,
+      username,
+      city: options.city ?? 'Douala',
+      dateOfBirth: options.dateOfBirth ?? '1995-04-12',
+    })
+    .expect(200);
+  return { ...session, username };
+}
+
+export async function categoryId(app: TestApp, slug: string): Promise<string> {
+  const categories = (await app.http.get('/v1/talent-categories').expect(200)).body as {
+    id: string;
+    slug: string;
+  }[];
+  const found = categories.find((c) => c.slug === slug);
+  if (!found) throw new Error(`No category ${slug}`);
+  return found.id;
+}

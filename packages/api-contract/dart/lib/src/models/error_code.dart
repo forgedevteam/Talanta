@@ -50,6 +50,22 @@ enum ErrorCode {
   talentCategoryUnknown('talent_category_unknown'),
   @JsonValue('age_below_minimum')
   ageBelowMinimum('age_below_minimum'),
+  @JsonValue('adults_only')
+  adultsOnly('adults_only'),
+  @JsonValue('profile_required')
+  profileRequired('profile_required'),
+  @JsonValue('opportunity_closed')
+  opportunityClosed('opportunity_closed'),
+  @JsonValue('already_applied')
+  alreadyApplied('already_applied'),
+  @JsonValue('cannot_apply_to_own')
+  cannotApplyToOwn('cannot_apply_to_own'),
+  @JsonValue('cannot_follow_self')
+  cannotFollowSelf('cannot_follow_self'),
+  @JsonValue('link_not_allowed')
+  linkNotAllowed('link_not_allowed'),
+  @JsonValue('limit_reached')
+  limitReached('limit_reached'),
   /// Default value for all unparsed values, allows backward compatibility when adding new values on the backend.
   $unknown(null);
 

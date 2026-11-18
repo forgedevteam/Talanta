@@ -27,6 +27,21 @@ const envSchema = z
     OTP_MAX_ATTEMPTS: z.coerce.number().int().min(1).default(5),
     OTP_MAX_PER_PHONE_PER_HOUR: z.coerce.number().int().min(1).default(5),
     OTP_MAX_PER_IP_PER_HOUR: z.coerce.number().int().min(1).default(30),
+    /**
+     * Numbers that always accept OTP_TEST_CODE and never receive an SMS, for
+     * app-store reviewers and QA. Comma-separated E.164. Use numbers you own.
+     */
+    OTP_TEST_NUMBERS: z.string().default(''),
+    OTP_TEST_CODE: z
+      .string()
+      .regex(/^\d{6}$/, 'must be 6 digits')
+      .optional()
+      .or(z.literal('').transform(() => undefined)),
+    /** Code guesses allowed from one IP across all numbers, per hour. */
+    OTP_MAX_VERIFY_PER_IP_PER_HOUR: z.coerce.number().int().min(1).default(100),
+    /** Requests per minute for one signed-in user, and for one IP when signed out. */
+    THROTTLE_PER_USER_PER_MINUTE: z.coerce.number().int().min(1).default(240),
+    THROTTLE_PER_IP_PER_MINUTE: z.coerce.number().int().min(1).default(120),
     OTP_DEV_FIXED_CODE: z
       .string()
       .regex(/^\d{6}$/, 'must be 6 digits')
@@ -56,6 +71,13 @@ const envSchema = z
         code: 'custom',
         path: ['SMS_PROVIDER'],
         message: 'africastalking needs AFRICASTALKING_USERNAME and AFRICASTALKING_API_KEY',
+      });
+    }
+    if (env.OTP_TEST_NUMBERS.trim() && !env.OTP_TEST_CODE) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['OTP_TEST_CODE'],
+        message: 'is required when OTP_TEST_NUMBERS is set',
       });
     }
     if (env.NODE_ENV !== 'production') return;
@@ -107,6 +129,13 @@ export interface AppConfig {
     readonly maxPerPhonePerHour: number;
     readonly maxPerIpPerHour: number;
     readonly devFixedCode: string | undefined;
+    readonly maxVerifyPerIpPerHour: number;
+    readonly testNumbers: ReadonlySet<string>;
+    readonly testCode: string | undefined;
+  };
+  readonly throttle: {
+    readonly perUserPerMinute: number;
+    readonly perIpPerMinute: number;
   };
   readonly sms: {
     readonly provider: 'console' | 'africastalking';
@@ -154,6 +183,13 @@ export function loadConfig(source: NodeJS.ProcessEnv = process.env): AppConfig {
       maxPerPhonePerHour: env.OTP_MAX_PER_PHONE_PER_HOUR,
       maxPerIpPerHour: env.OTP_MAX_PER_IP_PER_HOUR,
       devFixedCode: env.OTP_DEV_FIXED_CODE,
+      maxVerifyPerIpPerHour: env.OTP_MAX_VERIFY_PER_IP_PER_HOUR,
+      testNumbers: new Set(csv(env.OTP_TEST_NUMBERS)),
+      testCode: env.OTP_TEST_CODE,
+    },
+    throttle: {
+      perUserPerMinute: env.THROTTLE_PER_USER_PER_MINUTE,
+      perIpPerMinute: env.THROTTLE_PER_IP_PER_MINUTE,
     },
     sms: {
       provider: env.SMS_PROVIDER,

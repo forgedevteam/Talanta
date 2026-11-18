@@ -43,6 +43,9 @@ export default tseslint.config(
       '@typescript-eslint/require-await': 'off',
       '@typescript-eslint/no-unnecessary-condition': 'off',
       '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
+      // API DTO classes only describe shapes for OpenAPI; the values passed
+      // around are plain objects, so spreading them loses nothing.
+      '@typescript-eslint/no-misused-spread': 'off',
     },
   },
   {

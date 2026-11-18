@@ -1,5 +1,5 @@
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { and, eq, ne } from 'drizzle-orm';
+import { and, desc, eq, ilike, inArray, lt, ne, or, sql, type SQL } from 'drizzle-orm';
 
 import { AppError } from '../../common/errors/app-error.js';
 import { DATABASE, isUniqueViolation, type Database } from '../../database/database.js';
@@ -8,6 +8,19 @@ import type { UsernameStatus } from './dto/profile.dto.js';
 import { isReservedUsername } from './username.js';
 
 export type { Profile };
+
+export interface ProfileSearch {
+  readonly query?: string;
+  readonly city?: string;
+  /** Extra conditions on `profiles.user_id`, built by the modules that own the data. */
+  readonly userIdFilters: readonly SQL[];
+  readonly cursor?: string;
+  readonly limit: number;
+}
+
+/** Escapes LIKE wildcards so user input matches literally. */
+export const likeLiteral = (value: string): string =>
+  value.replace(/[\\%_]/g, (char) => '\\' + char);
 
 export interface ProfileInput {
   readonly displayName: string;
@@ -70,5 +83,49 @@ export class ProfilesService {
       }
       throw error;
     }
+  }
+
+  async findByUsername(username: string): Promise<Profile | null> {
+    const [profile] = await this.db
+      .select()
+      .from(profiles)
+      .where(eq(profiles.username, username.toLowerCase()))
+      .limit(1);
+    return profile ?? null;
+  }
+
+  async findByUserIds(userIds: readonly string[]): Promise<Map<string, Profile>> {
+    if (userIds.length === 0) return new Map();
+    const rows = await this.db
+      .select()
+      .from(profiles)
+      .where(inArray(profiles.userId, [...userIds]));
+    return new Map(rows.map((row) => [row.userId, row]));
+  }
+
+  /** Newest creators first, keyset-paginated on the (time-ordered) user id. */
+  async search(params: ProfileSearch): Promise<Profile[]> {
+    const conditions: (SQL | undefined)[] = params.userIdFilters.map(
+      (filter) => sql`${profiles.userId} in ${filter}`,
+    );
+    const query = params.query?.trim();
+    if (query) {
+      const pattern = `%${likeLiteral(query.toLowerCase())}%`;
+      conditions.push(or(ilike(profiles.username, pattern), ilike(profiles.displayName, pattern)));
+    }
+    const city = params.city?.trim();
+    if (city) conditions.push(ilike(profiles.city, likeLiteral(city)));
+    if (params.cursor) conditions.push(lt(profiles.userId, params.cursor));
+
+    return this.db
+      .select()
+      .from(profiles)
+      .where(and(...conditions))
+      .orderBy(desc(profiles.userId))
+      .limit(params.limit + 1);
+  }
+
+  async deleteForUser(userId: string): Promise<void> {
+    await this.db.delete(profiles).where(eq(profiles.userId, userId));
   }
 }

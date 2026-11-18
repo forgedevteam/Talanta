@@ -8,6 +8,13 @@ import 'clients/auth_client.dart';
 import 'clients/me_client.dart';
 import 'clients/profiles_client.dart';
 import 'clients/talents_client.dart';
+import 'clients/portfolio_client.dart';
+import 'clients/opportunities_client.dart';
+import 'clients/creators_client.dart';
+import 'clients/activity_client.dart';
+import 'clients/safety_client.dart';
+import 'clients/admin_client.dart';
+import 'clients/promotions_client.dart';
 import 'clients/health_client.dart';
 
 /// Talanta API `v0.1.0`.
@@ -29,6 +36,13 @@ class TalantaApi {
   MeClient? _me;
   ProfilesClient? _profiles;
   TalentsClient? _talents;
+  PortfolioClient? _portfolio;
+  OpportunitiesClient? _opportunities;
+  CreatorsClient? _creators;
+  ActivityClient? _activity;
+  SafetyClient? _safety;
+  AdminClient? _admin;
+  PromotionsClient? _promotions;
   HealthClient? _health;
 
   AuthClient get auth => _auth ??= AuthClient(_dio, baseUrl: _baseUrl);
@@ -38,6 +52,20 @@ class TalantaApi {
   ProfilesClient get profiles => _profiles ??= ProfilesClient(_dio, baseUrl: _baseUrl);
 
   TalentsClient get talents => _talents ??= TalentsClient(_dio, baseUrl: _baseUrl);
+
+  PortfolioClient get portfolio => _portfolio ??= PortfolioClient(_dio, baseUrl: _baseUrl);
+
+  OpportunitiesClient get opportunities => _opportunities ??= OpportunitiesClient(_dio, baseUrl: _baseUrl);
+
+  CreatorsClient get creators => _creators ??= CreatorsClient(_dio, baseUrl: _baseUrl);
+
+  ActivityClient get activity => _activity ??= ActivityClient(_dio, baseUrl: _baseUrl);
+
+  SafetyClient get safety => _safety ??= SafetyClient(_dio, baseUrl: _baseUrl);
+
+  AdminClient get admin => _admin ??= AdminClient(_dio, baseUrl: _baseUrl);
+
+  PromotionsClient get promotions => _promotions ??= PromotionsClient(_dio, baseUrl: _baseUrl);
 
   HealthClient get health => _health ??= HealthClient(_dio, baseUrl: _baseUrl);
 }

@@ -19,6 +19,10 @@ abstract class MeClient {
   @GET('/v1/me')
   Future<Me> getMe();
 
+  /// Delete my account and the data that identifies me
+  @DELETE('/v1/me')
+  Future<void> deleteMyAccount();
+
   /// Replace the talents on my profile
   @PUT('/v1/me/talents')
   Future<Me> setMyTalents({

@@ -114,4 +114,29 @@ export class AccountService {
       );
     }
   }
+
+  /**
+   * Open Calls are for adults with a profile: it keeps strangers from
+   * recruiting children, and gives the other side someone real to look at.
+   */
+  async assertCanUseOpenCalls(userId: string): Promise<{ country: string | null }> {
+    const [user, profile] = await Promise.all([
+      this.users.findById(userId),
+      this.profiles.findByUserId(userId),
+    ]);
+    if (!user) {
+      throw new AppError(HttpStatus.UNAUTHORIZED, 'unauthorized', 'This account no longer exists.');
+    }
+    if (!profile || !user.dateOfBirth) {
+      throw new AppError(HttpStatus.CONFLICT, 'profile_required', 'Finish your profile first.');
+    }
+    if (ageOn(user.dateOfBirth, this.clock.now()) < ADULT_AGE) {
+      throw new AppError(
+        HttpStatus.FORBIDDEN,
+        'adults_only',
+        'Open Calls are for people 18 and over.',
+      );
+    }
+    return { country: user.country };
+  }
 }

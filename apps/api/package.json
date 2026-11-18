@@ -14,7 +14,8 @@
     "db:dev": "tsx scripts/dev-db.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx src/database/migrate.ts",
-    "openapi": "nest build && node dist/scripts/generate-openapi.js"
+    "openapi": "nest build && node dist/scripts/generate-openapi.js",
+    "db:seed-demo": "tsx src/database/seed-demo.ts"
   },
   "dependencies": {
     "@nestjs/common": "^12.5.0",

@@ -5,6 +5,13 @@ import { KeyValueModule } from './common/kv/key-value.module.js';
 import { ConfigModule } from './config/config.module.js';
 import { DatabaseModule } from './database/database.module.js';
 import { AccountModule } from './modules/account/account.module.js';
+import { ActivityModule } from './modules/activity/activity.js';
+import { ClosureModule } from './modules/closure/closure.js';
+import { CreatorsModule } from './modules/creators/creators.module.js';
+import { ModerationModule } from './modules/moderation/moderation.js';
+import { OpportunitiesModule } from './modules/opportunities/opportunities.module.js';
+import { PortfolioModule } from './modules/portfolio/portfolio.module.js';
+import { PromotionsModule } from './modules/promotions/promotions.js';
 import { AuthModule } from './modules/auth/auth.module.js';
 import { HealthModule } from './modules/health/health.module.js';
 import { ProfilesModule } from './modules/profiles/profiles.module.js';
@@ -24,6 +31,13 @@ import { UsersModule } from './modules/users/users.module.js';
     ProfilesModule,
     TalentsModule,
     AccountModule,
+    PortfolioModule,
+    OpportunitiesModule,
+    CreatorsModule,
+    ActivityModule,
+    ModerationModule,
+    PromotionsModule,
+    ClosureModule,
     HealthModule,
   ],
 })

@@ -38,8 +38,8 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Exchange a sign-in code for a session, creating the account if new' })
   @ApiOkResponse({ type: AuthSessionDto })
-  verifyOtp(@Body() body: VerifyOtpDto): Promise<AuthSessionDto> {
-    return this.auth.verifyOtp(body);
+  verifyOtp(@Body() body: VerifyOtpDto, @Ip() ip: string): Promise<AuthSessionDto> {
+    return this.auth.verifyOtp(body, ip);
   }
 
   @Post('refresh')

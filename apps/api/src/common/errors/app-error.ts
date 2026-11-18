@@ -25,6 +25,14 @@ export const ERROR_CODES = [
   'username_reserved',
   'talent_category_unknown',
   'age_below_minimum',
+  'adults_only',
+  'profile_required',
+  'opportunity_closed',
+  'already_applied',
+  'cannot_apply_to_own',
+  'cannot_follow_self',
+  'link_not_allowed',
+  'limit_reached',
 ] as const;
 
 export type ErrorCode = (typeof ERROR_CODES)[number];

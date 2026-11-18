@@ -4,6 +4,7 @@ import { Reflector } from '@nestjs/core';
 import { AppError } from '../../../common/errors/app-error.js';
 import type { AuthenticatedRequest } from '../auth-user.js';
 import { IS_PUBLIC } from '../decorators.js';
+import { UsersService } from '../../users/users.service.js';
 import { TokenService } from '../tokens/token.service.js';
 
 const BEARER = 'Bearer ';
@@ -14,6 +15,7 @@ export class AccessTokenGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
     private readonly tokens: TokenService,
+    private readonly users: UsersService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -28,7 +30,15 @@ export class AccessTokenGuard implements CanActivate {
     if (!header?.startsWith(BEARER)) {
       throw new AppError(HttpStatus.UNAUTHORIZED, 'unauthorized', 'Sign in to continue.');
     }
-    request.user = await this.tokens.verify(header.slice(BEARER.length));
+    const claims = await this.tokens.verify(header.slice(BEARER.length));
+
+    // Tokens live 15 minutes. Checking the account on every request means a
+    // suspension, deletion or role change takes effect immediately.
+    const user = await this.users.findById(claims.id);
+    if (user?.status !== 'active') {
+      throw new AppError(HttpStatus.UNAUTHORIZED, 'unauthorized', 'Sign in to continue.');
+    }
+    request.user = { ...claims, role: user.role };
     return true;
   }
 }

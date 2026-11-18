@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { eq } from 'drizzle-orm';
+import { and, eq, inArray, sql, type SQL } from 'drizzle-orm';
 
 import { DATABASE, type Database } from '../../database/database.js';
 import { users, type User } from '../../database/schema/index.js';
@@ -41,5 +41,38 @@ export class UsersService {
     const [existing] = await this.db.select().from(users).where(eq(users.phone, phone)).limit(1);
     if (!existing) throw new Error(`No user row for a phone number that just conflicted`);
     return { user: existing, created: false };
+  }
+
+  async findByIds(ids: readonly string[]): Promise<User[]> {
+    if (ids.length === 0) return [];
+    return this.db
+      .select()
+      .from(users)
+      .where(inArray(users.id, [...ids]));
+  }
+
+  /** Subquery of active account ids, for other modules to filter their own rows by. */
+  activeUserIds(): SQL {
+    return sql`(select ${users.id} from ${users} where ${users.status} = 'active')`;
+  }
+
+  async setStatus(userId: string, status: User['status']): Promise<boolean> {
+    const updated = await this.db
+      .update(users)
+      .set({ status })
+      .where(eq(users.id, userId))
+      .returning({ id: users.id });
+    return updated.length > 0;
+  }
+
+  /**
+   * Account deletion: the row stays so foreign keys hold, but everything that
+   * identifies the person is cleared and the phone number is freed.
+   */
+  async anonymise(userId: string): Promise<void> {
+    await this.db
+      .update(users)
+      .set({ status: 'deleted', phone: null, email: null, dateOfBirth: null, passwordHash: null })
+      .where(and(eq(users.id, userId)));
   }
 }

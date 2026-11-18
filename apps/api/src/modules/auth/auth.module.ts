@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 
+import { RoleGuard } from '../../common/auth/roles.js';
+import { RequestThrottleGuard } from '../../common/rate-limit/request-throttle.guard.js';
 import { APP_CONFIG } from '../../config/config.module.js';
 import type { AppConfig } from '../../config/env.js';
 import { AccountModule } from '../account/account.module.js';
@@ -34,7 +36,11 @@ import { JWT_ALGORITHM, JWT_AUDIENCE, JWT_ISSUER, TokenService } from './tokens/
     OtpService,
     SessionService,
     TokenService,
+    // Order matters: identify the caller, then throttle, then check the role.
     { provide: APP_GUARD, useClass: AccessTokenGuard },
+    { provide: APP_GUARD, useClass: RequestThrottleGuard },
+    { provide: APP_GUARD, useClass: RoleGuard },
   ],
+  exports: [SessionService],
 })
 export class AuthModule {}

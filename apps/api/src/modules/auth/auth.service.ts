@@ -33,9 +33,9 @@ export class AuthService {
     return { phone: phone.e164, displayPhone: phone.international, ...challenge };
   }
 
-  async verifyOtp(input: VerifyOtpDto): Promise<AuthSessionDto> {
+  async verifyOtp(input: VerifyOtpDto, ip: string): Promise<AuthSessionDto> {
     const phone = parsePhoneNumber(input.phone, input.country, this.config.sms.allowedCountries);
-    await this.otp.verify(phone.e164, input.code);
+    await this.otp.verify(phone.e164, input.code, ip);
 
     const { user, created } = await this.users.findOrCreateByPhone(phone.e164, phone.country);
     if (user.status !== 'active') {

@@ -138,6 +138,14 @@ export class SessionService {
     await this.revokeFamily(row.familyId);
   }
 
+  /** Signs the person out on every device. Used on account deletion and suspension. */
+  async endAllForUser(userId: string): Promise<void> {
+    await this.db
+      .update(refreshTokens)
+      .set({ revokedAt: this.clock.now() })
+      .where(and(eq(refreshTokens.userId, userId), isNull(refreshTokens.revokedAt)));
+  }
+
   private async revokeFamily(familyId: string): Promise<void> {
     await this.db
       .update(refreshTokens)

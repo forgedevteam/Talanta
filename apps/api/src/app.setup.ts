@@ -16,6 +16,8 @@ export function configureApp(app: NestExpressApplication, config: AppConfig): vo
   app.set('trust proxy', config.trustProxyHops);
   app.disable('x-powered-by');
   app.use(helmet());
+  // Every request body is small JSON; anything bigger is a mistake or an attack.
+  app.useBodyParser('json', { limit: '64kb' });
   app.enableCors({ origin: [...config.corsOrigins], maxAge: 600 });
   app.setGlobalPrefix(API_PREFIX, { exclude: ['health', 'health/ready'] });
   app.useGlobalPipes(createValidationPipe());

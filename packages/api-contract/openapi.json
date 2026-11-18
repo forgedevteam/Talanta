@@ -197,6 +197,34 @@
         "tags": [
           "me"
         ]
+      },
+      "delete": {
+        "operationId": "deleteMyAccount",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete my account and the data that identifies me",
+        "tags": [
+          "me"
+        ]
       }
     },
     "/v1/me/talents": {
@@ -376,6 +404,1342 @@
         ]
       }
     },
+    "/v1/me/portfolio": {
+      "get": {
+        "operationId": "listMyPortfolio",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PortfolioItemDto"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "My portfolio, newest first",
+        "tags": [
+          "portfolio"
+        ]
+      },
+      "post": {
+        "operationId": "addPortfolioItem",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePortfolioItemDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioItemDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Add a link to a piece of my work",
+        "tags": [
+          "portfolio"
+        ]
+      }
+    },
+    "/v1/me/portfolio/{id}": {
+      "delete": {
+        "operationId": "removePortfolioItem",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Remove a piece from my portfolio",
+        "tags": [
+          "portfolio"
+        ]
+      }
+    },
+    "/v1/opportunities": {
+      "get": {
+        "operationId": "listOpportunities",
+        "parameters": [
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "The `nextCursor` from the previous page.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "category",
+            "required": false,
+            "in": "query",
+            "description": "Talent category slug.",
+            "schema": {
+              "example": "music",
+              "type": "string"
+            }
+          },
+          {
+            "name": "city",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "Douala",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpportunityFeedDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Open Calls, newest first, with featured calls on the first page",
+        "tags": [
+          "opportunities"
+        ]
+      },
+      "post": {
+        "operationId": "postOpportunity",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOpportunityDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpportunityDetailDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Post an Open Call",
+        "tags": [
+          "opportunities"
+        ]
+      }
+    },
+    "/v1/opportunities/{id}": {
+      "get": {
+        "operationId": "getOpportunity",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpportunityDetailDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "One Open Call, with my application if I applied",
+        "tags": [
+          "opportunities"
+        ]
+      }
+    },
+    "/v1/opportunities/{id}/close": {
+      "post": {
+        "operationId": "closeOpportunity",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpportunityDetailDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Stop taking applications for my call",
+        "tags": [
+          "opportunities"
+        ]
+      }
+    },
+    "/v1/opportunities/{id}/applications": {
+      "post": {
+        "operationId": "applyToOpportunity",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpportunityDetailDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Apply to an Open Call",
+        "tags": [
+          "opportunities"
+        ]
+      },
+      "get": {
+        "operationId": "listApplicants",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApplicantDto"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "People who applied to my call",
+        "tags": [
+          "opportunities"
+        ]
+      }
+    },
+    "/v1/applications/{id}": {
+      "patch": {
+        "operationId": "decideApplication",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DecideApplicationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicantDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Shortlist, decline or hire an applicant to my call",
+        "tags": [
+          "opportunities"
+        ]
+      }
+    },
+    "/v1/me/opportunities": {
+      "get": {
+        "operationId": "listMyOpportunities",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpportunitySummaryDto"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Calls I posted",
+        "tags": [
+          "opportunities"
+        ]
+      }
+    },
+    "/v1/me/applications": {
+      "get": {
+        "operationId": "listMyApplications",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MyApplicationDto"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Calls I applied to, with where each one stands",
+        "tags": [
+          "opportunities"
+        ]
+      }
+    },
+    "/v1/creators": {
+      "get": {
+        "operationId": "searchCreators",
+        "parameters": [
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "The `nextCursor` from the previous page.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "q",
+            "required": false,
+            "in": "query",
+            "description": "Matches username or display name.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "talent",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "music",
+              "type": "string"
+            }
+          },
+          {
+            "name": "city",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "Douala",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatorPageDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Find creators by name, talent and city",
+        "tags": [
+          "creators"
+        ]
+      }
+    },
+    "/v1/creators/{username}": {
+      "get": {
+        "operationId": "getCreator",
+        "parameters": [
+          {
+            "name": "username",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "pattern": "^[a-z0-9_]{3,24}$",
+              "example": "amara_sings",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatorProfileDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "A creator’s public profile and portfolio",
+        "tags": [
+          "creators"
+        ]
+      }
+    },
+    "/v1/creators/{username}/follow": {
+      "post": {
+        "operationId": "followCreator",
+        "parameters": [
+          {
+            "name": "username",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "pattern": "^[a-z0-9_]{3,24}$",
+              "example": "amara_sings",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FollowStateDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Follow a creator",
+        "tags": [
+          "creators"
+        ]
+      },
+      "delete": {
+        "operationId": "unfollowCreator",
+        "parameters": [
+          {
+            "name": "username",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "pattern": "^[a-z0-9_]{3,24}$",
+              "example": "amara_sings",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FollowStateDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Stop following a creator",
+        "tags": [
+          "creators"
+        ]
+      }
+    },
+    "/v1/feed/following": {
+      "get": {
+        "operationId": "getFollowingFeed",
+        "parameters": [
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "The `nextCursor` from the previous page.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FollowingFeedDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "New work from the creators I follow",
+        "tags": [
+          "creators"
+        ]
+      }
+    },
+    "/v1/me/notifications": {
+      "get": {
+        "operationId": "listNotifications",
+        "parameters": [
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "The `nextCursor` from the previous page.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationPageDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "My notifications, newest first",
+        "tags": [
+          "activity"
+        ]
+      }
+    },
+    "/v1/me/notifications/unread-count": {
+      "get": {
+        "operationId": "getUnreadCount",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnreadCountDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "How many notifications I have not seen",
+        "tags": [
+          "activity"
+        ]
+      }
+    },
+    "/v1/me/notifications/read-all": {
+      "post": {
+        "operationId": "markAllRead",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Mark all my notifications as seen",
+        "tags": [
+          "activity"
+        ]
+      }
+    },
+    "/v1/reports": {
+      "post": {
+        "operationId": "createReport",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateReportDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Report a person, call or portfolio piece",
+        "tags": [
+          "safety"
+        ]
+      }
+    },
+    "/v1/admin/reports": {
+      "get": {
+        "operationId": "listOpenReports",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReportDto"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Open reports, oldest first",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/v1/admin/reports/{id}/resolve": {
+      "post": {
+        "operationId": "resolveReport",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Close a report",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/v1/admin/opportunities/{id}/feature": {
+      "post": {
+        "operationId": "featureOpportunity",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeatureOpportunityDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpportunityDetailDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Put a call in the Featured row (paid placement)",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/v1/admin/opportunities/{id}/remove": {
+      "post": {
+        "operationId": "removeOpportunity",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Take down a call",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/v1/admin/users/{id}/suspend": {
+      "post": {
+        "operationId": "suspendUser",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Suspend an account and sign it out everywhere",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/v1/promotions": {
+      "get": {
+        "operationId": "listPromotions",
+        "parameters": [
+          {
+            "name": "placement",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/PromotionPlacement"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PromotionDto"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Sponsored cards running now for a placement",
+        "tags": [
+          "promotions"
+        ]
+      }
+    },
+    "/v1/admin/promotions": {
+      "post": {
+        "operationId": "createPromotion",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePromotionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PromotionDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Schedule a sponsored card",
+        "tags": [
+          "promotions"
+        ]
+      }
+    },
     "/health": {
       "get": {
         "operationId": "live",
@@ -472,7 +1836,15 @@
           "username_taken",
           "username_reserved",
           "talent_category_unknown",
-          "age_below_minimum"
+          "age_below_minimum",
+          "adults_only",
+          "profile_required",
+          "opportunity_closed",
+          "already_applied",
+          "cannot_apply_to_own",
+          "cannot_follow_self",
+          "link_not_allowed",
+          "limit_reached"
         ]
       },
       "ProblemDto": {
@@ -932,6 +2304,1092 @@
           "slug",
           "name",
           "icon"
+        ]
+      },
+      "PortfolioPlatform": {
+        "type": "string",
+        "enum": [
+          "youtube",
+          "tiktok",
+          "instagram",
+          "facebook",
+          "audiomack",
+          "boomplay",
+          "soundcloud",
+          "spotify",
+          "other"
+        ]
+      },
+      "PortfolioItemDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string",
+            "example": "Live at Institut Français, Douala"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "example": "https://www.youtube.com/watch?v=abc123"
+          },
+          "platform": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PortfolioPlatform"
+              }
+            ]
+          },
+          "categorySlug": {
+            "type": "string",
+            "nullable": true,
+            "example": "music"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "description",
+          "url",
+          "platform",
+          "categorySlug",
+          "createdAt"
+        ]
+      },
+      "CreatePortfolioItemDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Live at Institut Français, Douala",
+            "minLength": 2,
+            "maxLength": 80
+          },
+          "url": {
+            "type": "string",
+            "example": "https://www.youtube.com/watch?v=abc123",
+            "maxLength": 500
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "categoryId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The talent this work shows."
+          }
+        },
+        "required": [
+          "title",
+          "url"
+        ]
+      },
+      "CompensationType": {
+        "type": "string",
+        "enum": [
+          "paid",
+          "unpaid",
+          "negotiable"
+        ]
+      },
+      "OpportunityStatus": {
+        "type": "string",
+        "enum": [
+          "open",
+          "closed",
+          "removed"
+        ]
+      },
+      "PersonSummaryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "username": {
+            "type": "string",
+            "example": "nkeng_sings"
+          },
+          "displayName": {
+            "type": "string",
+            "example": "Nkeng Ebai"
+          },
+          "city": {
+            "type": "string",
+            "nullable": true,
+            "example": "Douala"
+          },
+          "isVerified": {
+            "type": "boolean"
+          },
+          "primaryTalent": {
+            "nullable": true,
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TalentCategoryDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "username",
+          "displayName",
+          "city",
+          "isVerified",
+          "primaryTalent"
+        ]
+      },
+      "OpportunitySummaryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string",
+            "example": "Singer for a wedding reception in Douala"
+          },
+          "category": {
+            "$ref": "#/components/schemas/TalentCategoryDto"
+          },
+          "city": {
+            "type": "string",
+            "example": "Douala"
+          },
+          "country": {
+            "type": "string",
+            "example": "CM"
+          },
+          "compensation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CompensationType"
+              }
+            ]
+          },
+          "budgetAmount": {
+            "type": "number",
+            "nullable": true,
+            "example": 150000
+          },
+          "currency": {
+            "type": "string",
+            "example": "XAF"
+          },
+          "deadline": {
+            "type": "string",
+            "nullable": true,
+            "example": "2026-12-20",
+            "description": "YYYY-MM-DD."
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OpportunityStatus"
+              }
+            ]
+          },
+          "isFeatured": {
+            "type": "boolean",
+            "description": "Paid placement. Show with a Featured label."
+          },
+          "applicationsCount": {
+            "type": "number"
+          },
+          "poster": {
+            "nullable": true,
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PersonSummaryDto"
+              }
+            ]
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "category",
+          "city",
+          "country",
+          "compensation",
+          "budgetAmount",
+          "currency",
+          "deadline",
+          "status",
+          "isFeatured",
+          "applicationsCount",
+          "poster",
+          "createdAt"
+        ]
+      },
+      "OpportunityFeedDto": {
+        "type": "object",
+        "properties": {
+          "featured": {
+            "description": "Paid placements, only on the first page.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OpportunitySummaryDto"
+            }
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OpportunitySummaryDto"
+            }
+          },
+          "nextCursor": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "featured",
+          "items",
+          "nextCursor"
+        ]
+      },
+      "CreateOpportunityDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Singer for a wedding reception in Douala",
+            "minLength": 5,
+            "maxLength": 100
+          },
+          "description": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 2000
+          },
+          "categoryId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "city": {
+            "type": "string",
+            "example": "Douala"
+          },
+          "compensation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CompensationType"
+              }
+            ]
+          },
+          "budgetAmount": {
+            "type": "number",
+            "example": 150000,
+            "description": "Required when the work is paid, so talent knows what to expect."
+          },
+          "deadline": {
+            "type": "string",
+            "example": "2026-12-20",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          }
+        },
+        "required": [
+          "title",
+          "description",
+          "categoryId",
+          "city",
+          "compensation"
+        ]
+      },
+      "ApplicationStatus": {
+        "type": "string",
+        "enum": [
+          "submitted",
+          "shortlisted",
+          "declined",
+          "hired"
+        ]
+      },
+      "MyApplicationRefDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ApplicationStatus"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "status"
+        ]
+      },
+      "OpportunityDetailDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string",
+            "example": "Singer for a wedding reception in Douala"
+          },
+          "category": {
+            "$ref": "#/components/schemas/TalentCategoryDto"
+          },
+          "city": {
+            "type": "string",
+            "example": "Douala"
+          },
+          "country": {
+            "type": "string",
+            "example": "CM"
+          },
+          "compensation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CompensationType"
+              }
+            ]
+          },
+          "budgetAmount": {
+            "type": "number",
+            "nullable": true,
+            "example": 150000
+          },
+          "currency": {
+            "type": "string",
+            "example": "XAF"
+          },
+          "deadline": {
+            "type": "string",
+            "nullable": true,
+            "example": "2026-12-20",
+            "description": "YYYY-MM-DD."
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OpportunityStatus"
+              }
+            ]
+          },
+          "isFeatured": {
+            "type": "boolean",
+            "description": "Paid placement. Show with a Featured label."
+          },
+          "applicationsCount": {
+            "type": "number"
+          },
+          "poster": {
+            "nullable": true,
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PersonSummaryDto"
+              }
+            ]
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "isMine": {
+            "type": "boolean",
+            "description": "The signed-in person posted this."
+          },
+          "myApplication": {
+            "nullable": true,
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MyApplicationRefDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "category",
+          "city",
+          "country",
+          "compensation",
+          "budgetAmount",
+          "currency",
+          "deadline",
+          "status",
+          "isFeatured",
+          "applicationsCount",
+          "poster",
+          "createdAt",
+          "description",
+          "isMine",
+          "myApplication"
+        ]
+      },
+      "ApplyDto": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 1000
+          },
+          "portfolioItemId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "A piece from your portfolio to show."
+          }
+        },
+        "required": [
+          "message"
+        ]
+      },
+      "ApplicantDto": {
+        "type": "object",
+        "properties": {
+          "applicationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ApplicationStatus"
+              }
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "applicant": {
+            "$ref": "#/components/schemas/PersonSummaryDto"
+          },
+          "portfolioItem": {
+            "nullable": true,
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PortfolioItemDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "applicationId",
+          "status",
+          "message",
+          "createdAt",
+          "applicant",
+          "portfolioItem"
+        ]
+      },
+      "ApplicationDecision": {
+        "type": "string",
+        "enum": [
+          "shortlisted",
+          "declined",
+          "hired"
+        ]
+      },
+      "DecideApplicationDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ApplicationDecision"
+              }
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "MyApplicationDto": {
+        "type": "object",
+        "properties": {
+          "applicationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ApplicationStatus"
+              }
+            ]
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "opportunity": {
+            "$ref": "#/components/schemas/OpportunitySummaryDto"
+          }
+        },
+        "required": [
+          "applicationId",
+          "status",
+          "createdAt",
+          "opportunity"
+        ]
+      },
+      "CreatorCardDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "username": {
+            "type": "string",
+            "example": "nkeng_sings"
+          },
+          "displayName": {
+            "type": "string",
+            "example": "Nkeng Ebai"
+          },
+          "city": {
+            "type": "string",
+            "nullable": true,
+            "example": "Douala"
+          },
+          "isVerified": {
+            "type": "boolean"
+          },
+          "primaryTalent": {
+            "nullable": true,
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TalentCategoryDto"
+              }
+            ]
+          },
+          "followerCount": {
+            "type": "number"
+          },
+          "portfolioCount": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "username",
+          "displayName",
+          "city",
+          "isVerified",
+          "primaryTalent",
+          "followerCount",
+          "portfolioCount"
+        ]
+      },
+      "CreatorPageDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreatorCardDto"
+            }
+          },
+          "nextCursor": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "items",
+          "nextCursor"
+        ]
+      },
+      "CreatorProfileDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "username": {
+            "type": "string",
+            "example": "nkeng_sings"
+          },
+          "displayName": {
+            "type": "string",
+            "example": "Nkeng Ebai"
+          },
+          "city": {
+            "type": "string",
+            "nullable": true,
+            "example": "Douala"
+          },
+          "isVerified": {
+            "type": "boolean"
+          },
+          "primaryTalent": {
+            "nullable": true,
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TalentCategoryDto"
+              }
+            ]
+          },
+          "bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "talents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserTalentDto"
+            }
+          },
+          "portfolio": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PortfolioItemDto"
+            }
+          },
+          "followerCount": {
+            "type": "number"
+          },
+          "followingCount": {
+            "type": "number"
+          },
+          "isFollowing": {
+            "type": "boolean"
+          },
+          "isMe": {
+            "type": "boolean",
+            "description": "This is the signed-in person."
+          }
+        },
+        "required": [
+          "id",
+          "username",
+          "displayName",
+          "city",
+          "isVerified",
+          "primaryTalent",
+          "bio",
+          "talents",
+          "portfolio",
+          "followerCount",
+          "followingCount",
+          "isFollowing",
+          "isMe"
+        ]
+      },
+      "FollowStateDto": {
+        "type": "object",
+        "properties": {
+          "isFollowing": {
+            "type": "boolean"
+          },
+          "followerCount": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "isFollowing",
+          "followerCount"
+        ]
+      },
+      "FollowingWorkDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string",
+            "example": "Live at Institut Français, Douala"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "example": "https://www.youtube.com/watch?v=abc123"
+          },
+          "platform": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PortfolioPlatform"
+              }
+            ]
+          },
+          "categorySlug": {
+            "type": "string",
+            "nullable": true,
+            "example": "music"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "creator": {
+            "$ref": "#/components/schemas/PersonSummaryDto"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "description",
+          "url",
+          "platform",
+          "categorySlug",
+          "createdAt",
+          "creator"
+        ]
+      },
+      "FollowingFeedDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FollowingWorkDto"
+            }
+          },
+          "nextCursor": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "items",
+          "nextCursor"
+        ]
+      },
+      "NotificationType": {
+        "type": "string",
+        "enum": [
+          "application_received",
+          "application_status",
+          "new_follower"
+        ]
+      },
+      "NotificationDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/NotificationType"
+              }
+            ]
+          },
+          "actor": {
+            "nullable": true,
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PersonSummaryDto"
+              }
+            ]
+          },
+          "opportunityId": {
+            "type": "string",
+            "nullable": true,
+            "format": "uuid"
+          },
+          "opportunityTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "applicationStatus": {
+            "nullable": true,
+            "description": "The application’s current status, for status notifications.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ApplicationStatus"
+              }
+            ]
+          },
+          "isRead": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "actor",
+          "opportunityId",
+          "opportunityTitle",
+          "applicationStatus",
+          "isRead",
+          "createdAt"
+        ]
+      },
+      "NotificationPageDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotificationDto"
+            }
+          },
+          "nextCursor": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "items",
+          "nextCursor"
+        ]
+      },
+      "UnreadCountDto": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "count"
+        ]
+      },
+      "ReportTarget": {
+        "type": "string",
+        "enum": [
+          "user",
+          "opportunity",
+          "portfolio_item"
+        ]
+      },
+      "ReportReason": {
+        "type": "string",
+        "enum": [
+          "scam",
+          "harassment",
+          "inappropriate",
+          "spam",
+          "underage",
+          "other"
+        ]
+      },
+      "CreateReportDto": {
+        "type": "object",
+        "properties": {
+          "targetType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ReportTarget"
+              }
+            ]
+          },
+          "targetId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "For a user, their username is resolved by the client to the id shown on cards."
+          },
+          "reason": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ReportReason"
+              }
+            ]
+          },
+          "details": {
+            "type": "string",
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "targetType",
+          "targetId",
+          "reason"
+        ]
+      },
+      "ReportDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "targetType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ReportTarget"
+              }
+            ]
+          },
+          "targetId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "reason": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ReportReason"
+              }
+            ]
+          },
+          "details": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "targetType",
+          "targetId",
+          "reason",
+          "details",
+          "createdAt"
+        ]
+      },
+      "FeatureOpportunityDto": {
+        "type": "object",
+        "properties": {
+          "days": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 60,
+            "description": "Days to show in the Featured row."
+          }
+        },
+        "required": [
+          "days"
+        ]
+      },
+      "PromotionPlacement": {
+        "type": "string",
+        "enum": [
+          "opportunities_feed"
+        ]
+      },
+      "PromotionDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "sponsorName": {
+            "type": "string",
+            "example": "Talanta"
+          },
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "ctaLabel": {
+            "type": "string",
+            "example": "Learn more"
+          },
+          "url": {
+            "type": "string",
+            "description": "https:// link, or talanta:<screen> for a screen in the app."
+          }
+        },
+        "required": [
+          "id",
+          "sponsorName",
+          "title",
+          "body",
+          "ctaLabel",
+          "url"
+        ]
+      },
+      "CreatePromotionDto": {
+        "type": "object",
+        "properties": {
+          "placement": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PromotionPlacement"
+              }
+            ]
+          },
+          "sponsorName": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "ctaLabel": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://example.cm/offer"
+          },
+          "startsAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "endsAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "placement",
+          "sponsorName",
+          "title",
+          "body",
+          "ctaLabel",
+          "url",
+          "startsAt",
+          "endsAt"
         ]
       },
       "HealthDto": {

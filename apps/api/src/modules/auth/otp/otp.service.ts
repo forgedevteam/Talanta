@@ -67,13 +67,21 @@ export class OtpService {
     });
     if (!byPhone.allowed) throw this.rateLimited(byPhone.retryAfterSeconds);
 
-    const code =
-      otp.devFixedCode ??
-      randomInt(0, 10 ** CODE_LENGTH)
-        .toString()
-        .padStart(CODE_LENGTH, '0');
+    // Test accounts (store reviewers, QA) get the configured code and no SMS.
+    const isTestAccount = otp.testCode !== undefined && otp.testNumbers.has(phone);
+    const code = isTestAccount
+      ? (otp.testCode ?? '')
+      : (otp.devFixedCode ??
+        randomInt(0, 10 ** CODE_LENGTH)
+          .toString()
+          .padStart(CODE_LENGTH, '0'));
     await this.store.set(codeKey(phone), this.hash(phone, code), otp.ttlSeconds);
     await this.store.delete(attemptsKey(phone));
+
+    if (isTestAccount) {
+      this.logger.warn(`Sign-in code requested for test account ${phone}; no SMS sent`);
+      return { expiresInSeconds: otp.ttlSeconds, resendAfterSeconds: otp.resendSeconds };
+    }
 
     try {
       const minutes = Math.round(otp.ttlSeconds / 60);
@@ -99,7 +107,15 @@ export class OtpService {
   }
 
   /** Resolves when `code` is the live code for `phone`; throws an `AppError` otherwise. */
-  async verify(phone: string, code: string): Promise<void> {
+  async verify(phone: string, code: string, ip: string): Promise<void> {
+    // Guessing across many numbers from one place is limited separately from
+    // the per-code attempt count.
+    const byIp = await this.rateLimiter.consume(`otp:verify-ip:${ip}`, {
+      limit: this.config.otp.maxVerifyPerIpPerHour,
+      windowSeconds: HOUR,
+    });
+    if (!byIp.allowed) throw this.rateLimited(byIp.retryAfterSeconds);
+
     const expected = await this.store.get(codeKey(phone));
     if (expected === null) {
       throw new AppError(
