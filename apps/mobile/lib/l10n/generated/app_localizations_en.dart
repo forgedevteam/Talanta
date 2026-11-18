@@ -174,6 +174,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileCityHint => 'Lagos';
 
   @override
+  String get profileDobLabel => 'Date of birth';
+
+  @override
+  String get profileDobHint => 'Choose your date of birth';
+
+  @override
+  String get profileDobHelp =>
+      'Keeps younger members safe. Never shown on your profile.';
+
+  @override
+  String get profileErrorDob => 'Enter your date of birth.';
+
+  @override
+  String get profileErrorTooYoung =>
+      'Talanta isn\'t open to your age yet. We can\'t wait to see your talent when you\'re older.';
+
+  @override
   String get profileFinish => 'Finish';
 
   @override

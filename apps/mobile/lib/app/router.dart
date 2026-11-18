@@ -15,7 +15,7 @@ import 'package:talanta_api/talanta_api.dart';
 /// know about onboarding order; it only follows this.
 String? redirectFor(SessionState session, String location) {
   switch (session) {
-    case SessionUnknown():
+    case SessionUnknown() || SessionUnreachable():
       return location == Routes.splash ? null : Routes.splash;
     case SignedOut():
       final onSignIn = location == Routes.phone || location == Routes.otp;

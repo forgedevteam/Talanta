@@ -17,6 +17,11 @@ final class SessionUnknown extends SessionState {
   const SessionUnknown();
 }
 
+/// A session is stored but the server could not be reached to confirm it.
+final class SessionUnreachable extends SessionState {
+  const SessionUnreachable();
+}
+
 final class SignedOut extends SessionState {
   const SignedOut();
 }
@@ -54,12 +59,16 @@ class SessionController extends Notifier<SessionState> {
         await _storage.clear();
         state = const SignedOut();
       } else {
-        // Offline with a stored session: let the person in with what we have
-        // once we have a cache. Until then, treat it as signed out of the
-        // session screen but keep the tokens for the next launch.
-        state = const SignedOut();
+        // Keep the tokens: the session is probably fine, the network is not.
+        state = const SessionUnreachable();
       }
     }
+  }
+
+  /// Tries again after [SessionUnreachable].
+  Future<void> retry() async {
+    state = const SessionUnknown();
+    await _bootstrap();
   }
 
   Future<void> signIn(AuthSession session) async {

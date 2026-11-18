@@ -10,6 +10,8 @@ Me meAt(OnboardingStep step) => Me(
   country: 'NG',
   language: 'en',
   role: UserRole.member,
+  dateOfBirth: null,
+  isMinor: null,
   profile: null,
   talents: const [],
   onboardingStep: step,

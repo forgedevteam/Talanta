@@ -29,6 +29,7 @@ class FakeApi implements HttpClientAdapter {
 
   List<String> talents = [];
   Map<String, Object?>? profile;
+  String? dateOfBirth;
 
   static const categories = [
     {
@@ -75,6 +76,8 @@ class FakeApi implements HttpClientAdapter {
     'country': 'NG',
     'language': 'en',
     'role': 'member',
+    'dateOfBirth': dateOfBirth,
+    'isMinor': dateOfBirth == null ? null : false,
     'profile': profile,
     'talents': [
       for (final (index, id) in talents.indexed)
@@ -87,7 +90,7 @@ class FakeApi implements HttpClientAdapter {
     ],
     'onboardingStep': talents.isEmpty
         ? 'talents'
-        : profile == null
+        : profile == null || dateOfBirth == null
         ? 'profile'
         : 'done',
   };
@@ -160,6 +163,17 @@ class FakeApi implements HttpClientAdapter {
       case 'PUT /v1/me/profile':
         final username = json['username']! as String;
         if (username == 'taken') return problem(409, 'username_taken');
+        final dob = json['dateOfBirth'] as String?;
+        if (dateOfBirth == null && dob == null) {
+          return problem(
+            422,
+            'validation_failed',
+            fields: {
+              'dateOfBirth': ['Enter your date of birth.'],
+            },
+          );
+        }
+        dateOfBirth ??= dob;
         profile = {
           'username': username,
           'displayName': json['displayName'],

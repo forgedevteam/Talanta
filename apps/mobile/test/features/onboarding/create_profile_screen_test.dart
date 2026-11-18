@@ -25,6 +25,7 @@ void main() {
     expect(find.text(l10n.profileErrorNameLength), findsOneWidget);
     expect(find.text(l10n.profileErrorUsernameFormat), findsOneWidget);
     expect(find.text(l10n.profileErrorCity), findsOneWidget);
+    expect(find.text(l10n.profileErrorDob), findsOneWidget);
     expect(api.requests.where((r) => r.path == '/v1/me/profile'), isEmpty);
   });
 
@@ -68,6 +69,7 @@ void main() {
     );
     await tester.enterText(find.byKey(const ValueKey('city-field')), 'Durban');
     await tester.pump(const Duration(milliseconds: 500));
+    await pickSuggestedBirthday(tester);
     await tester.tap(find.byKey(const ValueKey('finish-profile')));
     await tester.pumpAndSettle();
 
@@ -93,6 +95,7 @@ void main() {
     );
     await tester.enterText(find.byKey(const ValueKey('city-field')), 'Du');
     await tester.pump(const Duration(milliseconds: 500));
+    await pickSuggestedBirthday(tester);
     await tester.tap(find.byKey(const ValueKey('finish-profile')));
     await tester.pumpAndSettle();
 
@@ -110,10 +113,40 @@ void main() {
     );
     await tester.enterText(find.byKey(const ValueKey('city-field')), 'Nairobi');
     await tester.pump(const Duration(milliseconds: 500));
+    await pickSuggestedBirthday(tester);
     await tester.tap(find.byKey(const ValueKey('finish-profile')));
     await tester.pumpAndSettle();
 
     expect(find.byKey(const ValueKey('home-welcome')), findsOneWidget);
     expect(api.profile?['displayName'], 'Wanjiru');
+  });
+
+  testWidgets('explains kindly when someone is too young', (tester) async {
+    final api = apiAtProfileStep();
+    api.overrides['PUT /v1/me/profile'] = api.problem(422, 'age_below_minimum');
+    await pumpApp(tester, api, tokens: _tokens);
+    final l10n = l10nOf(tester);
+
+    await tester.enterText(find.byKey(const ValueKey('name-field')), 'Tobi');
+    await tester.enterText(
+      find.byKey(const ValueKey('username-field')),
+      'tobi',
+    );
+    await tester.enterText(find.byKey(const ValueKey('city-field')), 'Ibadan');
+    await pickSuggestedBirthday(tester);
+    await tester.tap(find.byKey(const ValueKey('finish-profile')));
+    await tester.pumpAndSettle();
+
+    expect(find.text(l10n.profileErrorTooYoung), findsOneWidget);
+    expect(find.byKey(const ValueKey('home-welcome')), findsNothing);
+  });
+
+  testWidgets('does not ask again for a date of birth already on file', (
+    tester,
+  ) async {
+    final api = apiAtProfileStep()..dateOfBirth = '2001-06-14';
+    await pumpApp(tester, api, tokens: _tokens);
+
+    expect(find.byKey(const ValueKey('dob-field')), findsNothing);
   });
 }

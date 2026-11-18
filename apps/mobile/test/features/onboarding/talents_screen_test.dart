@@ -94,6 +94,7 @@ void main() {
   ) async {
     final api = FakeApi()
       ..talents = [FakeApi.categories[2]['id']!]
+      ..dateOfBirth = '1999-03-02'
       ..profile = {
         'username': 'kwame',
         'displayName': 'Kwame',

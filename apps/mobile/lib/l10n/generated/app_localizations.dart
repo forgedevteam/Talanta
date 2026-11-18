@@ -376,6 +376,36 @@ abstract class AppLocalizations {
   /// **'Lagos'**
   String get profileCityHint;
 
+  /// No description provided for @profileDobLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Date of birth'**
+  String get profileDobLabel;
+
+  /// No description provided for @profileDobHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your date of birth'**
+  String get profileDobHint;
+
+  /// No description provided for @profileDobHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps younger members safe. Never shown on your profile.'**
+  String get profileDobHelp;
+
+  /// No description provided for @profileErrorDob.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your date of birth.'**
+  String get profileErrorDob;
+
+  /// No description provided for @profileErrorTooYoung.
+  ///
+  /// In en, this message translates to:
+  /// **'Talanta isn\'t open to your age yet. We can\'t wait to see your talent when you\'re older.'**
+  String get profileErrorTooYoung;
+
   /// No description provided for @profileFinish.
   ///
   /// In en, this message translates to:

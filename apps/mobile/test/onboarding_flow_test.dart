@@ -1,6 +1,8 @@
+import 'package:clock/clock.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talanta/core/storage/token_storage.dart';
+import 'package:talanta/features/onboarding/application/onboarding_controller.dart';
 
 import 'support/fake_api.dart';
 import 'support/harness.dart';
@@ -35,6 +37,30 @@ void main() {
         expect(find.byKey(const ValueKey('name-field')), findsOneWidget);
       },
     );
+
+    testWidgets('keeps a stored session when the server cannot be reached', (
+      tester,
+    ) async {
+      final api = FakeApi()..talents = [FakeApi.categories.first['id']!];
+      api.overrides['GET /v1/me'] = api.problem(503, 'service_unavailable');
+      await usePhoneViewport(tester);
+      await pumpApp(
+        tester,
+        api,
+        tokens: const StoredTokens(accessToken: 'a', refreshToken: 'r'),
+      );
+      // Let the network retries run out.
+      await settle(tester, const Duration(seconds: 3));
+
+      expect(find.byKey(const ValueKey('splash-offline')), findsOneWidget);
+      expect(find.byKey(const ValueKey('phone-field')), findsNothing);
+
+      api.overrides.remove('GET /v1/me');
+      await tester.tap(find.byKey(const ValueKey('splash-retry')));
+      await settle(tester, const Duration(seconds: 2));
+
+      expect(find.byKey(const ValueKey('name-field')), findsOneWidget);
+    });
 
     testWidgets('clears a dead session and shows the phone screen', (
       tester,
@@ -123,14 +149,17 @@ void main() {
       );
 
       await tester.enterText(find.byKey(const ValueKey('city-field')), 'Lagos');
+      await pickSuggestedBirthday(tester);
       await tester.tap(find.byKey(const ValueKey('finish-profile')));
       await tester.pumpAndSettle();
 
+      final now = clock.now();
       expect(api.requests.last.path, '/v1/me/profile');
       expect(api.requests.last.body, {
         'displayName': 'Amara Okafor',
         'username': 'amara_sings',
         'city': 'Lagos',
+        'dateOfBirth': isoDate(DateTime(now.year - 18, now.month, now.day)),
       });
 
       // Home.

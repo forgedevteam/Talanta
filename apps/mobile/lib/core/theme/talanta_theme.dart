@@ -169,6 +169,32 @@ abstract final class TalantaTheme {
         behavior: SnackBarBehavior.floating,
         shape: smallShape,
       ),
+      datePickerTheme: DatePickerThemeData(
+        backgroundColor: palette.surface,
+        headerBackgroundColor: palette.surfaceRaised,
+        headerForegroundColor: palette.text,
+        surfaceTintColor: Colors.transparent,
+        shape: largeShape,
+        dayForegroundColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? palette.onPrimary
+              : palette.text,
+        ),
+        yearForegroundColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? palette.onPrimary
+              : palette.text,
+        ),
+        todayForegroundColor: const WidgetStatePropertyAll(
+          TalantaBrand.primary,
+        ),
+        cancelButtonStyle: TextButton.styleFrom(
+          foregroundColor: palette.textMuted,
+        ),
+        confirmButtonStyle: TextButton.styleFrom(
+          foregroundColor: TalantaBrand.primary,
+        ),
+      ),
       bottomSheetTheme: BottomSheetThemeData(
         backgroundColor: palette.surface,
         modalBackgroundColor: palette.surface,

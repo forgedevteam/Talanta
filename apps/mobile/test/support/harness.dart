@@ -94,5 +94,15 @@ Future<void> settle(
   }
 }
 
+/// Opens the date-of-birth picker and accepts its suggestion (18 years ago).
+Future<void> pickSuggestedBirthday(WidgetTester tester) async {
+  final field = find.byKey(const ValueKey('dob-field'));
+  await tester.ensureVisible(field);
+  await tester.tap(field);
+  await tester.pumpAndSettle();
+  await tester.tap(find.text('OK'));
+  await tester.pumpAndSettle();
+}
+
 AppLocalizations l10nOf(WidgetTester tester) =>
     AppLocalizations.of(tester.element(find.byType(Scaffold).first));

@@ -6,6 +6,8 @@
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Choose a photo for your Talanta profile.</string>
 	<key>CFBundleDisplayName</key>
 	<string>Talanta</string>
 	<key>CFBundleExecutable</key>

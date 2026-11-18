@@ -65,6 +65,11 @@ void main() {
 
     expect(find.text(l10n.otpErrorInvalid), findsOneWidget);
     expect(find.text('1'), findsNothing);
+    // The keyboard stays up for the next try.
+    final field = tester.widget<TextField>(
+      find.byKey(const ValueKey('otp-field')),
+    );
+    expect(field.focusNode?.hasFocus, isTrue);
     await unmount(tester);
   });
 

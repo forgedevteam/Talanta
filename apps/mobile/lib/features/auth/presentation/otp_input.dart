@@ -36,6 +36,18 @@ class _OtpInputState extends State<OtpInput> {
   }
 
   @override
+  void didUpdateWidget(OtpInput oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // The field is disabled while a code is checked, which drops focus.
+    // Take it back so the keyboard is up for the next try.
+    if (!oldWidget.enabled && widget.enabled) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _focus.requestFocus();
+      });
+    }
+  }
+
+  @override
   void dispose() {
     widget.controller.removeListener(_onChanged);
     _focus.dispose();

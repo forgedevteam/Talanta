@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:clock/clock.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,6 +39,11 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
   String? _nameError;
   String? _usernameError;
   String? _cityError;
+  String? _dobError;
+  DateTime? _dateOfBirth;
+
+  /// The server fixes the date of birth once set, so only ask when it is missing.
+  bool _needsDateOfBirth = true;
   UsernameStatus? _usernameStatus;
   Timer? _usernameDebounce;
   XFile? _photo;
@@ -46,6 +53,9 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
   void initState() {
     super.initState();
     final session = ref.read(sessionProvider);
+    if (session is SignedIn) {
+      _needsDateOfBirth = session.me.dateOfBirth == null;
+    }
     if (session is SignedIn && session.me.profile != null) {
       final profile = session.me.profile!;
       _name.text = profile.displayName;
@@ -118,6 +128,26 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
     }
   }
 
+  Future<void> _pickDateOfBirth() async {
+    final today = clock.now();
+    final picked = await showDatePicker(
+      context: context,
+      initialDate:
+          _dateOfBirth ?? DateTime(today.year - 18, today.month, today.day),
+      firstDate: DateTime(today.year - 120),
+      lastDate: today,
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
+      initialDatePickerMode: DatePickerMode.year,
+      helpText: AppLocalizations.of(context).profileDobLabel,
+    );
+    if (picked != null && mounted) {
+      setState(() {
+        _dateOfBirth = picked;
+        _dobError = null;
+      });
+    }
+  }
+
   bool _validate(AppLocalizations l10n) {
     final name = _name.text.trim();
     final username = _username.text.trim();
@@ -130,8 +160,14 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
           ? null
           : l10n.profileErrorUsernameFormat;
       _cityError = city.length < 2 ? l10n.profileErrorCity : null;
+      _dobError = _needsDateOfBirth && _dateOfBirth == null
+          ? l10n.profileErrorDob
+          : null;
     });
-    return _nameError == null && _usernameError == null && _cityError == null;
+    return _nameError == null &&
+        _usernameError == null &&
+        _cityError == null &&
+        _dobError == null;
   }
 
   Future<void> _save() async {
@@ -145,6 +181,7 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
             displayName: _name.text.trim(),
             username: _username.text.trim(),
             city: _city.text.trim(),
+            dateOfBirth: _needsDateOfBirth ? _dateOfBirth : null,
           );
       unawaited(HapticFeedback.mediumImpact());
       if (mounted) context.go(Routes.home);
@@ -162,7 +199,12 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
             _nameError = failure.fieldMessage('displayName');
             _usernameError = failure.fieldMessage('username');
             _cityError = failure.fieldMessage('city');
+            _dobError = failure.fieldMessage('dateOfBirth');
           });
+          return;
+        }
+        if (code == ErrorCode.ageBelowMinimum) {
+          setState(() => _dobError = failure.message(l10n));
           return;
         }
       }
@@ -233,15 +275,15 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
                 FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9_]')),
               ],
               maxLength: 24,
-              prefix: Padding(
-                padding: const EdgeInsets.only(
-                  left: TalantaSpacing.x4,
-                  right: TalantaSpacing.x1,
-                ),
-                child: Text(
-                  '@',
-                  style: context.text.bodyLarge?.copyWith(
-                    color: palette.textMuted,
+              // Sized like a text indent, centred on the input line.
+              prefix: SizedBox(
+                width: TalantaSpacing.x10,
+                child: Center(
+                  child: Text(
+                    '@',
+                    style: context.text.bodyLarge?.copyWith(
+                      color: palette.textMuted,
+                    ),
                   ),
                 ),
               ),
@@ -262,6 +304,18 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
               maxLength: 80,
               onSubmitted: (_) => _save(),
             ),
+            if (_needsDateOfBirth) ...[
+              const SizedBox(height: TalantaSpacing.x4),
+              TalantaDateField(
+                key: const ValueKey('dob-field'),
+                label: l10n.profileDobLabel,
+                value: _dateOfBirth,
+                hint: l10n.profileDobHint,
+                helper: l10n.profileDobHelp,
+                error: _dobError,
+                onTap: _busy ? null : _pickDateOfBirth,
+              ),
+            ],
           ],
         ),
       ),

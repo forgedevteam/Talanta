@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:talanta/core/theme/talanta_theme.dart';
 import 'package:talanta/core/widgets/widgets.dart';
+import 'package:talanta/features/auth/application/session_controller.dart';
 import 'package:talanta/l10n/generated/app_localizations.dart';
 import 'package:talanta_tokens/talanta_tokens.dart';
 
 /// Shown while stored tokens are checked. The wordmark stands in for the
 /// logo until the brand work lands.
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
+class _SplashScreenState extends ConsumerState<SplashScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     vsync: this,
@@ -38,6 +40,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final unreachable = ref.watch(sessionProvider) is SessionUnreachable;
     return Scaffold(
       body: PatternBackground(
         child: Center(
@@ -65,6 +68,29 @@ class _SplashScreenState extends State<SplashScreen>
                       color: context.palette.textMuted,
                     ),
                   ),
+                  if (unreachable) ...[
+                    const SizedBox(height: TalantaSpacing.x10),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: TalantaSpacing.x8,
+                      ),
+                      child: Text(
+                        l10n.errorOffline,
+                        key: const ValueKey('splash-offline'),
+                        textAlign: TextAlign.center,
+                        style: context.text.bodyMedium,
+                      ),
+                    ),
+                    const SizedBox(height: TalantaSpacing.x4),
+                    TalantaButton(
+                      key: const ValueKey('splash-retry'),
+                      label: l10n.retry,
+                      variant: TalantaButtonVariant.secondary,
+                      expand: false,
+                      onPressed: () =>
+                          ref.read(sessionProvider.notifier).retry(),
+                    ),
+                  ],
                 ],
               ),
             ),

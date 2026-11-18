@@ -64,6 +64,7 @@ final class ProblemFailure extends ApiFailure {
     ErrorCode.rateLimited => l10n.otpErrorRateLimited,
     ErrorCode.usernameTaken => l10n.profileUsernameTaken,
     ErrorCode.usernameReserved => l10n.profileUsernameReserved,
+    ErrorCode.ageBelowMinimum => l10n.profileErrorTooYoung,
     ErrorCode.sessionExpired ||
     ErrorCode.unauthorized => l10n.errorSessionEnded,
     ErrorCode.internalError ||
