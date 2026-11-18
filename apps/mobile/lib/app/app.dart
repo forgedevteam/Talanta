@@ -7,7 +7,10 @@ import 'package:talanta/core/theme/talanta_theme.dart';
 import 'package:talanta/l10n/generated/app_localizations.dart';
 
 class TalantaApp extends ConsumerWidget {
-  const TalantaApp({super.key});
+  const TalantaApp({super.key, this.locale});
+
+  /// Forces a language, for screenshots and tests. Null follows the phone.
+  final Locale? locale;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,6 +35,7 @@ class TalantaApp extends ConsumerWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
+      locale: locale,
       routerConfig: ref.watch(routerProvider),
     );
   }

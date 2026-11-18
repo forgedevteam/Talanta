@@ -23,11 +23,13 @@ class TalantaDateField extends StatelessWidget {
   final String? helper;
   final String? error;
 
-  static final _format = DateFormat('d MMMM y');
-
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
+    final format = DateFormat(
+      'd MMMM y',
+      Localizations.localeOf(context).toLanguageTag(),
+    );
     final message = error ?? helper;
     final borderColor = error != null ? palette.danger : palette.outline;
     return Column(
@@ -41,7 +43,7 @@ class TalantaDateField extends StatelessWidget {
         Semantics(
           button: true,
           label: label,
-          value: value == null ? null : _format.format(value!),
+          value: value == null ? null : format.format(value!),
           child: Material(
             color: palette.surface,
             borderRadius: BorderRadius.circular(TalantaRadii.sm),
@@ -58,7 +60,7 @@ class TalantaDateField extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        value == null ? (hint ?? '') : _format.format(value!),
+                        value == null ? (hint ?? '') : format.format(value!),
                         style: context.text.bodyLarge?.copyWith(
                           color: value == null
                               ? palette.textMuted

@@ -109,7 +109,10 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     return OnboardingScaffold(
       step: 2,
       title: l10n.otpTitle,
-      subtitle: l10n.otpSubtitle(pending?.phoneE164 ?? ''),
+      subtitle: l10n.otpSubtitle(
+        // Non-breaking spaces keep the number on one line.
+        (pending?.displayPhone ?? '').replaceAll(' ', ' '),
+      ),
       onBack: () => context.pop(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

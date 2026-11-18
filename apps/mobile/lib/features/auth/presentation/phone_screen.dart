@@ -23,7 +23,7 @@ class PhoneScreen extends ConsumerStatefulWidget {
 
 class _PhoneScreenState extends ConsumerState<PhoneScreen> {
   final _phone = TextEditingController();
-  Country _country = Country.nigeria;
+  Country _country = Country.cameroon;
   String? _error;
   bool _busy = false;
 
@@ -55,7 +55,11 @@ class _PhoneScreenState extends ConsumerState<PhoneScreen> {
   Future<void> _submit() async {
     final l10n = AppLocalizations.of(context);
     if (!_looksComplete) {
-      setState(() => _error = l10n.phoneErrorInvalid);
+      setState(
+        () => _error = _phone.text.trim().isEmpty
+            ? l10n.phoneErrorEmpty
+            : l10n.phoneErrorInvalid,
+      );
       return;
     }
     setState(() {
@@ -136,7 +140,9 @@ class _CountryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Semantics(
       button: true,
-      label: '${country.name} ${country.dialCode}',
+      label:
+          '${country.displayName(Localizations.localeOf(context).languageCode)} '
+          '${country.dialCode}',
       child: InkWell(
         key: const ValueKey('country-button'),
         onTap: onTap,

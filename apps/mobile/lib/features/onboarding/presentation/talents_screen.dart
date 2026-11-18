@@ -109,7 +109,7 @@ class _TalentsScreenState extends ConsumerState<TalentsScreen> {
             maxCrossAxisExtent: 180,
             mainAxisSpacing: TalantaSpacing.x3,
             crossAxisSpacing: TalantaSpacing.x3,
-            childAspectRatio: 1.25,
+            childAspectRatio: 1.6,
           ),
           itemCount: list.length,
           itemBuilder: (context, index) {
@@ -171,11 +171,16 @@ class _TalentTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final name = TalentNames.of(
+      AppLocalizations.of(context),
+      category.slug,
+      category.name,
+    );
     final palette = context.palette;
     return Semantics(
       button: true,
       selected: selected,
-      label: category.name,
+      label: name,
       child: TalantaCard(
         key: ValueKey('talent-${category.slug}'),
         raised: selected,
@@ -225,7 +230,7 @@ class _TalentTile extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            Text(category.name, style: context.text.titleMedium, maxLines: 2),
+            Text(name, style: context.text.titleMedium, maxLines: 2),
           ],
         ),
       ),

@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_en.dart';
+import 'app_localizations_fr.dart';
 
 // ignore_for_file: type=lint
 
@@ -92,7 +93,10 @@ abstract class AppLocalizations {
       ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+    Locale('fr'),
+  ];
 
   /// No description provided for @appName.
   ///
@@ -177,6 +181,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Check the number and try again.'**
   String get phoneErrorInvalid;
+
+  /// No description provided for @phoneErrorEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your phone number.'**
+  String get phoneErrorEmpty;
 
   /// No description provided for @phoneErrorCountryUnsupported.
   ///
@@ -286,6 +296,78 @@ abstract class AppLocalizations {
   /// **'We couldn\'t load the talents list.'**
   String get talentsLoadFailed;
 
+  /// No description provided for @talentMusic.
+  ///
+  /// In en, this message translates to:
+  /// **'Music'**
+  String get talentMusic;
+
+  /// No description provided for @talentDance.
+  ///
+  /// In en, this message translates to:
+  /// **'Dance'**
+  String get talentDance;
+
+  /// No description provided for @talentActing.
+  ///
+  /// In en, this message translates to:
+  /// **'Acting'**
+  String get talentActing;
+
+  /// No description provided for @talentComedy.
+  ///
+  /// In en, this message translates to:
+  /// **'Comedy'**
+  String get talentComedy;
+
+  /// No description provided for @talentArt.
+  ///
+  /// In en, this message translates to:
+  /// **'Art'**
+  String get talentArt;
+
+  /// No description provided for @talentCrafts.
+  ///
+  /// In en, this message translates to:
+  /// **'Crafts'**
+  String get talentCrafts;
+
+  /// No description provided for @talentFashion.
+  ///
+  /// In en, this message translates to:
+  /// **'Fashion'**
+  String get talentFashion;
+
+  /// No description provided for @talentSpokenWord.
+  ///
+  /// In en, this message translates to:
+  /// **'Spoken word'**
+  String get talentSpokenWord;
+
+  /// No description provided for @talentFilm.
+  ///
+  /// In en, this message translates to:
+  /// **'Film'**
+  String get talentFilm;
+
+  /// No description provided for @talentPhotography.
+  ///
+  /// In en, this message translates to:
+  /// **'Photography'**
+  String get talentPhotography;
+
+  /// No description provided for @talentWriting.
+  ///
+  /// In en, this message translates to:
+  /// **'Writing'**
+  String get talentWriting;
+
+  /// No description provided for @talentFood.
+  ///
+  /// In en, this message translates to:
+  /// **'Food'**
+  String get talentFood;
+
   /// No description provided for @profileTitle.
   ///
   /// In en, this message translates to:
@@ -325,7 +407,7 @@ abstract class AppLocalizations {
   /// No description provided for @profileNameHint.
   ///
   /// In en, this message translates to:
-  /// **'Amara Okafor'**
+  /// **'Your full name'**
   String get profileNameHint;
 
   /// No description provided for @profileUsernameLabel.
@@ -337,7 +419,7 @@ abstract class AppLocalizations {
   /// No description provided for @profileUsernameHint.
   ///
   /// In en, this message translates to:
-  /// **'amara_sings'**
+  /// **'yourname'**
   String get profileUsernameHint;
 
   /// No description provided for @profileUsernameHelp.
@@ -349,7 +431,7 @@ abstract class AppLocalizations {
   /// No description provided for @profileUsernameAvailable.
   ///
   /// In en, this message translates to:
-  /// **'@{username} is yours'**
+  /// **'@{username} is available'**
   String profileUsernameAvailable(String username);
 
   /// No description provided for @profileUsernameTaken.
@@ -369,12 +451,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'City'**
   String get profileCityLabel;
-
-  /// No description provided for @profileCityHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Lagos'**
-  String get profileCityHint;
 
   /// No description provided for @profileDobLabel.
   ///
@@ -417,6 +493,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your name should be 2 to 50 characters.'**
   String get profileErrorNameLength;
+
+  /// No description provided for @profileErrorNameEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name.'**
+  String get profileErrorNameEmpty;
+
+  /// No description provided for @profileErrorUsernameEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a username.'**
+  String get profileErrorUsernameEmpty;
 
   /// No description provided for @profileErrorUsernameFormat.
   ///
@@ -490,7 +578,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en'].contains(locale.languageCode);
+      <String>['en', 'fr'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -501,6 +589,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   switch (locale.languageCode) {
     case 'en':
       return AppLocalizationsEn();
+    case 'fr':
+      return AppLocalizationsFr();
   }
 
   throw FlutterError(

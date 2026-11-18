@@ -87,17 +87,20 @@ void main() {
       // Phone number.
       await tester.enterText(
         find.byKey(const ValueKey('phone-field')),
-        '0803 123 4567',
+        '6 71 23 45 67',
       );
       await tester.tap(find.byKey(const ValueKey('send-code')));
       await settle(tester);
 
       expect(api.requests.last.path, '/v1/auth/otp/request');
       expect(api.requests.last.body, {
-        'phone': '0803 123 4567',
-        'country': 'NG',
+        'phone': '6 71 23 45 67',
+        'country': 'CM',
       });
-      expect(find.text(l10n.otpSubtitle(FakeApi.phoneE164)), findsOneWidget);
+      expect(
+        find.text(l10n.otpSubtitle(FakeApi.displayPhone.replaceAll(' ', ' '))),
+        findsOneWidget,
+      );
 
       // Code: a wrong one first.
       await tester.enterText(find.byKey(const ValueKey('otp-field')), '000000');

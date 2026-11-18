@@ -41,7 +41,13 @@ Future<void> chooseBirthYear(WidgetTester tester, String year) async {
   );
   await tester.tap(find.text(year));
   await tester.pumpAndSettle();
-  await tester.tap(find.text('OK'));
+  await tester.tap(
+    find.text(
+      MaterialLocalizations.of(
+        tester.element(find.byType(Scaffold).first),
+      ).okButtonLabel,
+    ),
+  );
   await tester.pumpAndSettle();
 }
 
@@ -54,7 +60,7 @@ void main() {
     final suffix = (DateTime.now().millisecondsSinceEpoch % 10000000)
         .toString()
         .padLeft(7, '0');
-    final phone = '0803$suffix';
+    final phone = '67$suffix';
     final username = 'e2e_$suffix';
 
     await tester.pumpWidget(const ProviderScope(child: TalantaApp()));
@@ -67,7 +73,7 @@ void main() {
     await tester.enterText(find.byKey(const ValueKey('phone-field')), phone);
     await tester.tap(find.byKey(const ValueKey('send-code')));
     await waitFor(tester, find.byKey(const ValueKey('otp-field')));
-    expect(find.textContaining('+234803$suffix'), findsOneWidget);
+    expect(find.textContaining('+237 6 7'), findsOneWidget);
 
     // A wrong code, then the right one.
     const wrong = otpCode == '000000' ? '111111' : '000000';

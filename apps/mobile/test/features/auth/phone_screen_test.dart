@@ -6,14 +6,14 @@ import '../../support/fake_api.dart';
 import '../../support/harness.dart';
 
 void main() {
-  testWidgets('shows the question, Nigeria by default and the legal line', (
+  testWidgets('shows the question, Cameroon by default and the legal line', (
     tester,
   ) async {
     await pumpScreen(tester, const PhoneScreen(), api: FakeApi());
     final l10n = l10nOf(tester);
 
     expect(find.text(l10n.phoneTitle), findsOneWidget);
-    expect(find.text('+234'), findsOneWidget);
+    expect(find.text('+237'), findsOneWidget);
     expect(find.text(l10n.phoneLegal), findsOneWidget);
   });
 
@@ -24,7 +24,7 @@ void main() {
     await pumpScreen(tester, const PhoneScreen(), api: api);
     final l10n = l10nOf(tester);
 
-    await tester.enterText(find.byKey(const ValueKey('phone-field')), '0803');
+    await tester.enterText(find.byKey(const ValueKey('phone-field')), '671');
     await tester.tap(find.byKey(const ValueKey('send-code')));
     await tester.pumpAndSettle();
 
@@ -90,11 +90,28 @@ void main() {
 
     await tester.enterText(
       find.byKey(const ValueKey('phone-field')),
-      '0803 123 4567',
+      '6 71 23 45 67',
     );
     await tester.tap(find.byKey(const ValueKey('send-code')));
     await tester.pumpAndSettle();
 
     expect(find.text(l10n.otpErrorResendTooSoon), findsOneWidget);
+  });
+
+  testWidgets('speaks French on a phone set to French', (tester) async {
+    await pumpScreen(
+      tester,
+      const PhoneScreen(),
+      api: FakeApi(),
+      locale: const Locale('fr'),
+    );
+
+    expect(find.text('Quel est ton numéro ?'), findsOneWidget);
+    expect(find.text('Recevoir un code'), findsOneWidget);
+
+    await tester.tap(find.byKey(const ValueKey('country-button')));
+    await tester.pumpAndSettle();
+    expect(find.text('Cameroun'), findsOneWidget);
+    expect(find.text('Afrique du Sud'), findsOneWidget);
   });
 }

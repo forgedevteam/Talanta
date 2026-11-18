@@ -6,8 +6,8 @@ import 'package:talanta_api/talanta_api.dart';
 
 Me meAt(OnboardingStep step) => Me(
   id: 'u1',
-  phone: '+2348031234567',
-  country: 'NG',
+  phone: '+237671234567',
+  country: 'CM',
   language: 'en',
   role: UserRole.member,
   dateOfBirth: null,

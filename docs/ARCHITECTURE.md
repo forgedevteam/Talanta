@@ -111,6 +111,15 @@ default-private accounts and limits on direct messages from adults.
   against a running API. Not in CI (needs an emulator); run it before every
   release. See [RELEASING.md](RELEASING.md).
 
+## 10. Languages and launch markets
+
+Cameroon is the first market and the default country, followed by Nigeria,
+Kenya, Ghana and South Africa (`SMS_ALLOWED_COUNTRIES`). The app ships in
+English and French and follows the phone's language. Talent category names
+are translated in the app by their stable `slug`, so the server stays
+language-neutral; an unknown slug falls back to the server's name. The API
+returns `displayPhone`, the number grouped the way it is written locally.
+
 ## Before launch
 
 - Accounts and decisions listed in [RELEASING.md](RELEASING.md): SMS
@@ -118,4 +127,5 @@ default-private accounts and limits on direct messages from adults.
 - Android SMS Retriever, so codes fill in without a tap. It needs the
   release signing key to compute the app hash, so it comes after the upload
   key exists.
-- Show phone numbers in their local readable form (`+234 803 123 4567`).
+- Send the sign-in SMS in the person's language (it is English today).
+- Confirm SMS delivery to Cameroon with the chosen provider before launch.

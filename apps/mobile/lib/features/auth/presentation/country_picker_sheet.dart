@@ -11,6 +11,11 @@ Future<Country?> showCountryPicker(
 }) {
   return showModalBottomSheet<Country>(
     context: context,
+    // Lets the sheet grow past half the screen; the list scrolls beyond that.
+    isScrollControlled: true,
+    constraints: BoxConstraints(
+      maxHeight: MediaQuery.sizeOf(context).height * 0.85,
+    ),
     builder: (context) => _CountryPickerSheet(selected: selected),
   );
 }
@@ -40,21 +45,38 @@ class _CountryPickerSheet extends StatelessWidget {
               style: context.text.headlineSmall,
             ),
           ),
-          for (final country in Country.values)
-            ListTile(
-              key: ValueKey('country-${country.code}'),
-              leading: Text(country.flag, style: const TextStyle(fontSize: 26)),
-              title: Text(country.name),
-              subtitle: Text(
-                country.dialCode,
-                style: TextStyle(color: palette.textMuted),
-              ),
-              trailing: country == selected
-                  ? const Icon(Icons.check_rounded, color: TalantaBrand.primary)
-                  : null,
-              selected: country == selected,
-              onTap: () => Navigator.of(context).pop(country),
+          Flexible(
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                for (final country in Country.values)
+                  ListTile(
+                    key: ValueKey('country-${country.code}'),
+                    leading: Text(
+                      country.flag,
+                      style: const TextStyle(fontSize: 26),
+                    ),
+                    title: Text(
+                      country.displayName(
+                        Localizations.localeOf(context).languageCode,
+                      ),
+                    ),
+                    subtitle: Text(
+                      country.dialCode,
+                      style: TextStyle(color: palette.textMuted),
+                    ),
+                    trailing: country == selected
+                        ? const Icon(
+                            Icons.check_rounded,
+                            color: TalantaBrand.primary,
+                          )
+                        : null,
+                    selected: country == selected,
+                    onTap: () => Navigator.of(context).pop(country),
+                  ),
+              ],
             ),
+          ),
           const SizedBox(height: TalantaSpacing.x2),
         ],
       ),

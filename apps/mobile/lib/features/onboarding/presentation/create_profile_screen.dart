@@ -13,6 +13,7 @@ import 'package:talanta/core/network/api_failure.dart';
 import 'package:talanta/core/theme/talanta_theme.dart';
 import 'package:talanta/core/widgets/widgets.dart';
 import 'package:talanta/features/auth/application/session_controller.dart';
+import 'package:talanta/features/auth/domain/country.dart';
 import 'package:talanta/features/onboarding/application/onboarding_controller.dart';
 import 'package:talanta/l10n/generated/app_localizations.dart';
 import 'package:talanta_api/talanta_api.dart';
@@ -44,6 +45,9 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
 
   /// The server fixes the date of birth once set, so only ask when it is missing.
   bool _needsDateOfBirth = true;
+
+  /// A city from the person's own country, so the example feels familiar.
+  String _cityHint = Country.cameroon.exampleCity;
   UsernameStatus? _usernameStatus;
   Timer? _usernameDebounce;
   XFile? _photo;
@@ -55,6 +59,7 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
     final session = ref.read(sessionProvider);
     if (session is SignedIn) {
       _needsDateOfBirth = session.me.dateOfBirth == null;
+      _cityHint = Country.fromCode(session.me.country).exampleCity;
     }
     if (session is SignedIn && session.me.profile != null) {
       final profile = session.me.profile!;
@@ -153,10 +158,14 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
     final username = _username.text.trim();
     final city = _city.text.trim();
     setState(() {
-      _nameError = name.length < 2 || name.length > 50
+      _nameError = name.isEmpty
+          ? l10n.profileErrorNameEmpty
+          : name.length < 2 || name.length > 50
           ? l10n.profileErrorNameLength
           : null;
-      _usernameError = _usernamePattern.hasMatch(username)
+      _usernameError = username.isEmpty
+          ? l10n.profileErrorUsernameEmpty
+          : _usernamePattern.hasMatch(username)
           ? null
           : l10n.profileErrorUsernameFormat;
       _cityError = city.length < 2 ? l10n.profileErrorCity : null;
@@ -296,7 +305,7 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
               key: const ValueKey('city-field'),
               label: l10n.profileCityLabel,
               controller: _city,
-              hint: l10n.profileCityHint,
+              hint: _cityHint,
               error: _cityError,
               textCapitalization: TextCapitalization.words,
               textInputAction: TextInputAction.done,

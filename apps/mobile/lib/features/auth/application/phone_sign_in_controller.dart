@@ -12,6 +12,7 @@ class PendingOtp {
     required this.country,
     required this.typedPhone,
     required this.phoneE164,
+    required this.displayPhone,
     required this.resendAt,
     required this.expiresAt,
   });
@@ -19,6 +20,9 @@ class PendingOtp {
   final Country country;
   final String typedPhone;
   final String phoneE164;
+
+  /// Grouped for reading, as the server formats it for the country.
+  final String displayPhone;
   final DateTime resendAt;
   final DateTime expiresAt;
 }
@@ -44,6 +48,7 @@ class PhoneSignInController extends Notifier<PendingOtp?> {
         country: country,
         typedPhone: phone,
         phoneE164: challenge.phone,
+        displayPhone: challenge.displayPhone,
         resendAt: now.add(
           Duration(seconds: challenge.resendAfterSeconds.toInt()),
         ),

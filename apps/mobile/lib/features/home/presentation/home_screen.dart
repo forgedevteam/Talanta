@@ -50,7 +50,7 @@ class HomeScreen extends ConsumerWidget {
                   children: [
                     for (final talent in me?.talents ?? const <UserTalent>[])
                       TalantaChip(
-                        label: talent.name,
+                        label: TalentNames.of(l10n, talent.slug, talent.name),
                         icon: TalentIcons.of(talent.icon),
                         selected: talent.isPrimary,
                         onTap: null,

@@ -56,6 +56,7 @@ Future<void> pumpScreen(
   WidgetTester tester,
   Widget screen, {
   FakeApi? api,
+  Locale? locale,
 }) async {
   await usePhoneViewport(tester);
   await tester.pumpWidget(
@@ -70,6 +71,7 @@ Future<void> pumpScreen(
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: AppLocalizations.supportedLocales,
+        locale: locale,
         home: screen,
       ),
     ),

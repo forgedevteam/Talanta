@@ -20,7 +20,8 @@ class FakeApi implements HttpClientAdapter {
   FakeApi();
 
   static const validCode = '246810';
-  static const phoneE164 = '+2348031234567';
+  static const phoneE164 = '+237671234567';
+  static const displayPhone = '+237 6 71 23 45 67';
 
   final List<FakeRequest> requests = [];
 
@@ -73,7 +74,7 @@ class FakeApi implements HttpClientAdapter {
   Map<String, Object?> get me => {
     'id': '01000000-0000-7000-8000-00000000aaaa',
     'phone': phoneE164,
-    'country': 'NG',
+    'country': 'CM',
     'language': 'en',
     'role': 'member',
     'dateOfBirth': dateOfBirth,
@@ -133,6 +134,7 @@ class FakeApi implements HttpClientAdapter {
       case 'POST /v1/auth/otp/request':
         return const FakeResponse(200, {
           'phone': phoneE164,
+          'displayPhone': displayPhone,
           'expiresInSeconds': 300,
           'resendAfterSeconds': 60,
         });

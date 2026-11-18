@@ -43,7 +43,7 @@ flutter run
 # emulator: flutter run --dart-define=API_BASE_URL=http://10.0.2.2:3000
 ```
 
-Sign in with any Nigerian, Kenyan, Ghanaian or South African mobile number.
+Sign in with any Cameroonian, Nigerian, Kenyan, Ghanaian or South African mobile number.
 The code is printed in the API log, or is `OTP_DEV_FIXED_CODE` if you set it.
 
 ## Tests

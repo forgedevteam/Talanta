@@ -22,8 +22,8 @@ void main() {
     await tester.tap(find.byKey(const ValueKey('finish-profile')));
     await tester.pumpAndSettle();
 
-    expect(find.text(l10n.profileErrorNameLength), findsOneWidget);
-    expect(find.text(l10n.profileErrorUsernameFormat), findsOneWidget);
+    expect(find.text(l10n.profileErrorNameEmpty), findsOneWidget);
+    expect(find.text(l10n.profileErrorUsernameEmpty), findsOneWidget);
     expect(find.text(l10n.profileErrorCity), findsOneWidget);
     expect(find.text(l10n.profileErrorDob), findsOneWidget);
     expect(api.requests.where((r) => r.path == '/v1/me/profile'), isEmpty);

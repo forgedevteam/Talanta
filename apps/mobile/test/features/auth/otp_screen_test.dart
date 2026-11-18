@@ -8,7 +8,7 @@ Future<void> reachOtpScreen(WidgetTester tester, FakeApi api) async {
   await pumpApp(tester, api);
   await tester.enterText(
     find.byKey(const ValueKey('phone-field')),
-    '0803 123 4567',
+    '6 71 23 45 67',
   );
   await tester.tap(find.byKey(const ValueKey('send-code')));
   await settle(tester);
@@ -22,7 +22,10 @@ void main() {
     await reachOtpScreen(tester, api);
     final l10n = l10nOf(tester);
 
-    expect(find.text(l10n.otpSubtitle(FakeApi.phoneE164)), findsOneWidget);
+    expect(
+      find.text(l10n.otpSubtitle(FakeApi.displayPhone.replaceAll(' ', ' '))),
+      findsOneWidget,
+    );
     expect(find.text(l10n.otpResendIn(60)), findsOneWidget);
     expect(find.text(l10n.otpResend), findsNothing);
 
@@ -124,6 +127,6 @@ void main() {
         matching: find.byType(TextField),
       ),
     );
-    expect(field.controller?.text, '0803 123 4567');
+    expect(field.controller?.text, '6 71 23 45 67');
   });
 }

@@ -53,6 +53,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get phoneErrorInvalid => 'Check the number and try again.';
 
   @override
+  String get phoneErrorEmpty => 'Enter your phone number.';
+
+  @override
   String get phoneErrorCountryUnsupported =>
       'Talanta isn\'t in that country yet. We\'re working on it.';
 
@@ -125,6 +128,42 @@ class AppLocalizationsEn extends AppLocalizations {
   String get talentsLoadFailed => 'We couldn\'t load the talents list.';
 
   @override
+  String get talentMusic => 'Music';
+
+  @override
+  String get talentDance => 'Dance';
+
+  @override
+  String get talentActing => 'Acting';
+
+  @override
+  String get talentComedy => 'Comedy';
+
+  @override
+  String get talentArt => 'Art';
+
+  @override
+  String get talentCrafts => 'Crafts';
+
+  @override
+  String get talentFashion => 'Fashion';
+
+  @override
+  String get talentSpokenWord => 'Spoken word';
+
+  @override
+  String get talentFilm => 'Film';
+
+  @override
+  String get talentPhotography => 'Photography';
+
+  @override
+  String get talentWriting => 'Writing';
+
+  @override
+  String get talentFood => 'Food';
+
+  @override
   String get profileTitle => 'Make it yours';
 
   @override
@@ -144,13 +183,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileNameLabel => 'Your name';
 
   @override
-  String get profileNameHint => 'Amara Okafor';
+  String get profileNameHint => 'Your full name';
 
   @override
   String get profileUsernameLabel => 'Username';
 
   @override
-  String get profileUsernameHint => 'amara_sings';
+  String get profileUsernameHint => 'yourname';
 
   @override
   String get profileUsernameHelp =>
@@ -158,7 +197,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String profileUsernameAvailable(String username) {
-    return '@$username is yours';
+    return '@$username is available';
   }
 
   @override
@@ -169,9 +208,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profileCityLabel => 'City';
-
-  @override
-  String get profileCityHint => 'Lagos';
 
   @override
   String get profileDobLabel => 'Date of birth';
@@ -196,6 +232,12 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get profileErrorNameLength =>
       'Your name should be 2 to 50 characters.';
+
+  @override
+  String get profileErrorNameEmpty => 'Enter your name.';
+
+  @override
+  String get profileErrorUsernameEmpty => 'Choose a username.';
 
   @override
   String get profileErrorUsernameFormat =>

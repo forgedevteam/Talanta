@@ -18,7 +18,7 @@ export default function HomePage(): ReactElement {
       <section className="mt-24 grid gap-12 md:mt-32 md:grid-cols-[3fr_2fr] md:items-end">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-            Launching in Nigeria, Kenya, Ghana and South Africa
+            Launching in Cameroon, Nigeria, Kenya, Ghana and South Africa
           </p>
           <h1 className="font-display mt-5 text-5xl font-semibold leading-[1.02] tracking-tight text-text sm:text-7xl">
             Where Africa&rsquo;s talent lives.
