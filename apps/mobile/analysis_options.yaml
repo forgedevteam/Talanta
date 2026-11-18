@@ -1,0 +1,18 @@
+include: package:very_good_analysis/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - lib/l10n/generated/**
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+  errors:
+    # Surfacing lints as errors keeps `flutter analyze` at zero warnings.
+    unused_import: error
+    unused_local_variable: error
+
+linter:
+  rules:
+    # An app, not a library: public API docs on every widget add noise, not safety.
+    public_member_api_docs: false
+    # Riverpod notifiers and screens are long by nature.
+    lines_longer_than_80_chars: false

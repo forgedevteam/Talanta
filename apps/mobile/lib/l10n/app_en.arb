@@ -1,0 +1,98 @@
+{
+  "@@locale": "en",
+  "appName": "Talanta",
+  "splashTagline": "Where Africa's talent lives",
+  "continueLabel": "Continue",
+  "retry": "Try again",
+  "skipForNow": "Skip for now",
+  "back": "Back",
+
+  "phoneTitle": "What's your number?",
+  "phoneSubtitle": "We'll text you a code to sign in. No passwords to remember.",
+  "phoneFieldLabel": "Phone number",
+  "phoneFieldHint": "0803 123 4567",
+  "phoneCountryPickerTitle": "Choose your country",
+  "phoneLegal": "By continuing you agree to the Talanta Terms and Privacy Policy.",
+  "phoneSendCode": "Send me a code",
+  "phoneErrorInvalid": "Check the number and try again.",
+  "phoneErrorCountryUnsupported": "Talanta isn't in that country yet. We're working on it.",
+
+  "otpTitle": "Enter your code",
+  "otpSubtitle": "We sent a 6-digit code to {phone}",
+  "@otpSubtitle": {
+    "placeholders": {
+      "phone": { "type": "String", "example": "+234 803 123 4567" }
+    }
+  },
+  "otpResendIn": "Resend code in {seconds}s",
+  "@otpResendIn": {
+    "placeholders": {
+      "seconds": { "type": "int", "example": "42" }
+    }
+  },
+  "otpResend": "Resend code",
+  "otpChangeNumber": "Use a different number",
+  "otpSent": "A fresh code is on its way.",
+  "otpErrorInvalid": "That code isn't right. Have another look.",
+  "otpErrorExpired": "That code has expired. Request a new one.",
+  "otpErrorTooManyAttempts": "Too many tries. Request a new code to continue.",
+  "otpErrorResendTooSoon": "Give the last code a moment to arrive.",
+  "otpErrorRateLimited": "Too many codes requested. Take a break and try again later.",
+  "otpVerify": "Verify",
+
+  "talentsTitle": "What do you do?",
+  "talentsSubtitle": "Pick up to {max}. Your first pick becomes your main talent. You can change these any time.",
+  "@talentsSubtitle": {
+    "placeholders": {
+      "max": { "type": "int", "example": "5" }
+    }
+  },
+  "talentsSelectedCount": "{count, plural, =0{Pick at least one} =1{1 picked} other{{count} picked}}",
+  "@talentsSelectedCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "talentsMain": "Main",
+  "talentsLoadFailed": "We couldn't load the talents list.",
+
+  "profileTitle": "Make it yours",
+  "profileSubtitle": "This is how people will find you on Talanta.",
+  "profileAddPhoto": "Add photo",
+  "profileChangePhoto": "Change photo",
+  "profilePhotoLater": "Photo uploads land with the next release. Your pick stays on this phone until then.",
+  "profileNameLabel": "Your name",
+  "profileNameHint": "Amara Okafor",
+  "profileUsernameLabel": "Username",
+  "profileUsernameHint": "amara_sings",
+  "profileUsernameHelp": "Letters, numbers and underscores. 3 to 24 characters.",
+  "profileUsernameAvailable": "@{username} is yours",
+  "@profileUsernameAvailable": {
+    "placeholders": {
+      "username": { "type": "String" }
+    }
+  },
+  "profileUsernameTaken": "Someone already has that one.",
+  "profileUsernameReserved": "That name is reserved.",
+  "profileCityLabel": "City",
+  "profileCityHint": "Lagos",
+  "profileFinish": "Finish",
+  "profileErrorNameLength": "Your name should be 2 to 50 characters.",
+  "profileErrorUsernameFormat": "Use 3 to 24 letters, numbers or underscores.",
+  "profileErrorCity": "Tell us the city you create from.",
+
+  "homeWelcome": "Welcome, {name}",
+  "@homeWelcome": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "homeComingSoon": "Your feed is on its way. Phase 1 brings video, challenges and discovery.",
+  "homeSignOut": "Sign out",
+
+  "errorOffline": "You're offline. Check your connection and try again.",
+  "errorTimeout": "That took too long. Check your connection and try again.",
+  "errorServer": "Something went wrong on our side. Try again in a moment.",
+  "errorUnknown": "Something went wrong. Try again.",
+  "errorSessionEnded": "Your session ended. Sign in again."
+}
