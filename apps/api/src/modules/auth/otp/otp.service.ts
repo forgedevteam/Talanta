@@ -53,6 +53,16 @@ export class OtpService {
       otp.resendSeconds,
     );
     if (!cooldownStarted) {
+      // Asking again while the last code is still live (a double tap, going
+      // back a screen, a dropped response) is not an error: point the person
+      // at the code they already have, and send nothing.
+      const codeLeft = await this.store.ttl(codeKey(phone));
+      if (codeLeft > 0) {
+        return {
+          expiresInSeconds: codeLeft,
+          resendAfterSeconds: Math.max(1, await this.store.ttl(cooldownKey(phone))),
+        };
+      }
       throw new AppError(
         HttpStatus.TOO_MANY_REQUESTS,
         'otp_resend_too_soon',

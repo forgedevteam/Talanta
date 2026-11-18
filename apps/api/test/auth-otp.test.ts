@@ -70,18 +70,36 @@ describe('phone sign-in', () => {
       expect(response.body).toMatchObject({ code: 'validation_failed' });
     });
 
-    it('makes the person wait a minute before a resend', async () => {
+    it('points a repeat request at the code already sent, without a new SMS', async () => {
       const phone = nextPhone();
       await requestCode(phone.e164).expect(200);
+
+      app.clock.advance(15);
+      const again = await requestCode(phone.e164).expect(200);
+      expect(again.body).toMatchObject({
+        phone: phone.e164,
+        resendAfterSeconds: 45,
+        expiresInSeconds: 285,
+      });
+      expect(app.sms.sent.filter((message) => message.to === phone.e164)).toHaveLength(1);
+
+      app.clock.advance(46);
+      await requestCode(phone.e164).expect(200);
+      expect(app.sms.sent.filter((message) => message.to === phone.e164)).toHaveLength(2);
+    });
+
+    it('makes the person wait before a new code once the last one is used up', async () => {
+      const phone = nextPhone();
+      await requestCode(phone.e164).expect(200);
+      const wrong = app.sms.lastCodeFor(phone.e164) === '000000' ? '111111' : '000000';
+      for (let tries = 0; tries < 5; tries += 1) {
+        await verifyCode(phone.e164, wrong);
+      }
 
       app.clock.advance(15);
       const tooSoon = await requestCode(phone.e164).expect(429);
       expect(tooSoon.body).toMatchObject({ code: 'otp_resend_too_soon', retryAfterSeconds: 45 });
       expect(tooSoon.headers['retry-after']).toBe('45');
-      expect(app.sms.sent.filter((message) => message.to === phone.e164)).toHaveLength(1);
-
-      app.clock.advance(46);
-      await requestCode(phone.e164).expect(200);
     });
 
     it('caps the codes one number can receive in an hour', async () => {

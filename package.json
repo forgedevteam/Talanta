@@ -11,6 +11,7 @@
     "dev:db": "pnpm --filter @talanta/api db:dev",
     "dev:api": "pnpm --filter @talanta/api dev",
     "dev:web": "pnpm --filter @talanta/web dev",
+    "dev:usb": "node scripts/usb-link.mjs",
     "build": "pnpm -r build",
     "test": "pnpm -r test",
     "lint": "eslint .",
