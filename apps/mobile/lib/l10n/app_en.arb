@@ -416,14 +416,7 @@
   "composePosted": "Posted. People can see it now.",
   "feedForYou": "For you",
   "feedFollowing": "Following",
-  "feedComposePrompt": "What's new, {name}?",
-  "@feedComposePrompt": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
+  "feedComposePrompt": "Share your talent…",
   "feedEmpty": "Nothing here yet",
   "feedEmptyBody": "Be the first to share your talent with Cameroon.",
   "feedPostFirst": "Share something",

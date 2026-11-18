@@ -177,7 +177,6 @@ class _ComposePrompt extends ConsumerWidget {
     final palette = context.palette;
     final session = ref.watch(sessionProvider);
     final profile = session is SignedIn ? session.me.profile : null;
-    final firstName = (profile?.displayName ?? '').split(' ').first;
 
     void compose(ComposeMode mode) =>
         unawaited(context.push('${Routes.compose}?mode=${mode.name}'));
@@ -219,7 +218,7 @@ class _ComposePrompt extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(TalantaRadii.pill),
                   ),
                   child: Text(
-                    l10n.feedComposePrompt(firstName),
+                    l10n.feedComposePrompt,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: context.text.bodyMedium?.copyWith(
@@ -236,14 +235,6 @@ class _ComposePrompt extends ConsumerWidget {
               icon: const Icon(
                 Icons.photo_library_outlined,
                 color: TalantaBrand.primary,
-              ),
-            ),
-            IconButton(
-              tooltip: l10n.createReel,
-              onPressed: () => compose(ComposeMode.reel),
-              icon: const Icon(
-                Icons.smart_display_outlined,
-                color: Color(0xFF8B5CF6),
               ),
             ),
           ],

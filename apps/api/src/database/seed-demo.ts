@@ -3,6 +3,7 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 import pg from 'pg';
 
 import * as schema from './schema/index.js';
+import { seedDemoPosts } from './seed-demo-posts.js';
 import {
   applications,
   follows,
@@ -315,6 +316,16 @@ async function upsertPerson(person: Person, categories: Map<string, string>): Pr
     .where(eq(profiles.username, person.username))
     .limit(1);
   if (existing) return existing.userId;
+  if (person.phone) {
+    // A test account someone has already edited keeps their changes.
+    const [byPhone] = await db
+      .select({ userId: profiles.userId })
+      .from(profiles)
+      .innerJoin(users, eq(users.id, profiles.userId))
+      .where(eq(users.phone, person.phone))
+      .limit(1);
+    if (byPhone) return byPhone.userId;
+  }
 
   const [user] = await db
     .insert(users)
@@ -482,7 +493,10 @@ try {
     });
   }
 
-  console.log(`Demo data ready: ${ids.size} people, ${CALLS.length} open calls.`);
+  const postCount = await seedDemoPosts(db, ids, process.env.MEDIA_DIR ?? './storage/media');
+  console.log(
+    `Demo data ready: ${ids.size} people, ${CALLS.length} open calls, ${postCount} new posts.`,
+  );
 } finally {
   await pool.end();
 }

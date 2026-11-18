@@ -876,9 +876,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get feedFollowing => 'Abonnements';
 
   @override
-  String feedComposePrompt(String name) {
-    return 'Quoi de neuf, $name ?';
-  }
+  String get feedComposePrompt => 'Partage ton talent…';
 
   @override
   String get feedEmpty => 'Rien pour l\'instant';

@@ -1619,8 +1619,8 @@ abstract class AppLocalizations {
   /// No description provided for @feedComposePrompt.
   ///
   /// In en, this message translates to:
-  /// **'What\'s new, {name}?'**
-  String feedComposePrompt(String name);
+  /// **'Share your talent…'**
+  String get feedComposePrompt;
 
   /// No description provided for @feedEmpty.
   ///

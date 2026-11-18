@@ -867,9 +867,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get feedFollowing => 'Following';
 
   @override
-  String feedComposePrompt(String name) {
-    return 'What\'s new, $name?';
-  }
+  String get feedComposePrompt => 'Share your talent…';
 
   @override
   String get feedEmpty => 'Nothing here yet';
