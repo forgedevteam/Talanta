@@ -35,6 +35,30 @@ adb reverse tcp:3000 tcp:3000
 flutter test integration_test --dart-define=OTP_CODE=<OTP_DEV_FIXED_CODE from apps/api/.env>
 ```
 
+## Test on your own phone by USB (no hosting needed)
+
+1. On the phone: Settings, About phone, Software information, tap **Build
+   number** seven times. Then Developer options, turn on **USB debugging**.
+2. On the PC, start the server (two terminals, leave both running):
+
+   ```bash
+   pnpm dev:db
+   pnpm dev:api
+   ```
+
+3. Plug the phone in, accept the "Allow USB debugging" prompt, then:
+
+   ```bash
+   cd apps/mobile
+   flutter build apk --profile --split-per-abi     # once per app change
+   adb install -r build/app/outputs/flutter-apk/app-arm64-v8a-profile.apk
+   adb reverse tcp:3000 tcp:3000                  # every time you plug in
+   ```
+
+Profile builds may use plain HTTP to this PC through the cable only; store
+releases are HTTPS-only. Demo accounts come from `db:seed-demo` and sign in
+with `OTP_TEST_CODE`.
+
 ## 3. Create the upload key (once)
 
 The key proves future updates come from you. Keep the file and both passwords
