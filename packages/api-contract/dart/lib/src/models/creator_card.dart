@@ -16,6 +16,9 @@ abstract class CreatorCard with _$CreatorCard {
     required String username,
     required String displayName,
     required String? city,
+
+    /// Absolute, or relative to the API origin.
+    required String? avatarUrl,
     required bool isVerified,
     required TalentCategory? primaryTalent,
     required num followerCount,

@@ -16,6 +16,9 @@ abstract class PersonSummary with _$PersonSummary {
     required String username,
     required String displayName,
     required String? city,
+
+    /// Absolute, or relative to the API origin.
+    required String? avatarUrl,
     required bool isVerified,
     required TalentCategory? primaryTalent,
   }) = _PersonSummary;

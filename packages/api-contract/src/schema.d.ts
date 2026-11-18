@@ -72,6 +72,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/admin/posts/{id}/remove": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Take down a post */
+        post: operations["removePost"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/admin/promotions": {
         parameters: {
             query?: never;
@@ -225,6 +242,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/comments/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Delete a comment I wrote, or one on my post */
+        delete: operations["deleteComment"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/creators": {
         parameters: {
             query?: never;
@@ -277,6 +311,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/creators/{username}/posts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** A creator’s posts, or only their reels */
+        get: operations["getCreatorPosts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/feed": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** The home feed: everyone, or the people I follow */
+        get: operations["getFeed"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/feed/following": {
         parameters: {
             query?: never;
@@ -324,6 +392,24 @@ export interface paths {
         put?: never;
         post?: never;
         delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/me/avatar": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Use an uploaded photo as my profile picture */
+        put: operations["setMyAvatar"];
+        post?: never;
+        /** Remove my profile picture */
+        delete: operations["removeMyAvatar"];
         options?: never;
         head?: never;
         patch?: never;
@@ -466,6 +552,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/media": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Upload a photo or a video, to attach to a post or use as my picture */
+        post: operations["uploadMedia"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/opportunities": {
         parameters: {
             query?: never;
@@ -536,6 +639,94 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/posts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Share words, photos or a video */
+        post: operations["createPost"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/posts/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** One post */
+        get: operations["getPost"];
+        put?: never;
+        post?: never;
+        /** Delete my post */
+        delete: operations["deletePost"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/posts/{id}/comments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Comments on a post, oldest first */
+        get: operations["listComments"];
+        put?: never;
+        /** Comment on a post */
+        post: operations["addComment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/posts/{id}/like": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Like a post */
+        post: operations["likePost"];
+        /** Take back my like */
+        delete: operations["unlikePost"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/posts/{id}/share": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Get a link to share, and count the share */
+        post: operations["sharePost"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/profiles/username-availability": {
         parameters: {
             query?: never;
@@ -570,6 +761,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/reels": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Short vertical videos, newest first */
+        get: operations["getReels"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/reports": {
         parameters: {
             query?: never;
@@ -579,7 +787,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Report a person, call or portfolio piece */
+        /** Report a person, call, post, comment or portfolio piece */
         post: operations["createReport"];
         delete?: never;
         options?: never;
@@ -636,8 +844,27 @@ export interface components {
             me: components["schemas"]["MeDto"];
             tokens: components["schemas"]["TokenPairDto"];
         };
+        CommentDto: {
+            author: components["schemas"]["PersonSummaryDto"];
+            body: string;
+            /** @description I can delete it: I wrote it, or it is on my post. */
+            canDelete: boolean;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            postId: string;
+        };
+        CommentPageDto: {
+            items: components["schemas"]["CommentDto"][];
+            nextCursor: string | null;
+        };
         /** @enum {string} */
         CompensationType: "paid" | "unpaid" | "negotiable";
+        CreateCommentDto: {
+            body: string;
+        };
         CreateOpportunityDto: {
             /**
              * @description Required when the work is paid, so talent knows what to expect.
@@ -667,6 +894,14 @@ export interface components {
             /** @example https://www.youtube.com/watch?v=abc123 */
             url: string;
         };
+        CreatePostDto: {
+            /** @example Rehearsal for Saturday. Who is coming? */
+            body?: string;
+            /** @description Show this video in Reels too. */
+            isReel?: boolean;
+            /** @description Uploaded files, in display order: up to 10 photos, or one video. */
+            mediaIds?: string[];
+        };
         CreatePromotionDto: {
             body: string;
             ctaLabel: string;
@@ -691,6 +926,8 @@ export interface components {
             targetType: components["schemas"]["ReportTarget"];
         };
         CreatorCardDto: {
+            /** @description Absolute, or relative to the API origin. */
+            avatarUrl: string | null;
             /** @example Douala */
             city: string | null;
             /** @example Nkeng Ebai */
@@ -709,6 +946,8 @@ export interface components {
             nextCursor: string | null;
         };
         CreatorProfileDto: {
+            /** @description Absolute, or relative to the API origin. */
+            avatarUrl: string | null;
             bio: string | null;
             /** @example Douala */
             city: string | null;
@@ -723,6 +962,7 @@ export interface components {
             isMe: boolean;
             isVerified: boolean;
             portfolio: components["schemas"]["PortfolioItemDto"][];
+            postCount: number;
             primaryTalent: components["schemas"]["TalentCategoryDto"] | null;
             talents: components["schemas"]["UserTalentDto"][];
             /** @example nkeng_sings */
@@ -732,11 +972,13 @@ export interface components {
             status: components["schemas"]["ApplicationDecision"];
         };
         /** @enum {string} */
-        ErrorCode: "validation_failed" | "unauthorized" | "forbidden" | "not_found" | "conflict" | "rate_limited" | "internal_error" | "service_unavailable" | "phone_invalid" | "phone_country_unsupported" | "otp_resend_too_soon" | "otp_rate_limited" | "otp_invalid" | "otp_expired" | "otp_too_many_attempts" | "sms_delivery_failed" | "session_expired" | "account_suspended" | "username_taken" | "username_reserved" | "talent_category_unknown" | "age_below_minimum" | "adults_only" | "profile_required" | "opportunity_closed" | "already_applied" | "cannot_apply_to_own" | "cannot_follow_self" | "link_not_allowed" | "limit_reached";
+        ErrorCode: "validation_failed" | "unauthorized" | "forbidden" | "not_found" | "conflict" | "rate_limited" | "internal_error" | "service_unavailable" | "phone_invalid" | "phone_country_unsupported" | "otp_resend_too_soon" | "otp_rate_limited" | "otp_invalid" | "otp_expired" | "otp_too_many_attempts" | "sms_delivery_failed" | "session_expired" | "account_suspended" | "username_taken" | "username_reserved" | "talent_category_unknown" | "age_below_minimum" | "adults_only" | "profile_required" | "opportunity_closed" | "already_applied" | "cannot_apply_to_own" | "cannot_follow_self" | "link_not_allowed" | "limit_reached" | "media_unsupported" | "media_too_large";
         FeatureOpportunityDto: {
             /** @description Days to show in the Featured row. */
             days: number;
         };
+        /** @enum {string} */
+        FeedTab: "for_you" | "following";
         FollowingFeedDto: {
             items: components["schemas"]["FollowingWorkDto"][];
             nextCursor: string | null;
@@ -764,6 +1006,26 @@ export interface components {
             /** @example ok */
             status: string;
         };
+        LikeStateDto: {
+            likeCount: number;
+            liked: boolean;
+        };
+        MediaDto: {
+            height: number | null;
+            /** Format: uuid */
+            id: string;
+            kind: components["schemas"]["MediaKind"];
+            /**
+             * @description Absolute, or relative to the API origin.
+             * @example /media/images/0196f0b2-7c1e-7d43-9a51-2a8f0c3b9e10.jpg
+             */
+            url: string;
+            width: number | null;
+        };
+        /** @enum {string} */
+        MediaKind: "image" | "video";
+        /** @enum {string} */
+        MediaPurpose: "post" | "avatar";
         MeDto: {
             /** @example CM */
             country: string | null;
@@ -811,6 +1073,10 @@ export interface components {
             /** Format: uuid */
             opportunityId: string | null;
             opportunityTitle: string | null;
+            /** Format: uuid */
+            postId: string | null;
+            /** @description The start of the post, or of the comment for comment notices. */
+            snippet: string | null;
             type: components["schemas"]["NotificationType"];
         };
         NotificationPageDto: {
@@ -818,7 +1084,7 @@ export interface components {
             nextCursor: string | null;
         };
         /** @enum {string} */
-        NotificationType: "application_received" | "application_status" | "new_follower";
+        NotificationType: "application_received" | "application_status" | "new_follower" | "post_liked" | "post_commented";
         /**
          * @description The next onboarding screen to show, or `done`.
          * @enum {string}
@@ -912,6 +1178,8 @@ export interface components {
             resendAfterSeconds: number;
         };
         PersonSummaryDto: {
+            /** @description Absolute, or relative to the API origin. */
+            avatarUrl: string | null;
             /** @example Douala */
             city: string | null;
             /** @example Nkeng Ebai */
@@ -939,6 +1207,30 @@ export interface components {
         };
         /** @enum {string} */
         PortfolioPlatform: "youtube" | "tiktok" | "instagram" | "facebook" | "audiomack" | "boomplay" | "soundcloud" | "spotify" | "other";
+        PostDto: {
+            author: components["schemas"]["PersonSummaryDto"];
+            /** @example New song for my mama. One take. */
+            body: string | null;
+            commentCount: number;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: uuid */
+            id: string;
+            isMine: boolean;
+            /** @description A vertical video that also plays in Reels. */
+            isReel: boolean;
+            kind: components["schemas"]["PostKind"];
+            likeCount: number;
+            likedByMe: boolean;
+            media: components["schemas"]["MediaDto"][];
+            shareCount: number;
+        };
+        /** @enum {string} */
+        PostKind: "text" | "photo" | "video";
+        PostPageDto: {
+            items: components["schemas"]["PostDto"][];
+            nextCursor: string | null;
+        };
         ProblemDto: {
             code: components["schemas"]["ErrorCode"];
             /** @description Validation messages keyed by field name. */
@@ -992,7 +1284,7 @@ export interface components {
         /** @enum {string} */
         ReportReason: "scam" | "harassment" | "inappropriate" | "spam" | "underage" | "other";
         /** @enum {string} */
-        ReportTarget: "user" | "opportunity" | "portfolio_item";
+        ReportTarget: "user" | "opportunity" | "portfolio_item" | "post" | "comment";
         RequestOtpDto: {
             /**
              * @description ISO 3166-1 alpha-2 country chosen in the picker.
@@ -1005,6 +1297,13 @@ export interface components {
              */
             phone: string;
         };
+        SetAvatarDto: {
+            /**
+             * Format: uuid
+             * @description A photo I uploaded with purpose=avatar.
+             */
+            mediaId: string;
+        };
         SetTalentsDto: {
             /** @description Replaces the full list. */
             categoryIds: string[];
@@ -1013,6 +1312,11 @@ export interface components {
              * @description The talent shown first on the profile. Defaults to the first id in the list.
              */
             primaryCategoryId?: string;
+        };
+        ShareDto: {
+            shareCount: number;
+            /** @example https://talanta.app/p/0196f0b2-7c1e-7d43-9a51-2a8f0c3b9e10 */
+            url: string;
         };
         TalentCategoryDto: {
             /**
@@ -1109,9 +1413,13 @@ export type SchemaApplicationDecision = components['schemas']['ApplicationDecisi
 export type SchemaApplicationStatus = components['schemas']['ApplicationStatus'];
 export type SchemaApplyDto = components['schemas']['ApplyDto'];
 export type SchemaAuthSessionDto = components['schemas']['AuthSessionDto'];
+export type SchemaCommentDto = components['schemas']['CommentDto'];
+export type SchemaCommentPageDto = components['schemas']['CommentPageDto'];
 export type SchemaCompensationType = components['schemas']['CompensationType'];
+export type SchemaCreateCommentDto = components['schemas']['CreateCommentDto'];
 export type SchemaCreateOpportunityDto = components['schemas']['CreateOpportunityDto'];
 export type SchemaCreatePortfolioItemDto = components['schemas']['CreatePortfolioItemDto'];
+export type SchemaCreatePostDto = components['schemas']['CreatePostDto'];
 export type SchemaCreatePromotionDto = components['schemas']['CreatePromotionDto'];
 export type SchemaCreateReportDto = components['schemas']['CreateReportDto'];
 export type SchemaCreatorCardDto = components['schemas']['CreatorCardDto'];
@@ -1120,10 +1428,15 @@ export type SchemaCreatorProfileDto = components['schemas']['CreatorProfileDto']
 export type SchemaDecideApplicationDto = components['schemas']['DecideApplicationDto'];
 export type SchemaErrorCode = components['schemas']['ErrorCode'];
 export type SchemaFeatureOpportunityDto = components['schemas']['FeatureOpportunityDto'];
+export type SchemaFeedTab = components['schemas']['FeedTab'];
 export type SchemaFollowingFeedDto = components['schemas']['FollowingFeedDto'];
 export type SchemaFollowingWorkDto = components['schemas']['FollowingWorkDto'];
 export type SchemaFollowStateDto = components['schemas']['FollowStateDto'];
 export type SchemaHealthDto = components['schemas']['HealthDto'];
+export type SchemaLikeStateDto = components['schemas']['LikeStateDto'];
+export type SchemaMediaDto = components['schemas']['MediaDto'];
+export type SchemaMediaKind = components['schemas']['MediaKind'];
+export type SchemaMediaPurpose = components['schemas']['MediaPurpose'];
 export type SchemaMeDto = components['schemas']['MeDto'];
 export type SchemaMyApplicationDto = components['schemas']['MyApplicationDto'];
 export type SchemaMyApplicationRefDto = components['schemas']['MyApplicationRefDto'];
@@ -1139,6 +1452,9 @@ export type SchemaOtpChallengeDto = components['schemas']['OtpChallengeDto'];
 export type SchemaPersonSummaryDto = components['schemas']['PersonSummaryDto'];
 export type SchemaPortfolioItemDto = components['schemas']['PortfolioItemDto'];
 export type SchemaPortfolioPlatform = components['schemas']['PortfolioPlatform'];
+export type SchemaPostDto = components['schemas']['PostDto'];
+export type SchemaPostKind = components['schemas']['PostKind'];
+export type SchemaPostPageDto = components['schemas']['PostPageDto'];
 export type SchemaProblemDto = components['schemas']['ProblemDto'];
 export type SchemaProfileDto = components['schemas']['ProfileDto'];
 export type SchemaPromotionDto = components['schemas']['PromotionDto'];
@@ -1148,7 +1464,9 @@ export type SchemaReportDto = components['schemas']['ReportDto'];
 export type SchemaReportReason = components['schemas']['ReportReason'];
 export type SchemaReportTarget = components['schemas']['ReportTarget'];
 export type SchemaRequestOtpDto = components['schemas']['RequestOtpDto'];
+export type SchemaSetAvatarDto = components['schemas']['SetAvatarDto'];
 export type SchemaSetTalentsDto = components['schemas']['SetTalentsDto'];
+export type SchemaShareDto = components['schemas']['ShareDto'];
 export type SchemaTalentCategoryDto = components['schemas']['TalentCategoryDto'];
 export type SchemaTalentLevel = components['schemas']['TalentLevel'];
 export type SchemaTokenPairDto = components['schemas']['TokenPairDto'];
@@ -1241,6 +1559,33 @@ export interface operations {
         };
     };
     removeOpportunity: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    removePost: {
         parameters: {
             query?: never;
             header?: never;
@@ -1534,6 +1879,33 @@ export interface operations {
             };
         };
     };
+    deleteComment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
     searchCreators: {
         parameters: {
             query?: {
@@ -1656,6 +2028,73 @@ export interface operations {
             };
         };
     };
+    getCreatorPosts: {
+        parameters: {
+            query?: {
+                /** @description The `nextCursor` from the previous page. */
+                cursor?: string;
+                limit?: number;
+                /** @description Only reels. */
+                reels?: boolean;
+            };
+            header?: never;
+            path: {
+                username: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PostPageDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    getFeed: {
+        parameters: {
+            query?: {
+                /** @description The `nextCursor` from the previous page. */
+                cursor?: string;
+                limit?: number;
+                tab?: components["schemas"]["FeedTab"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PostPageDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
     getFollowingFeed: {
         parameters: {
             query?: {
@@ -1754,6 +2193,64 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["MyApplicationDto"][];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    setMyAvatar: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SetAvatarDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MeDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    removeMyAvatar: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MeDto"];
                 };
             };
             default: {
@@ -2023,6 +2520,43 @@ export interface operations {
             };
         };
     };
+    uploadMedia: {
+        parameters: {
+            query?: {
+                /** @description Avatars are cropped square. */
+                purpose?: components["schemas"]["MediaPurpose"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": {
+                    /** Format: binary */
+                    file: string;
+                };
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MediaDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
     listOpportunities: {
         parameters: {
             query?: {
@@ -2208,6 +2742,246 @@ export interface operations {
             };
         };
     };
+    createPost: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreatePostDto"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PostDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    getPost: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PostDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    deletePost: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    listComments: {
+        parameters: {
+            query?: {
+                /** @description The `nextCursor` from the previous page. */
+                cursor?: string;
+                limit?: number;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CommentPageDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    addComment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateCommentDto"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CommentDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    likePost: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LikeStateDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    unlikePost: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LikeStateDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    sharePost: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ShareDto"];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
     checkUsername: {
         parameters: {
             query: {
@@ -2254,6 +3028,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["PromotionDto"][];
+                };
+            };
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDto"];
+                };
+            };
+        };
+    };
+    getReels: {
+        parameters: {
+            query?: {
+                /** @description The `nextCursor` from the previous page. */
+                cursor?: string;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PostPageDto"];
                 };
             };
             default: {
@@ -2334,14 +3139,18 @@ type ReadonlyArray<T> = [
 export const applicationDecisionValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["ApplicationDecision"]> = ["shortlisted", "declined", "hired"];
 export const applicationStatusValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["ApplicationStatus"]> = ["submitted", "shortlisted", "declined", "hired"];
 export const compensationTypeValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["CompensationType"]> = ["paid", "unpaid", "negotiable"];
-export const errorCodeValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["ErrorCode"]> = ["validation_failed", "unauthorized", "forbidden", "not_found", "conflict", "rate_limited", "internal_error", "service_unavailable", "phone_invalid", "phone_country_unsupported", "otp_resend_too_soon", "otp_rate_limited", "otp_invalid", "otp_expired", "otp_too_many_attempts", "sms_delivery_failed", "session_expired", "account_suspended", "username_taken", "username_reserved", "talent_category_unknown", "age_below_minimum", "adults_only", "profile_required", "opportunity_closed", "already_applied", "cannot_apply_to_own", "cannot_follow_self", "link_not_allowed", "limit_reached"];
-export const notificationTypeValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["NotificationType"]> = ["application_received", "application_status", "new_follower"];
+export const errorCodeValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["ErrorCode"]> = ["validation_failed", "unauthorized", "forbidden", "not_found", "conflict", "rate_limited", "internal_error", "service_unavailable", "phone_invalid", "phone_country_unsupported", "otp_resend_too_soon", "otp_rate_limited", "otp_invalid", "otp_expired", "otp_too_many_attempts", "sms_delivery_failed", "session_expired", "account_suspended", "username_taken", "username_reserved", "talent_category_unknown", "age_below_minimum", "adults_only", "profile_required", "opportunity_closed", "already_applied", "cannot_apply_to_own", "cannot_follow_self", "link_not_allowed", "limit_reached", "media_unsupported", "media_too_large"];
+export const feedTabValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["FeedTab"]> = ["for_you", "following"];
+export const mediaKindValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["MediaKind"]> = ["image", "video"];
+export const mediaPurposeValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["MediaPurpose"]> = ["post", "avatar"];
+export const notificationTypeValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["NotificationType"]> = ["application_received", "application_status", "new_follower", "post_liked", "post_commented"];
 export const onboardingStepValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["OnboardingStep"]> = ["talents", "profile", "done"];
 export const opportunityStatusValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["OpportunityStatus"]> = ["open", "closed", "removed"];
 export const portfolioPlatformValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["PortfolioPlatform"]> = ["youtube", "tiktok", "instagram", "facebook", "audiomack", "boomplay", "soundcloud", "spotify", "other"];
+export const postKindValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["PostKind"]> = ["text", "photo", "video"];
 export const promotionPlacementValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["PromotionPlacement"]> = ["opportunities_feed"];
 export const reportReasonValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["ReportReason"]> = ["scam", "harassment", "inappropriate", "spam", "underage", "other"];
-export const reportTargetValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["ReportTarget"]> = ["user", "opportunity", "portfolio_item"];
+export const reportTargetValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["ReportTarget"]> = ["user", "opportunity", "portfolio_item", "post", "comment"];
 export const talentLevelValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["TalentLevel"]> = ["emerging", "skilled", "professional"];
 export const usernameStatusValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["UsernameStatus"]> = ["available", "taken", "reserved"];
 export const userRoleValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["UserRole"]> = ["member", "sponsor", "admin"];

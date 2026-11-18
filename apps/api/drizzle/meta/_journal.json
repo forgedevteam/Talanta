@@ -15,6 +15,13 @@
       "when": 1794999723801,
       "tag": "0001_open_calls",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795011704200,
+      "tag": "0002_posts_and_media",
+      "breakpoints": true
     }
   ]
 }

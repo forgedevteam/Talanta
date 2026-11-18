@@ -26,6 +26,7 @@ export class PeopleService {
         username: profile.username,
         displayName: profile.displayName,
         city: profile.city,
+        avatarUrl: profile.avatarUrl,
         isVerified: profile.isVerified,
         primaryTalent: primary.get(userId) ?? null,
       });

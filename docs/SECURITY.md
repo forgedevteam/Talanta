@@ -29,11 +29,32 @@ public issue.
 | Oversized payloads                                | 64 KB request body limit                                                                                                                           | yes    |
 | Floods from one account or address                | 240 requests/min per signed-in user, 120/min per IP when signed out; daily limits on posting (5), applying (30), reporting (20), following (200/h) | yes    |
 
+## Photos and videos
+
+| Threat                                                        | Protection                                                                                                            | Tested |
+| ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------ |
+| A script or web page uploaded as a "photo"                    | The type comes from the file's first bytes, never its name or claimed type; only JPEG, PNG, WebP and MP4/MOV pass     | yes    |
+| Hidden payloads and location data inside photos               | Every photo is decoded and re-encoded; nothing of the original but the picture survives, GPS and device tags included | yes    |
+| Decompression bombs                                           | Photos over 50 megapixels are refused before decoding; 12 MB per photo, 60 MB per video                               | yes    |
+| Reading files outside the media folder                        | Storage keys are generated ids, checked against a strict pattern; the file server refuses `..`                        | yes    |
+| A media file opened as a page in a browser                    | Served with `nosniff` and `Content-Security-Policy: sandbox`                                                          | yes    |
+| Using someone else's upload in a post or as a profile picture | Files can only be attached by their owner, and to one post                                                            | yes    |
+| Upload floods                                                 | 150 uploads per person per day; 30 posts, 200 comments, 600 likes per hour                                            | yes    |
+| A closed account's photos staying online                      | Closing an account deletes its files, not just its posts                                                              | yes    |
+
+Media URLs are public but unguessable. Videos are stored as uploaded: there
+is no server-side transcoding yet, so a video is only checked for its type
+and size.
+
 ## Content and safety
 
 - **Minors.** A date of birth is required and fixed once set. Under 13
   cannot join. Under 18 cannot post or apply to Open Calls, which closes
   the most common route for fake "castings" aimed at children.
+- **Posts and comments.** People can report posts and comments; admins
+  take posts down. A suspended account's posts and comments disappear at
+  once. Authors can delete their posts, and anyone can delete a comment on
+  their own post.
 - **Scams.** Paid calls must state an amount. Every call shows "Talanta
   never asks you to pay to apply". People can report calls, people and
   work; admins review the queue, remove calls and suspend accounts

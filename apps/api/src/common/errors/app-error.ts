@@ -33,6 +33,8 @@ export const ERROR_CODES = [
   'cannot_follow_self',
   'link_not_allowed',
   'limit_reached',
+  'media_unsupported',
+  'media_too_large',
 ] as const;
 
 export type ErrorCode = (typeof ERROR_CODES)[number];

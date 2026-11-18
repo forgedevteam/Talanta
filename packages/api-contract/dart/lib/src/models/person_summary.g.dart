@@ -12,6 +12,7 @@ _PersonSummary _$PersonSummaryFromJson(Map<String, dynamic> json) =>
       username: json['username'] as String,
       displayName: json['displayName'] as String,
       city: json['city'] as String?,
+      avatarUrl: json['avatarUrl'] as String?,
       isVerified: json['isVerified'] as bool,
       primaryTalent: json['primaryTalent'] == null
           ? null
@@ -26,6 +27,7 @@ Map<String, dynamic> _$PersonSummaryToJson(_PersonSummary instance) =>
       'username': instance.username,
       'displayName': instance.displayName,
       'city': ?instance.city,
+      'avatarUrl': ?instance.avatarUrl,
       'isVerified': instance.isVerified,
       'primaryTalent': ?instance.primaryTalent,
     };

@@ -16,6 +16,13 @@ export class PersonSummaryDto {
   @ApiProperty({ type: String, nullable: true, example: 'Douala' })
   city: string | null;
 
+  @ApiProperty({
+    type: String,
+    nullable: true,
+    description: 'Absolute, or relative to the API origin.',
+  })
+  avatarUrl: string | null;
+
   @ApiProperty()
   isVerified: boolean;
 

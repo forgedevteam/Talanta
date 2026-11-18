@@ -46,6 +46,9 @@ export default tseslint.config(
       // API DTO classes only describe shapes for OpenAPI; the values passed
       // around are plain objects, so spreading them loses nothing.
       '@typescript-eslint/no-misused-spread': 'off',
+      // Same reason: responses are plain objects in the shape of a DTO class,
+      // never instances of it.
+      '@typescript-eslint/no-unsafe-class-instance-assignment': 'off',
     },
   },
   {

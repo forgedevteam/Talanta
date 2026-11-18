@@ -11,6 +11,7 @@ _CreatorCard _$CreatorCardFromJson(Map<String, dynamic> json) => _CreatorCard(
   username: json['username'] as String,
   displayName: json['displayName'] as String,
   city: json['city'] as String?,
+  avatarUrl: json['avatarUrl'] as String?,
   isVerified: json['isVerified'] as bool,
   primaryTalent: json['primaryTalent'] == null
       ? null
@@ -25,6 +26,7 @@ Map<String, dynamic> _$CreatorCardToJson(_CreatorCard instance) =>
       'username': instance.username,
       'displayName': instance.displayName,
       'city': ?instance.city,
+      'avatarUrl': ?instance.avatarUrl,
       'isVerified': instance.isVerified,
       'primaryTalent': ?instance.primaryTalent,
       'followerCount': instance.followerCount,

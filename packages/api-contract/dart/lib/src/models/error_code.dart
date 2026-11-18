@@ -66,6 +66,10 @@ enum ErrorCode {
   linkNotAllowed('link_not_allowed'),
   @JsonValue('limit_reached')
   limitReached('limit_reached'),
+  @JsonValue('media_unsupported')
+  mediaUnsupported('media_unsupported'),
+  @JsonValue('media_too_large')
+  mediaTooLarge('media_too_large'),
   /// Default value for all unparsed values, allows backward compatibility when adding new values on the backend.
   $unknown(null);
 

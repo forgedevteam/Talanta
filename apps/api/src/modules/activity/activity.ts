@@ -29,6 +29,8 @@ import {
 } from '../opportunities/dto/opportunity.dto.js';
 import { OpportunitiesModule } from '../opportunities/opportunities.module.js';
 import { OpportunitiesService } from '../opportunities/opportunities.service.js';
+import { PostsModule } from '../posts/posts.module.js';
+import { PostsService } from '../posts/posts.service.js';
 import { PersonSummaryDto } from '../profiles/dto/person.dto.js';
 import { PeopleService } from '../profiles/people.service.js';
 import { ProfilesModule } from '../profiles/profiles.module.js';
@@ -37,6 +39,8 @@ export const NOTIFICATION_TYPES = [
   'application_received',
   'application_status',
   'new_follower',
+  'post_liked',
+  'post_commented',
 ] as const;
 
 export class NotificationDto {
@@ -62,6 +66,16 @@ export class NotificationDto {
     description: 'The application’s current status, for status notifications.',
   })
   applicationStatus: ApplicationStatus | null;
+
+  @ApiProperty({ type: String, nullable: true, format: 'uuid' })
+  postId: string | null;
+
+  @ApiProperty({
+    type: String,
+    nullable: true,
+    description: 'The start of the post, or of the comment for comment notices.',
+  })
+  snippet: string | null;
 
   @ApiProperty()
   isRead: boolean;
@@ -90,6 +104,7 @@ export class ActivityService {
     private readonly notifications: NotificationsService,
     private readonly people: PeopleService,
     private readonly opportunities: OpportunitiesService,
+    private readonly posts: PostsService,
   ) {}
 
   async list(userId: string, query: CursorQueryDto): Promise<NotificationPageDto> {
@@ -98,13 +113,17 @@ export class ActivityService {
       query.cursor,
       query.limit ?? DEFAULT_PAGE_SIZE,
     );
-    const [people, titles, statuses] = await Promise.all([
+    const [people, titles, statuses, snippets] = await Promise.all([
       this.people.summaries(page.items.flatMap((n) => (n.actorId ? [n.actorId] : []))),
       this.opportunities.titles(
         page.items.flatMap((n) => (n.opportunityId ? [n.opportunityId] : [])),
       ),
       this.opportunities.applicationStatuses(
         page.items.flatMap((n) => (n.applicationId ? [n.applicationId] : [])),
+      ),
+      this.posts.snippets(
+        page.items.flatMap((n) => (n.postId ? [n.postId] : [])),
+        page.items.flatMap((n) => (n.commentId ? [n.commentId] : [])),
       ),
     ]);
     return {
@@ -115,6 +134,12 @@ export class ActivityService {
         opportunityId: n.opportunityId,
         opportunityTitle: n.opportunityId ? (titles.get(n.opportunityId) ?? null) : null,
         applicationStatus: n.applicationId ? (statuses.get(n.applicationId) ?? null) : null,
+        postId: n.postId,
+        snippet: n.commentId
+          ? (snippets.comments.get(n.commentId) ?? null)
+          : n.postId
+            ? (snippets.posts.get(n.postId) ?? null)
+            : null,
         isRead: n.readAt !== null,
         createdAt: n.createdAt,
       })),
@@ -160,7 +185,7 @@ export class ActivityController {
 }
 
 @Module({
-  imports: [NotificationsModule, ProfilesModule, OpportunitiesModule],
+  imports: [NotificationsModule, ProfilesModule, OpportunitiesModule, PostsModule],
   controllers: [ActivityController],
   providers: [ActivityService],
 })

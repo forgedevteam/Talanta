@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 
 import { NotificationsModule } from '../notifications/notifications.module.js';
 import { PortfolioModule } from '../portfolio/portfolio.module.js';
+import { PostsModule } from '../posts/posts.module.js';
 import { ProfilesModule } from '../profiles/profiles.module.js';
 import { SocialModule } from '../social/social.module.js';
 import { TalentsModule } from '../talents/talents.module.js';
@@ -17,6 +18,7 @@ import { CreatorsService } from './creators.service.js';
     SocialModule,
     UsersModule,
     NotificationsModule,
+    PostsModule,
   ],
   controllers: [CreatorsController],
   providers: [CreatorsService],

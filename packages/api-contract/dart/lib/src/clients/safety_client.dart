@@ -13,7 +13,7 @@ part 'safety_client.g.dart';
 abstract class SafetyClient {
   factory SafetyClient(Dio dio, {String? baseUrl}) = _SafetyClient;
 
-  /// Report a person, call or portfolio piece
+  /// Report a person, call, post, comment or portfolio piece
   @POST('/v1/reports')
   Future<void> createReport({
     @Body() required CreateReport body,

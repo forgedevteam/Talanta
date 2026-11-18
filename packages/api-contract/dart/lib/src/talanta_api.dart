@@ -8,7 +8,9 @@ import 'clients/auth_client.dart';
 import 'clients/me_client.dart';
 import 'clients/profiles_client.dart';
 import 'clients/talents_client.dart';
+import 'clients/media_client.dart';
 import 'clients/portfolio_client.dart';
+import 'clients/posts_client.dart';
 import 'clients/opportunities_client.dart';
 import 'clients/creators_client.dart';
 import 'clients/activity_client.dart';
@@ -36,7 +38,9 @@ class TalantaApi {
   MeClient? _me;
   ProfilesClient? _profiles;
   TalentsClient? _talents;
+  MediaClient? _media;
   PortfolioClient? _portfolio;
+  PostsClient? _posts;
   OpportunitiesClient? _opportunities;
   CreatorsClient? _creators;
   ActivityClient? _activity;
@@ -53,7 +57,11 @@ class TalantaApi {
 
   TalentsClient get talents => _talents ??= TalentsClient(_dio, baseUrl: _baseUrl);
 
+  MediaClient get media => _media ??= MediaClient(_dio, baseUrl: _baseUrl);
+
   PortfolioClient get portfolio => _portfolio ??= PortfolioClient(_dio, baseUrl: _baseUrl);
+
+  PostsClient get posts => _posts ??= PostsClient(_dio, baseUrl: _baseUrl);
 
   OpportunitiesClient get opportunities => _opportunities ??= OpportunitiesClient(_dio, baseUrl: _baseUrl);
 

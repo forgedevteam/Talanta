@@ -38,6 +38,12 @@ abstract class AdminClient {
     @Path('id') required String id,
   });
 
+  /// Take down a post
+  @POST('/v1/admin/posts/{id}/remove')
+  Future<void> removePost({
+    @Path('id') required String id,
+  });
+
   /// Suspend an account and sign it out everywhere
   @POST('/v1/admin/users/{id}/suspend')
   Future<void> suspendUser({

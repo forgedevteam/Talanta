@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../models/me.dart';
+import '../models/set_avatar.dart';
 import '../models/set_talents.dart';
 import '../models/update_profile.dart';
 
@@ -34,4 +35,14 @@ abstract class MeClient {
   Future<Me> saveMyProfile({
     @Body() required UpdateProfile body,
   });
+
+  /// Use an uploaded photo as my profile picture
+  @PUT('/v1/me/avatar')
+  Future<Me> setMyAvatar({
+    @Body() required SetAvatar body,
+  });
+
+  /// Remove my profile picture
+  @DELETE('/v1/me/avatar')
+  Future<Me> removeMyAvatar();
 }

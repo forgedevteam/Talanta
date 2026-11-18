@@ -59,6 +59,17 @@ const envSchema = z
     /** Younger people cannot create a profile. */
     MIN_SIGNUP_AGE: z.coerce.number().int().min(13).max(21).default(13),
 
+    /** Folder for uploaded photos and videos when they are kept on this server's disk. */
+    MEDIA_DIR: z.string().min(1).default('./storage/media'),
+    /**
+     * Public address files are served from, such as a CDN in front of object
+     * storage. Unset: files are served by this API under /media, and clients
+     * resolve the relative URL against the API address.
+     */
+    MEDIA_PUBLIC_BASE_URL: z.url().optional(),
+    /** The website, used for links people share. */
+    PUBLIC_WEB_URL: z.url().default('https://talanta.app'),
+
     TRUST_PROXY_HOPS: z.coerce.number().int().min(0).default(0),
     CORS_ORIGINS: z.string().default(''),
   })
@@ -150,6 +161,11 @@ export interface AppConfig {
   readonly safety: {
     readonly minSignupAge: number;
   };
+  readonly media: {
+    readonly dir: string;
+    readonly publicBaseUrl: string | undefined;
+  };
+  readonly publicWebUrl: string;
 }
 
 export function loadConfig(source: NodeJS.ProcessEnv = process.env): AppConfig {
@@ -206,5 +222,10 @@ export function loadConfig(source: NodeJS.ProcessEnv = process.env): AppConfig {
     safety: {
       minSignupAge: env.MIN_SIGNUP_AGE,
     },
+    media: {
+      dir: env.MEDIA_DIR,
+      publicBaseUrl: env.MEDIA_PUBLIC_BASE_URL?.replace(/\/+$/, ''),
+    },
+    publicWebUrl: env.PUBLIC_WEB_URL.replace(/\/+$/, ''),
   };
 }

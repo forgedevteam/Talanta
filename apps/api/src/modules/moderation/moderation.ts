@@ -41,10 +41,12 @@ import {
 } from '../opportunities/dto/opportunity.dto.js';
 import { OpportunitiesModule } from '../opportunities/opportunities.module.js';
 import { OpportunitiesService } from '../opportunities/opportunities.service.js';
+import { PostsModule } from '../posts/posts.module.js';
+import { PostsService } from '../posts/posts.service.js';
 import { UsersModule } from '../users/users.module.js';
 import { UsersService } from '../users/users.service.js';
 
-export const REPORT_TARGETS = ['user', 'opportunity', 'portfolio_item'] as const;
+export const REPORT_TARGETS = ['user', 'opportunity', 'portfolio_item', 'post', 'comment'] as const;
 export const REPORT_REASONS = [
   'scam',
   'harassment',
@@ -171,7 +173,7 @@ export class ReportsController {
 
   @Post()
   @HttpCode(HttpStatus.NO_CONTENT)
-  @ApiOperation({ summary: 'Report a person, call or portfolio piece' })
+  @ApiOperation({ summary: 'Report a person, call, post, comment or portfolio piece' })
   @ApiNoContentResponse()
   createReport(@CurrentUser() user: AuthUser, @Body() body: CreateReportDto): Promise<void> {
     return this.moderation.report(user.id, body);
@@ -188,6 +190,7 @@ export class AdminController {
   constructor(
     private readonly moderation: ModerationService,
     private readonly opportunities: OpportunitiesService,
+    private readonly posts: PostsService,
     private readonly users: UsersService,
     private readonly sessions: SessionService,
   ) {}
@@ -226,6 +229,16 @@ export class AdminController {
     return this.opportunities.remove(id);
   }
 
+  @Post('posts/:id/remove')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Take down a post' })
+  @ApiNoContentResponse()
+  async removePost(@Param('id', new ParseUUIDPipe()) id: string): Promise<void> {
+    if (!(await this.posts.removeByModerator(id))) {
+      throw new AppError(HttpStatus.NOT_FOUND, 'not_found', 'No post with that id.');
+    }
+  }
+
   @Post('users/:id/suspend')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Suspend an account and sign it out everywhere' })
@@ -249,7 +262,7 @@ export class AdminController {
 }
 
 @Module({
-  imports: [AuthModule, UsersModule, OpportunitiesModule],
+  imports: [AuthModule, UsersModule, OpportunitiesModule, PostsModule],
   controllers: [ReportsController, AdminController],
   providers: [ModerationService],
 })

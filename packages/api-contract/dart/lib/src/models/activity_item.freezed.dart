@@ -16,7 +16,8 @@ T _$identity<T>(T value) => value;
 mixin _$ActivityItem {
 
  String get id; NotificationType get type; PersonSummary? get actor; String? get opportunityId; String? get opportunityTitle;/// The application’s current status, for status notifications.
- ApplicationStatus? get applicationStatus; bool get isRead; DateTime get createdAt;
+ ApplicationStatus? get applicationStatus; String? get postId;/// The start of the post, or of the comment for comment notices.
+ String? get snippet; bool get isRead; DateTime get createdAt;
 /// Create a copy of ActivityItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +30,16 @@ $ActivityItemCopyWith<ActivityItem> get copyWith => _$ActivityItemCopyWithImpl<A
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ActivityItem&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.actor, actor) || other.actor == actor)&&(identical(other.opportunityId, opportunityId) || other.opportunityId == opportunityId)&&(identical(other.opportunityTitle, opportunityTitle) || other.opportunityTitle == opportunityTitle)&&(identical(other.applicationStatus, applicationStatus) || other.applicationStatus == applicationStatus)&&(identical(other.isRead, isRead) || other.isRead == isRead)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ActivityItem&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.actor, actor) || other.actor == actor)&&(identical(other.opportunityId, opportunityId) || other.opportunityId == opportunityId)&&(identical(other.opportunityTitle, opportunityTitle) || other.opportunityTitle == opportunityTitle)&&(identical(other.applicationStatus, applicationStatus) || other.applicationStatus == applicationStatus)&&(identical(other.postId, postId) || other.postId == postId)&&(identical(other.snippet, snippet) || other.snippet == snippet)&&(identical(other.isRead, isRead) || other.isRead == isRead)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,type,actor,opportunityId,opportunityTitle,applicationStatus,isRead,createdAt);
+int get hashCode => Object.hash(runtimeType,id,type,actor,opportunityId,opportunityTitle,applicationStatus,postId,snippet,isRead,createdAt);
 
 @override
 String toString() {
-  return 'ActivityItem(id: $id, type: $type, actor: $actor, opportunityId: $opportunityId, opportunityTitle: $opportunityTitle, applicationStatus: $applicationStatus, isRead: $isRead, createdAt: $createdAt)';
+  return 'ActivityItem(id: $id, type: $type, actor: $actor, opportunityId: $opportunityId, opportunityTitle: $opportunityTitle, applicationStatus: $applicationStatus, postId: $postId, snippet: $snippet, isRead: $isRead, createdAt: $createdAt)';
 }
 
 
@@ -49,7 +50,7 @@ abstract mixin class $ActivityItemCopyWith<$Res>  {
   factory $ActivityItemCopyWith(ActivityItem value, $Res Function(ActivityItem) _then) = _$ActivityItemCopyWithImpl;
 @useResult
 $Res call({
- String id, NotificationType type, PersonSummary? actor, String? opportunityId, String? opportunityTitle, ApplicationStatus? applicationStatus, bool isRead, DateTime createdAt
+ String id, NotificationType type, PersonSummary? actor, String? opportunityId, String? opportunityTitle, ApplicationStatus? applicationStatus, String? postId, String? snippet, bool isRead, DateTime createdAt
 });
 
 
@@ -66,7 +67,7 @@ class _$ActivityItemCopyWithImpl<$Res>
 
 /// Create a copy of ActivityItem
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? type = null,Object? actor = freezed,Object? opportunityId = freezed,Object? opportunityTitle = freezed,Object? applicationStatus = freezed,Object? isRead = null,Object? createdAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? type = null,Object? actor = freezed,Object? opportunityId = freezed,Object? opportunityTitle = freezed,Object? applicationStatus = freezed,Object? postId = freezed,Object? snippet = freezed,Object? isRead = null,Object? createdAt = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
@@ -74,7 +75,9 @@ as NotificationType,actor: freezed == actor ? _self.actor : actor // ignore: cas
 as PersonSummary?,opportunityId: freezed == opportunityId ? _self.opportunityId : opportunityId // ignore: cast_nullable_to_non_nullable
 as String?,opportunityTitle: freezed == opportunityTitle ? _self.opportunityTitle : opportunityTitle // ignore: cast_nullable_to_non_nullable
 as String?,applicationStatus: freezed == applicationStatus ? _self.applicationStatus : applicationStatus // ignore: cast_nullable_to_non_nullable
-as ApplicationStatus?,isRead: null == isRead ? _self.isRead : isRead // ignore: cast_nullable_to_non_nullable
+as ApplicationStatus?,postId: freezed == postId ? _self.postId : postId // ignore: cast_nullable_to_non_nullable
+as String?,snippet: freezed == snippet ? _self.snippet : snippet // ignore: cast_nullable_to_non_nullable
+as String?,isRead: null == isRead ? _self.isRead : isRead // ignore: cast_nullable_to_non_nullable
 as bool,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));
@@ -173,10 +176,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  NotificationType type,  PersonSummary? actor,  String? opportunityId,  String? opportunityTitle,  ApplicationStatus? applicationStatus,  bool isRead,  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  NotificationType type,  PersonSummary? actor,  String? opportunityId,  String? opportunityTitle,  ApplicationStatus? applicationStatus,  String? postId,  String? snippet,  bool isRead,  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ActivityItem() when $default != null:
-return $default(_that.id,_that.type,_that.actor,_that.opportunityId,_that.opportunityTitle,_that.applicationStatus,_that.isRead,_that.createdAt);case _:
+return $default(_that.id,_that.type,_that.actor,_that.opportunityId,_that.opportunityTitle,_that.applicationStatus,_that.postId,_that.snippet,_that.isRead,_that.createdAt);case _:
   return orElse();
 
 }
@@ -194,10 +197,10 @@ return $default(_that.id,_that.type,_that.actor,_that.opportunityId,_that.opport
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  NotificationType type,  PersonSummary? actor,  String? opportunityId,  String? opportunityTitle,  ApplicationStatus? applicationStatus,  bool isRead,  DateTime createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  NotificationType type,  PersonSummary? actor,  String? opportunityId,  String? opportunityTitle,  ApplicationStatus? applicationStatus,  String? postId,  String? snippet,  bool isRead,  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _ActivityItem():
-return $default(_that.id,_that.type,_that.actor,_that.opportunityId,_that.opportunityTitle,_that.applicationStatus,_that.isRead,_that.createdAt);case _:
+return $default(_that.id,_that.type,_that.actor,_that.opportunityId,_that.opportunityTitle,_that.applicationStatus,_that.postId,_that.snippet,_that.isRead,_that.createdAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -214,10 +217,10 @@ return $default(_that.id,_that.type,_that.actor,_that.opportunityId,_that.opport
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  NotificationType type,  PersonSummary? actor,  String? opportunityId,  String? opportunityTitle,  ApplicationStatus? applicationStatus,  bool isRead,  DateTime createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  NotificationType type,  PersonSummary? actor,  String? opportunityId,  String? opportunityTitle,  ApplicationStatus? applicationStatus,  String? postId,  String? snippet,  bool isRead,  DateTime createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _ActivityItem() when $default != null:
-return $default(_that.id,_that.type,_that.actor,_that.opportunityId,_that.opportunityTitle,_that.applicationStatus,_that.isRead,_that.createdAt);case _:
+return $default(_that.id,_that.type,_that.actor,_that.opportunityId,_that.opportunityTitle,_that.applicationStatus,_that.postId,_that.snippet,_that.isRead,_that.createdAt);case _:
   return null;
 
 }
@@ -229,7 +232,7 @@ return $default(_that.id,_that.type,_that.actor,_that.opportunityId,_that.opport
 @JsonSerializable()
 
 class _ActivityItem implements ActivityItem {
-  const _ActivityItem({required this.id, required this.type, required this.actor, required this.opportunityId, required this.opportunityTitle, required this.applicationStatus, required this.isRead, required this.createdAt});
+  const _ActivityItem({required this.id, required this.type, required this.actor, required this.opportunityId, required this.opportunityTitle, required this.applicationStatus, required this.postId, required this.snippet, required this.isRead, required this.createdAt});
   factory _ActivityItem.fromJson(Map<String, dynamic> json) => _$ActivityItemFromJson(json);
 
 @override final  String id;
@@ -239,6 +242,9 @@ class _ActivityItem implements ActivityItem {
 @override final  String? opportunityTitle;
 /// The application’s current status, for status notifications.
 @override final  ApplicationStatus? applicationStatus;
+@override final  String? postId;
+/// The start of the post, or of the comment for comment notices.
+@override final  String? snippet;
 @override final  bool isRead;
 @override final  DateTime createdAt;
 
@@ -255,16 +261,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ActivityItem&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.actor, actor) || other.actor == actor)&&(identical(other.opportunityId, opportunityId) || other.opportunityId == opportunityId)&&(identical(other.opportunityTitle, opportunityTitle) || other.opportunityTitle == opportunityTitle)&&(identical(other.applicationStatus, applicationStatus) || other.applicationStatus == applicationStatus)&&(identical(other.isRead, isRead) || other.isRead == isRead)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ActivityItem&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.actor, actor) || other.actor == actor)&&(identical(other.opportunityId, opportunityId) || other.opportunityId == opportunityId)&&(identical(other.opportunityTitle, opportunityTitle) || other.opportunityTitle == opportunityTitle)&&(identical(other.applicationStatus, applicationStatus) || other.applicationStatus == applicationStatus)&&(identical(other.postId, postId) || other.postId == postId)&&(identical(other.snippet, snippet) || other.snippet == snippet)&&(identical(other.isRead, isRead) || other.isRead == isRead)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,type,actor,opportunityId,opportunityTitle,applicationStatus,isRead,createdAt);
+int get hashCode => Object.hash(runtimeType,id,type,actor,opportunityId,opportunityTitle,applicationStatus,postId,snippet,isRead,createdAt);
 
 @override
 String toString() {
-  return 'ActivityItem(id: $id, type: $type, actor: $actor, opportunityId: $opportunityId, opportunityTitle: $opportunityTitle, applicationStatus: $applicationStatus, isRead: $isRead, createdAt: $createdAt)';
+  return 'ActivityItem(id: $id, type: $type, actor: $actor, opportunityId: $opportunityId, opportunityTitle: $opportunityTitle, applicationStatus: $applicationStatus, postId: $postId, snippet: $snippet, isRead: $isRead, createdAt: $createdAt)';
 }
 
 
@@ -275,7 +281,7 @@ abstract mixin class _$ActivityItemCopyWith<$Res> implements $ActivityItemCopyWi
   factory _$ActivityItemCopyWith(_ActivityItem value, $Res Function(_ActivityItem) _then) = __$ActivityItemCopyWithImpl;
 @override @useResult
 $Res call({
- String id, NotificationType type, PersonSummary? actor, String? opportunityId, String? opportunityTitle, ApplicationStatus? applicationStatus, bool isRead, DateTime createdAt
+ String id, NotificationType type, PersonSummary? actor, String? opportunityId, String? opportunityTitle, ApplicationStatus? applicationStatus, String? postId, String? snippet, bool isRead, DateTime createdAt
 });
 
 
@@ -292,7 +298,7 @@ class __$ActivityItemCopyWithImpl<$Res>
 
 /// Create a copy of ActivityItem
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? type = null,Object? actor = freezed,Object? opportunityId = freezed,Object? opportunityTitle = freezed,Object? applicationStatus = freezed,Object? isRead = null,Object? createdAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? type = null,Object? actor = freezed,Object? opportunityId = freezed,Object? opportunityTitle = freezed,Object? applicationStatus = freezed,Object? postId = freezed,Object? snippet = freezed,Object? isRead = null,Object? createdAt = null,}) {
   return _then(_ActivityItem(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
@@ -300,7 +306,9 @@ as NotificationType,actor: freezed == actor ? _self.actor : actor // ignore: cas
 as PersonSummary?,opportunityId: freezed == opportunityId ? _self.opportunityId : opportunityId // ignore: cast_nullable_to_non_nullable
 as String?,opportunityTitle: freezed == opportunityTitle ? _self.opportunityTitle : opportunityTitle // ignore: cast_nullable_to_non_nullable
 as String?,applicationStatus: freezed == applicationStatus ? _self.applicationStatus : applicationStatus // ignore: cast_nullable_to_non_nullable
-as ApplicationStatus?,isRead: null == isRead ? _self.isRead : isRead // ignore: cast_nullable_to_non_nullable
+as ApplicationStatus?,postId: freezed == postId ? _self.postId : postId // ignore: cast_nullable_to_non_nullable
+as String?,snippet: freezed == snippet ? _self.snippet : snippet // ignore: cast_nullable_to_non_nullable
+as String?,isRead: null == isRead ? _self.isRead : isRead // ignore: cast_nullable_to_non_nullable
 as bool,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));

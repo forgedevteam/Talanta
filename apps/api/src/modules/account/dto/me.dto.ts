@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Matches } from 'class-validator';
 
+import { UUID_PATTERN } from '../../../common/ids/uuidv7.js';
 import { ProfileDto } from '../../profiles/dto/profile.dto.js';
 import { UserTalentDto } from '../../talents/dto/talent.dto.js';
 
@@ -51,4 +53,10 @@ export class MeDto {
     description: 'The next onboarding screen to show, or `done`.',
   })
   onboardingStep: OnboardingStep;
+}
+
+export class SetAvatarDto {
+  @ApiProperty({ format: 'uuid', description: 'A photo I uploaded with purpose=avatar.' })
+  @Matches(UUID_PATTERN, { message: 'Upload the photo first.' })
+  mediaId: string;
 }

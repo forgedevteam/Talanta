@@ -321,6 +321,88 @@
         ]
       }
     },
+    "/v1/me/avatar": {
+      "put": {
+        "operationId": "setMyAvatar",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetAvatarDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Use an uploaded photo as my profile picture",
+        "tags": [
+          "me"
+        ]
+      },
+      "delete": {
+        "operationId": "removeMyAvatar",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Remove my profile picture",
+        "tags": [
+          "me"
+        ]
+      }
+    },
     "/v1/profiles/username-availability": {
       "get": {
         "operationId": "checkUsername",
@@ -401,6 +483,72 @@
         "summary": "List the talent categories people can pick from",
         "tags": [
           "talents"
+        ]
+      }
+    },
+    "/v1/media": {
+      "post": {
+        "operationId": "uploadMedia",
+        "parameters": [
+          {
+            "name": "purpose",
+            "required": false,
+            "in": "query",
+            "description": "Avatars are cropped square.",
+            "schema": {
+              "$ref": "#/components/schemas/MediaPurpose"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "file"
+                ],
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Upload a photo or a video, to attach to a post or use as my picture",
+        "tags": [
+          "media"
         ]
       }
     },
@@ -525,6 +673,637 @@
         "summary": "Remove a piece from my portfolio",
         "tags": [
           "portfolio"
+        ]
+      }
+    },
+    "/v1/feed": {
+      "get": {
+        "operationId": "getFeed",
+        "parameters": [
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "The `nextCursor` from the previous page.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "tab",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "default": "for_you",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/FeedTab"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostPageDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "The home feed: everyone, or the people I follow",
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "/v1/reels": {
+      "get": {
+        "operationId": "getReels",
+        "parameters": [
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "The `nextCursor` from the previous page.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostPageDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Short vertical videos, newest first",
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "/v1/creators/{username}/posts": {
+      "get": {
+        "operationId": "getCreatorPosts",
+        "parameters": [
+          {
+            "name": "username",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "pattern": "^[a-z0-9_]{3,24}$",
+              "example": "amara_sings",
+              "type": "string"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "The `nextCursor` from the previous page.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "reels",
+            "required": false,
+            "in": "query",
+            "description": "Only reels.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostPageDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "A creator’s posts, or only their reels",
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "/v1/posts": {
+      "post": {
+        "operationId": "createPost",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePostDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Share words, photos or a video",
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "/v1/posts/{id}": {
+      "get": {
+        "operationId": "getPost",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "One post",
+        "tags": [
+          "posts"
+        ]
+      },
+      "delete": {
+        "operationId": "deletePost",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete my post",
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "/v1/posts/{id}/like": {
+      "post": {
+        "operationId": "likePost",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LikeStateDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Like a post",
+        "tags": [
+          "posts"
+        ]
+      },
+      "delete": {
+        "operationId": "unlikePost",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LikeStateDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Take back my like",
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "/v1/posts/{id}/share": {
+      "post": {
+        "operationId": "sharePost",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShareDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a link to share, and count the share",
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "/v1/posts/{id}/comments": {
+      "get": {
+        "operationId": "listComments",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "The `nextCursor` from the previous page.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommentPageDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Comments on a post, oldest first",
+        "tags": [
+          "posts"
+        ]
+      },
+      "post": {
+        "operationId": "addComment",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCommentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommentDto"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Comment on a post",
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "/v1/comments/{id}": {
+      "delete": {
+        "operationId": "deleteComment",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a comment I wrote, or one on my post",
+        "tags": [
+          "posts"
         ]
       }
     },
@@ -1425,7 +2204,7 @@
             "bearer": []
           }
         ],
-        "summary": "Report a person, call or portfolio piece",
+        "summary": "Report a person, call, post, comment or portfolio piece",
         "tags": [
           "safety"
         ]
@@ -1600,6 +2379,45 @@
           }
         ],
         "summary": "Take down a call",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/v1/admin/posts/{id}/remove": {
+      "post": {
+        "operationId": "removePost",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Take down a post",
         "tags": [
           "admin"
         ]
@@ -1844,7 +2662,9 @@
           "cannot_apply_to_own",
           "cannot_follow_self",
           "link_not_allowed",
-          "limit_reached"
+          "limit_reached",
+          "media_unsupported",
+          "media_too_large"
         ]
       },
       "ProblemDto": {
@@ -2249,6 +3069,19 @@
           "city"
         ]
       },
+      "SetAvatarDto": {
+        "type": "object",
+        "properties": {
+          "mediaId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "A photo I uploaded with purpose=avatar."
+          }
+        },
+        "required": [
+          "mediaId"
+        ]
+      },
       "UsernameStatus": {
         "type": "string",
         "enum": [
@@ -2304,6 +3137,56 @@
           "slug",
           "name",
           "icon"
+        ]
+      },
+      "MediaPurpose": {
+        "type": "string",
+        "enum": [
+          "post",
+          "avatar"
+        ]
+      },
+      "MediaKind": {
+        "type": "string",
+        "enum": [
+          "image",
+          "video"
+        ]
+      },
+      "MediaDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MediaKind"
+              }
+            ]
+          },
+          "url": {
+            "type": "string",
+            "example": "/media/images/0196f0b2-7c1e-7d43-9a51-2a8f0c3b9e10.jpg",
+            "description": "Absolute, or relative to the API origin."
+          },
+          "width": {
+            "type": "number",
+            "nullable": true
+          },
+          "height": {
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "url",
+          "width",
+          "height"
         ]
       },
       "PortfolioPlatform": {
@@ -2395,20 +3278,11 @@
           "url"
         ]
       },
-      "CompensationType": {
+      "FeedTab": {
         "type": "string",
         "enum": [
-          "paid",
-          "unpaid",
-          "negotiable"
-        ]
-      },
-      "OpportunityStatus": {
-        "type": "string",
-        "enum": [
-          "open",
-          "closed",
-          "removed"
+          "for_you",
+          "following"
         ]
       },
       "PersonSummaryDto": {
@@ -2431,6 +3305,11 @@
             "nullable": true,
             "example": "Douala"
           },
+          "avatarUrl": {
+            "type": "string",
+            "nullable": true,
+            "description": "Absolute, or relative to the API origin."
+          },
           "isVerified": {
             "type": "boolean"
           },
@@ -2449,8 +3328,238 @@
           "username",
           "displayName",
           "city",
+          "avatarUrl",
           "isVerified",
           "primaryTalent"
+        ]
+      },
+      "PostKind": {
+        "type": "string",
+        "enum": [
+          "text",
+          "photo",
+          "video"
+        ]
+      },
+      "PostDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "author": {
+            "$ref": "#/components/schemas/PersonSummaryDto"
+          },
+          "kind": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PostKind"
+              }
+            ]
+          },
+          "body": {
+            "type": "string",
+            "nullable": true,
+            "example": "New song for my mama. One take."
+          },
+          "media": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MediaDto"
+            }
+          },
+          "isReel": {
+            "type": "boolean",
+            "description": "A vertical video that also plays in Reels."
+          },
+          "likeCount": {
+            "type": "number"
+          },
+          "commentCount": {
+            "type": "number"
+          },
+          "shareCount": {
+            "type": "number"
+          },
+          "likedByMe": {
+            "type": "boolean"
+          },
+          "isMine": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "author",
+          "kind",
+          "body",
+          "media",
+          "isReel",
+          "likeCount",
+          "commentCount",
+          "shareCount",
+          "likedByMe",
+          "isMine",
+          "createdAt"
+        ]
+      },
+      "PostPageDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PostDto"
+            }
+          },
+          "nextCursor": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "items",
+          "nextCursor"
+        ]
+      },
+      "CreatePostDto": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "string",
+            "maxLength": 2200,
+            "example": "Rehearsal for Saturday. Who is coming?"
+          },
+          "mediaIds": {
+            "description": "Uploaded files, in display order: up to 10 photos, or one video.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isReel": {
+            "type": "boolean",
+            "description": "Show this video in Reels too."
+          }
+        }
+      },
+      "LikeStateDto": {
+        "type": "object",
+        "properties": {
+          "liked": {
+            "type": "boolean"
+          },
+          "likeCount": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "liked",
+          "likeCount"
+        ]
+      },
+      "ShareDto": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "example": "https://talanta.app/p/0196f0b2-7c1e-7d43-9a51-2a8f0c3b9e10"
+          },
+          "shareCount": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "url",
+          "shareCount"
+        ]
+      },
+      "CommentDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "postId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "author": {
+            "$ref": "#/components/schemas/PersonSummaryDto"
+          },
+          "body": {
+            "type": "string"
+          },
+          "canDelete": {
+            "type": "boolean",
+            "description": "I can delete it: I wrote it, or it is on my post."
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "postId",
+          "author",
+          "body",
+          "canDelete",
+          "createdAt"
+        ]
+      },
+      "CommentPageDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CommentDto"
+            }
+          },
+          "nextCursor": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "items",
+          "nextCursor"
+        ]
+      },
+      "CreateCommentDto": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "body"
+        ]
+      },
+      "CompensationType": {
+        "type": "string",
+        "enum": [
+          "paid",
+          "unpaid",
+          "negotiable"
+        ]
+      },
+      "OpportunityStatus": {
+        "type": "string",
+        "enum": [
+          "open",
+          "closed",
+          "removed"
         ]
       },
       "OpportunitySummaryDto": {
@@ -2887,6 +3996,11 @@
             "nullable": true,
             "example": "Douala"
           },
+          "avatarUrl": {
+            "type": "string",
+            "nullable": true,
+            "description": "Absolute, or relative to the API origin."
+          },
           "isVerified": {
             "type": "boolean"
           },
@@ -2911,6 +4025,7 @@
           "username",
           "displayName",
           "city",
+          "avatarUrl",
           "isVerified",
           "primaryTalent",
           "followerCount",
@@ -2956,6 +4071,11 @@
             "nullable": true,
             "example": "Douala"
           },
+          "avatarUrl": {
+            "type": "string",
+            "nullable": true,
+            "description": "Absolute, or relative to the API origin."
+          },
           "isVerified": {
             "type": "boolean"
           },
@@ -2990,6 +4110,9 @@
           "followingCount": {
             "type": "number"
           },
+          "postCount": {
+            "type": "number"
+          },
           "isFollowing": {
             "type": "boolean"
           },
@@ -3003,6 +4126,7 @@
           "username",
           "displayName",
           "city",
+          "avatarUrl",
           "isVerified",
           "primaryTalent",
           "bio",
@@ -3010,6 +4134,7 @@
           "portfolio",
           "followerCount",
           "followingCount",
+          "postCount",
           "isFollowing",
           "isMe"
         ]
@@ -3103,7 +4228,9 @@
         "enum": [
           "application_received",
           "application_status",
-          "new_follower"
+          "new_follower",
+          "post_liked",
+          "post_commented"
         ]
       },
       "NotificationDto": {
@@ -3147,6 +4274,16 @@
               }
             ]
           },
+          "postId": {
+            "type": "string",
+            "nullable": true,
+            "format": "uuid"
+          },
+          "snippet": {
+            "type": "string",
+            "nullable": true,
+            "description": "The start of the post, or of the comment for comment notices."
+          },
           "isRead": {
             "type": "boolean"
           },
@@ -3162,6 +4299,8 @@
           "opportunityId",
           "opportunityTitle",
           "applicationStatus",
+          "postId",
+          "snippet",
           "isRead",
           "createdAt"
         ]
@@ -3201,7 +4340,9 @@
         "enum": [
           "user",
           "opportunity",
-          "portfolio_item"
+          "portfolio_item",
+          "post",
+          "comment"
         ]
       },
       "ReportReason": {

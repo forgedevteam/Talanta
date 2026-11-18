@@ -1,5 +1,9 @@
 import 'reflect-metadata';
 
+import { mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+
 import { PGlite } from '@electric-sql/pglite';
 import type { NestExpressApplication } from '@nestjs/platform-express';
 import { Test } from '@nestjs/testing';
@@ -89,7 +93,8 @@ export async function createTestApp(env: Record<string, string> = {}): Promise<T
   const db: Database = pglite;
   await seedTalentCategories(db);
 
-  const config = loadConfig({ ...BASE_ENV, ...env });
+  const mediaDir = await mkdtemp(join(tmpdir(), 'talanta-media-'));
+  const config = loadConfig({ ...BASE_ENV, MEDIA_DIR: mediaDir, ...env });
   const clock = new TestClock();
   const sms = new FakeSmsProvider();
 
@@ -118,6 +123,7 @@ export async function createTestApp(env: Record<string, string> = {}): Promise<T
     close: async () => {
       await app.close();
       await client.close();
+      await rm(mediaDir, { recursive: true, force: true });
     },
   };
 }

@@ -18,6 +18,8 @@ _ActivityItem _$ActivityItemFromJson(Map<String, dynamic> json) =>
       applicationStatus: json['applicationStatus'] == null
           ? null
           : ApplicationStatus.fromJson(json['applicationStatus'] as String),
+      postId: json['postId'] as String?,
+      snippet: json['snippet'] as String?,
       isRead: json['isRead'] as bool,
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
@@ -30,6 +32,8 @@ Map<String, dynamic> _$ActivityItemToJson(_ActivityItem instance) =>
       'opportunityId': ?instance.opportunityId,
       'opportunityTitle': ?instance.opportunityTitle,
       'applicationStatus': ?instance.applicationStatus,
+      'postId': ?instance.postId,
+      'snippet': ?instance.snippet,
       'isRead': instance.isRead,
       'createdAt': instance.createdAt.toIso8601String(),
     };

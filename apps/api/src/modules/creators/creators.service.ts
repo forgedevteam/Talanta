@@ -6,6 +6,7 @@ import { RateLimiter } from '../../common/rate-limit/rate-limiter.js';
 import { NotificationsService } from '../notifications/notifications.service.js';
 import { PortfolioService } from '../portfolio/portfolio.service.js';
 import { PeopleService } from '../profiles/people.service.js';
+import { PostsService } from '../posts/posts.service.js';
 import { ProfilesService } from '../profiles/profiles.service.js';
 import { SocialService } from '../social/social.service.js';
 import { TalentsService } from '../talents/talents.service.js';
@@ -35,6 +36,7 @@ export class CreatorsService {
     private readonly users: UsersService,
     private readonly notifications: NotificationsService,
     private readonly rateLimiter: RateLimiter,
+    private readonly posts: PostsService,
   ) {}
 
   async search(query: CreatorQueryDto): Promise<CreatorPageDto> {
@@ -71,14 +73,17 @@ export class CreatorsService {
 
   async profile(username: string, viewerId: string): Promise<CreatorProfileDto> {
     const userId = await this.resolve(username);
-    const [people, talents, portfolio, counts, isFollowing, profile] = await Promise.all([
-      this.people.summaries([userId]),
-      this.talents.listForUser(userId),
-      this.portfolio.listForUser(userId),
-      this.social.counts(userId),
-      this.social.isFollowing(viewerId, userId),
-      this.profiles.findByUserId(userId),
-    ]);
+    const [people, talents, portfolio, counts, isFollowing, profile, postCount] = await Promise.all(
+      [
+        this.people.summaries([userId]),
+        this.talents.listForUser(userId),
+        this.portfolio.listForUser(userId),
+        this.social.counts(userId),
+        this.social.isFollowing(viewerId, userId),
+        this.profiles.findByUserId(userId),
+        this.posts.countForAuthor(userId),
+      ],
+    );
     const person = people.get(userId);
     if (!person || !profile) throw notFound();
     return {
@@ -88,6 +93,7 @@ export class CreatorsService {
       portfolio,
       followerCount: counts.followers,
       followingCount: counts.following,
+      postCount,
       isFollowing,
       isMe: userId === viewerId,
     };

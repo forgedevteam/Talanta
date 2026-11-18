@@ -1,5 +1,6 @@
 import { index, pgEnum, pgTable, text, uniqueIndex, uuid, varchar } from 'drizzle-orm/pg-core';
 
+import { comments, posts } from './content.js';
 import { id, timestamps, timestamptz } from './columns.js';
 import { applications, opportunities } from './opportunities.js';
 import { users } from './users.js';
@@ -8,6 +9,8 @@ export const notificationType = pgEnum('notification_type', [
   'application_received',
   'application_status',
   'new_follower',
+  'post_liked',
+  'post_commented',
 ]);
 
 /**
@@ -29,13 +32,21 @@ export const notifications = pgTable(
     applicationId: uuid('application_id').references(() => applications.id, {
       onDelete: 'cascade',
     }),
+    postId: uuid('post_id').references(() => posts.id, { onDelete: 'cascade' }),
+    commentId: uuid('comment_id').references(() => comments.id, { onDelete: 'cascade' }),
     readAt: timestamptz('read_at'),
     ...timestamps,
   },
   (table) => [index('notifications_user_idx').on(table.userId, table.createdAt)],
 );
 
-export const reportTarget = pgEnum('report_target', ['user', 'opportunity', 'portfolio_item']);
+export const reportTarget = pgEnum('report_target', [
+  'user',
+  'opportunity',
+  'portfolio_item',
+  'post',
+  'comment',
+]);
 export const reportReason = pgEnum('report_reason', [
   'scam',
   'harassment',

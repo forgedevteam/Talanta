@@ -22,6 +22,8 @@ const STATUS_CODES: Readonly<Record<number, ErrorCode>> = {
   [HttpStatus.FORBIDDEN]: 'forbidden',
   [HttpStatus.NOT_FOUND]: 'not_found',
   [HttpStatus.CONFLICT]: 'conflict',
+  // Raised by the upload parser before our code sees the file.
+  [HttpStatus.PAYLOAD_TOO_LARGE]: 'media_too_large',
   [HttpStatus.TOO_MANY_REQUESTS]: 'rate_limited',
 };
 

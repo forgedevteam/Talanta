@@ -22,6 +22,10 @@ abstract class ActivityItem with _$ActivityItem {
 
     /// The application’s current status, for status notifications.
     required ApplicationStatus? applicationStatus,
+    required String? postId,
+
+    /// The start of the post, or of the comment for comment notices.
+    required String? snippet,
     required bool isRead,
     required DateTime createdAt,
   }) = _ActivityItem;

@@ -12,6 +12,10 @@ enum NotificationType {
   applicationStatus('application_status'),
   @JsonValue('new_follower')
   newFollower('new_follower'),
+  @JsonValue('post_liked')
+  postLiked('post_liked'),
+  @JsonValue('post_commented')
+  postCommented('post_commented'),
   /// Default value for all unparsed values, allows backward compatibility when adding new values on the backend.
   $unknown(null);
 

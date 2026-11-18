@@ -18,6 +18,9 @@ abstract class CreatorProfile with _$CreatorProfile {
     required String username,
     required String displayName,
     required String? city,
+
+    /// Absolute, or relative to the API origin.
+    required String? avatarUrl,
     required bool isVerified,
     required TalentCategory? primaryTalent,
     required String? bio,
@@ -25,6 +28,7 @@ abstract class CreatorProfile with _$CreatorProfile {
     required List<PortfolioItem> portfolio,
     required num followerCount,
     required num followingCount,
+    required num postCount,
     required bool isFollowing,
 
     /// This is the signed-in person.

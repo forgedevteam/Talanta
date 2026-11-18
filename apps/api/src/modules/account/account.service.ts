@@ -4,6 +4,7 @@ import { CLOCK, type Clock } from '../../common/clock/clock.js';
 import { AppError } from '../../common/errors/app-error.js';
 import { APP_CONFIG } from '../../config/config.module.js';
 import type { AppConfig } from '../../config/env.js';
+import { MediaService } from '../media/media.service.js';
 import { ProfilesService, type Profile, type ProfileInput } from '../profiles/profiles.service.js';
 import type { ProfileDto } from '../profiles/dto/profile.dto.js';
 import { TalentsService } from '../talents/talents.service.js';
@@ -32,6 +33,7 @@ export class AccountService {
     private readonly users: UsersService,
     private readonly profiles: ProfilesService,
     private readonly talents: TalentsService,
+    private readonly media: MediaService,
     @Inject(CLOCK) private readonly clock: Clock,
     @Inject(APP_CONFIG) private readonly config: AppConfig,
   ) {}
@@ -97,6 +99,28 @@ export class AccountService {
 
     await this.profiles.save(userId, input);
     if (needsDateOfBirth && dateOfBirth) await this.users.setDateOfBirth(userId, dateOfBirth);
+    return this.getMe(userId);
+  }
+
+  /** Uses one of my uploaded photos as my profile picture, or removes it with `null`. */
+  async setAvatar(userId: string, mediaId: string | null): Promise<MeDto> {
+    const profile = await this.profiles.findByUserId(userId);
+    if (!profile) {
+      throw new AppError(
+        HttpStatus.CONFLICT,
+        'profile_required',
+        'Create your profile before adding a picture.',
+      );
+    }
+    let url: string | null = null;
+    if (mediaId !== null) {
+      const [file] = await this.media.findOwned(userId, [mediaId]);
+      if (file?.kind !== 'image') {
+        throw new AppError(HttpStatus.NOT_FOUND, 'not_found', 'Upload the photo first.');
+      }
+      url = this.media.urlFor(file);
+    }
+    await this.profiles.setAvatar(userId, url);
     return this.getMe(userId);
   }
 

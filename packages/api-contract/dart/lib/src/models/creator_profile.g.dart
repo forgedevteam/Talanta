@@ -12,6 +12,7 @@ _CreatorProfile _$CreatorProfileFromJson(Map<String, dynamic> json) =>
       username: json['username'] as String,
       displayName: json['displayName'] as String,
       city: json['city'] as String?,
+      avatarUrl: json['avatarUrl'] as String?,
       isVerified: json['isVerified'] as bool,
       primaryTalent: json['primaryTalent'] == null
           ? null
@@ -27,6 +28,7 @@ _CreatorProfile _$CreatorProfileFromJson(Map<String, dynamic> json) =>
           .toList(),
       followerCount: json['followerCount'] as num,
       followingCount: json['followingCount'] as num,
+      postCount: json['postCount'] as num,
       isFollowing: json['isFollowing'] as bool,
       isMe: json['isMe'] as bool,
     );
@@ -37,6 +39,7 @@ Map<String, dynamic> _$CreatorProfileToJson(_CreatorProfile instance) =>
       'username': instance.username,
       'displayName': instance.displayName,
       'city': ?instance.city,
+      'avatarUrl': ?instance.avatarUrl,
       'isVerified': instance.isVerified,
       'primaryTalent': ?instance.primaryTalent,
       'bio': ?instance.bio,
@@ -44,6 +47,7 @@ Map<String, dynamic> _$CreatorProfileToJson(_CreatorProfile instance) =>
       'portfolio': instance.portfolio,
       'followerCount': instance.followerCount,
       'followingCount': instance.followingCount,
+      'postCount': instance.postCount,
       'isFollowing': instance.isFollowing,
       'isMe': instance.isMe,
     };

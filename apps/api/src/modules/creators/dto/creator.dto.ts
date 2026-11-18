@@ -40,6 +40,9 @@ export class CreatorProfileDto extends PersonSummaryDto {
   followingCount: number;
 
   @ApiProperty()
+  postCount: number;
+
+  @ApiProperty()
   isFollowing: boolean;
 
   @ApiProperty({ description: 'This is the signed-in person.' })

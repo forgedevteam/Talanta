@@ -21,6 +21,10 @@ import { CurrentUser, type AuthUser } from '../auth/index.js';
 import { SessionService } from '../auth/sessions/session.service.js';
 import { OpportunitiesModule } from '../opportunities/opportunities.module.js';
 import { OpportunitiesService } from '../opportunities/opportunities.service.js';
+import { MediaModule } from '../media/media.module.js';
+import { MediaService } from '../media/media.service.js';
+import { PostsModule } from '../posts/posts.module.js';
+import { PostsService } from '../posts/posts.service.js';
 import { PortfolioModule } from '../portfolio/portfolio.module.js';
 import { PortfolioService } from '../portfolio/portfolio.service.js';
 import { ProfilesModule } from '../profiles/profiles.module.js';
@@ -49,6 +53,8 @@ export class AccountClosureService {
     private readonly portfolio: PortfolioService,
     private readonly social: SocialService,
     private readonly opportunities: OpportunitiesService,
+    private readonly posts: PostsService,
+    private readonly media: MediaService,
   ) {}
 
   async close(userId: string): Promise<void> {
@@ -60,7 +66,10 @@ export class AccountClosureService {
       this.portfolio.deleteAllForUser(userId),
       this.social.removeAllForUser(userId),
       this.opportunities.removeAllForPoster(userId),
+      this.posts.removeAllForAuthor(userId),
     ]);
+    // Photos and videos are personal data: the files go, not just the posts.
+    await this.media.deleteAllForOwner(userId);
     this.logger.log(`Account ${userId} closed at the owner's request`);
   }
 }
@@ -90,6 +99,8 @@ export class AccountClosureController {
     PortfolioModule,
     SocialModule,
     OpportunitiesModule,
+    PostsModule,
+    MediaModule,
   ],
   controllers: [AccountClosureController],
   providers: [AccountClosureService],

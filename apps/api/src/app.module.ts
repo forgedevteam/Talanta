@@ -10,6 +10,8 @@ import { ClosureModule } from './modules/closure/closure.js';
 import { CreatorsModule } from './modules/creators/creators.module.js';
 import { ModerationModule } from './modules/moderation/moderation.js';
 import { OpportunitiesModule } from './modules/opportunities/opportunities.module.js';
+import { MediaModule } from './modules/media/media.module.js';
+import { PostsModule } from './modules/posts/posts.module.js';
 import { PortfolioModule } from './modules/portfolio/portfolio.module.js';
 import { PromotionsModule } from './modules/promotions/promotions.js';
 import { AuthModule } from './modules/auth/auth.module.js';
@@ -31,7 +33,9 @@ import { UsersModule } from './modules/users/users.module.js';
     ProfilesModule,
     TalentsModule,
     AccountModule,
+    MediaModule,
     PortfolioModule,
+    PostsModule,
     OpportunitiesModule,
     CreatorsModule,
     ActivityModule,

@@ -15,7 +15,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PersonSummary {
 
- String get id; String get username; String get displayName; String? get city; bool get isVerified; TalentCategory? get primaryTalent;
+ String get id; String get username; String get displayName; String? get city;/// Absolute, or relative to the API origin.
+ String? get avatarUrl; bool get isVerified; TalentCategory? get primaryTalent;
 /// Create a copy of PersonSummary
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +29,16 @@ $PersonSummaryCopyWith<PersonSummary> get copyWith => _$PersonSummaryCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersonSummary&&(identical(other.id, id) || other.id == id)&&(identical(other.username, username) || other.username == username)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.city, city) || other.city == city)&&(identical(other.isVerified, isVerified) || other.isVerified == isVerified)&&(identical(other.primaryTalent, primaryTalent) || other.primaryTalent == primaryTalent));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersonSummary&&(identical(other.id, id) || other.id == id)&&(identical(other.username, username) || other.username == username)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.city, city) || other.city == city)&&(identical(other.avatarUrl, avatarUrl) || other.avatarUrl == avatarUrl)&&(identical(other.isVerified, isVerified) || other.isVerified == isVerified)&&(identical(other.primaryTalent, primaryTalent) || other.primaryTalent == primaryTalent));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,username,displayName,city,isVerified,primaryTalent);
+int get hashCode => Object.hash(runtimeType,id,username,displayName,city,avatarUrl,isVerified,primaryTalent);
 
 @override
 String toString() {
-  return 'PersonSummary(id: $id, username: $username, displayName: $displayName, city: $city, isVerified: $isVerified, primaryTalent: $primaryTalent)';
+  return 'PersonSummary(id: $id, username: $username, displayName: $displayName, city: $city, avatarUrl: $avatarUrl, isVerified: $isVerified, primaryTalent: $primaryTalent)';
 }
 
 
@@ -48,7 +49,7 @@ abstract mixin class $PersonSummaryCopyWith<$Res>  {
   factory $PersonSummaryCopyWith(PersonSummary value, $Res Function(PersonSummary) _then) = _$PersonSummaryCopyWithImpl;
 @useResult
 $Res call({
- String id, String username, String displayName, String? city, bool isVerified, TalentCategory? primaryTalent
+ String id, String username, String displayName, String? city, String? avatarUrl, bool isVerified, TalentCategory? primaryTalent
 });
 
 
@@ -65,12 +66,13 @@ class _$PersonSummaryCopyWithImpl<$Res>
 
 /// Create a copy of PersonSummary
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? username = null,Object? displayName = null,Object? city = freezed,Object? isVerified = null,Object? primaryTalent = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? username = null,Object? displayName = null,Object? city = freezed,Object? avatarUrl = freezed,Object? isVerified = null,Object? primaryTalent = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
 as String,city: freezed == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
+as String?,avatarUrl: freezed == avatarUrl ? _self.avatarUrl : avatarUrl // ignore: cast_nullable_to_non_nullable
 as String?,isVerified: null == isVerified ? _self.isVerified : isVerified // ignore: cast_nullable_to_non_nullable
 as bool,primaryTalent: freezed == primaryTalent ? _self.primaryTalent : primaryTalent // ignore: cast_nullable_to_non_nullable
 as TalentCategory?,
@@ -170,10 +172,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String username,  String displayName,  String? city,  bool isVerified,  TalentCategory? primaryTalent)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String username,  String displayName,  String? city,  String? avatarUrl,  bool isVerified,  TalentCategory? primaryTalent)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PersonSummary() when $default != null:
-return $default(_that.id,_that.username,_that.displayName,_that.city,_that.isVerified,_that.primaryTalent);case _:
+return $default(_that.id,_that.username,_that.displayName,_that.city,_that.avatarUrl,_that.isVerified,_that.primaryTalent);case _:
   return orElse();
 
 }
@@ -191,10 +193,10 @@ return $default(_that.id,_that.username,_that.displayName,_that.city,_that.isVer
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String username,  String displayName,  String? city,  bool isVerified,  TalentCategory? primaryTalent)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String username,  String displayName,  String? city,  String? avatarUrl,  bool isVerified,  TalentCategory? primaryTalent)  $default,) {final _that = this;
 switch (_that) {
 case _PersonSummary():
-return $default(_that.id,_that.username,_that.displayName,_that.city,_that.isVerified,_that.primaryTalent);case _:
+return $default(_that.id,_that.username,_that.displayName,_that.city,_that.avatarUrl,_that.isVerified,_that.primaryTalent);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -211,10 +213,10 @@ return $default(_that.id,_that.username,_that.displayName,_that.city,_that.isVer
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String username,  String displayName,  String? city,  bool isVerified,  TalentCategory? primaryTalent)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String username,  String displayName,  String? city,  String? avatarUrl,  bool isVerified,  TalentCategory? primaryTalent)?  $default,) {final _that = this;
 switch (_that) {
 case _PersonSummary() when $default != null:
-return $default(_that.id,_that.username,_that.displayName,_that.city,_that.isVerified,_that.primaryTalent);case _:
+return $default(_that.id,_that.username,_that.displayName,_that.city,_that.avatarUrl,_that.isVerified,_that.primaryTalent);case _:
   return null;
 
 }
@@ -226,13 +228,15 @@ return $default(_that.id,_that.username,_that.displayName,_that.city,_that.isVer
 @JsonSerializable()
 
 class _PersonSummary implements PersonSummary {
-  const _PersonSummary({required this.id, required this.username, required this.displayName, required this.city, required this.isVerified, required this.primaryTalent});
+  const _PersonSummary({required this.id, required this.username, required this.displayName, required this.city, required this.avatarUrl, required this.isVerified, required this.primaryTalent});
   factory _PersonSummary.fromJson(Map<String, dynamic> json) => _$PersonSummaryFromJson(json);
 
 @override final  String id;
 @override final  String username;
 @override final  String displayName;
 @override final  String? city;
+/// Absolute, or relative to the API origin.
+@override final  String? avatarUrl;
 @override final  bool isVerified;
 @override final  TalentCategory? primaryTalent;
 
@@ -249,16 +253,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersonSummary&&(identical(other.id, id) || other.id == id)&&(identical(other.username, username) || other.username == username)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.city, city) || other.city == city)&&(identical(other.isVerified, isVerified) || other.isVerified == isVerified)&&(identical(other.primaryTalent, primaryTalent) || other.primaryTalent == primaryTalent));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersonSummary&&(identical(other.id, id) || other.id == id)&&(identical(other.username, username) || other.username == username)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.city, city) || other.city == city)&&(identical(other.avatarUrl, avatarUrl) || other.avatarUrl == avatarUrl)&&(identical(other.isVerified, isVerified) || other.isVerified == isVerified)&&(identical(other.primaryTalent, primaryTalent) || other.primaryTalent == primaryTalent));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,username,displayName,city,isVerified,primaryTalent);
+int get hashCode => Object.hash(runtimeType,id,username,displayName,city,avatarUrl,isVerified,primaryTalent);
 
 @override
 String toString() {
-  return 'PersonSummary(id: $id, username: $username, displayName: $displayName, city: $city, isVerified: $isVerified, primaryTalent: $primaryTalent)';
+  return 'PersonSummary(id: $id, username: $username, displayName: $displayName, city: $city, avatarUrl: $avatarUrl, isVerified: $isVerified, primaryTalent: $primaryTalent)';
 }
 
 
@@ -269,7 +273,7 @@ abstract mixin class _$PersonSummaryCopyWith<$Res> implements $PersonSummaryCopy
   factory _$PersonSummaryCopyWith(_PersonSummary value, $Res Function(_PersonSummary) _then) = __$PersonSummaryCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String username, String displayName, String? city, bool isVerified, TalentCategory? primaryTalent
+ String id, String username, String displayName, String? city, String? avatarUrl, bool isVerified, TalentCategory? primaryTalent
 });
 
 
@@ -286,12 +290,13 @@ class __$PersonSummaryCopyWithImpl<$Res>
 
 /// Create a copy of PersonSummary
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? username = null,Object? displayName = null,Object? city = freezed,Object? isVerified = null,Object? primaryTalent = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? username = null,Object? displayName = null,Object? city = freezed,Object? avatarUrl = freezed,Object? isVerified = null,Object? primaryTalent = freezed,}) {
   return _then(_PersonSummary(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
 as String,city: freezed == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
+as String?,avatarUrl: freezed == avatarUrl ? _self.avatarUrl : avatarUrl // ignore: cast_nullable_to_non_nullable
 as String?,isVerified: null == isVerified ? _self.isVerified : isVerified // ignore: cast_nullable_to_non_nullable
 as bool,primaryTalent: freezed == primaryTalent ? _self.primaryTalent : primaryTalent // ignore: cast_nullable_to_non_nullable
 as TalentCategory?,

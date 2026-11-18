@@ -12,6 +12,10 @@ enum ReportTarget {
   opportunity('opportunity'),
   @JsonValue('portfolio_item')
   portfolioItem('portfolio_item'),
+  @JsonValue('post')
+  post('post'),
+  @JsonValue('comment')
+  comment('comment'),
   /// Default value for all unparsed values, allows backward compatibility when adding new values on the backend.
   $unknown(null);
 

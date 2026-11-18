@@ -64,8 +64,8 @@ export class ProfilesService {
       displayName: input.displayName,
       username: input.username,
       city: input.city,
-      // An emptied bio field clears the bio.
-      bio: input.bio === undefined || input.bio === '' ? null : input.bio,
+      // Leaving the bio out keeps it; sending it empty clears it.
+      ...(input.bio === undefined ? {} : { bio: input.bio === '' ? null : input.bio }),
     };
 
     try {
@@ -83,6 +83,13 @@ export class ProfilesService {
       }
       throw error;
     }
+  }
+
+  async setAvatar(userId: string, avatarUrl: string | null): Promise<void> {
+    await this.db
+      .update(profiles)
+      .set({ avatarUrl, updatedAt: new Date() })
+      .where(eq(profiles.userId, userId));
   }
 
   async findByUsername(username: string): Promise<Profile | null> {

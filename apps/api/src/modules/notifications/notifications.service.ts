@@ -15,6 +15,10 @@ export interface NewNotification {
   readonly actorId?: string;
   readonly opportunityId?: string;
   readonly applicationId?: string;
+  readonly postId?: string;
+  readonly commentId?: string;
+  /** Skip it when the same person already caused the same notice about the same post. */
+  readonly once?: boolean;
 }
 
 /** Stores notification references. Callers never wait on it to succeed. */
@@ -28,12 +32,30 @@ export class NotificationsService {
   async notify(input: NewNotification): Promise<void> {
     // Nobody needs to hear about their own actions.
     if (input.actorId === input.userId) return;
+    if (input.once && input.actorId && input.postId) {
+      // Like, unlike, like again: one notice, not three.
+      const [existing] = await this.db
+        .select({ id: notifications.id })
+        .from(notifications)
+        .where(
+          and(
+            eq(notifications.userId, input.userId),
+            eq(notifications.type, input.type),
+            eq(notifications.actorId, input.actorId),
+            eq(notifications.postId, input.postId),
+          ),
+        )
+        .limit(1);
+      if (existing) return;
+    }
     await this.db.insert(notifications).values({
       userId: input.userId,
       type: input.type,
       actorId: input.actorId ?? null,
       opportunityId: input.opportunityId ?? null,
       applicationId: input.applicationId ?? null,
+      postId: input.postId ?? null,
+      commentId: input.commentId ?? null,
     });
   }
 
