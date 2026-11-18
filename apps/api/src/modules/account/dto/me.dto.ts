@@ -15,7 +15,7 @@ export class MeDto {
   @ApiProperty({ type: String, nullable: true, example: '+2348031234567' })
   phone: string | null;
 
-  @ApiProperty({ type: String, nullable: true, example: 'NG' })
+  @ApiProperty({ type: String, nullable: true, example: 'CM' })
   country: string | null;
 
   @ApiProperty({ example: 'en' })

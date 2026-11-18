@@ -12,6 +12,9 @@ abstract class OtpChallenge with _$OtpChallenge {
   const factory OtpChallenge({
     /// The number the code was sent to, in E.164.
     required String phone,
+
+    /// The same number grouped for reading. Show this, send `phone`.
+    required String displayPhone,
     required num expiresInSeconds,
 
     /// How long to wait before asking for another code.

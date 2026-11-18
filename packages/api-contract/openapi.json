@@ -514,12 +514,12 @@
         "properties": {
           "phone": {
             "type": "string",
-            "example": "0803 123 4567",
+            "example": "6 71 23 45 67",
             "description": "As typed: national format together with `country`, or full international format."
           },
           "country": {
             "type": "string",
-            "example": "NG",
+            "example": "CM",
             "description": "ISO 3166-1 alpha-2 country chosen in the picker."
           }
         },
@@ -532,8 +532,13 @@
         "properties": {
           "phone": {
             "type": "string",
-            "example": "+2348031234567",
+            "example": "+237671234567",
             "description": "The number the code was sent to, in E.164."
+          },
+          "displayPhone": {
+            "type": "string",
+            "example": "+237 6 71 23 45 67",
+            "description": "The same number grouped for reading. Show this, send `phone`."
           },
           "expiresInSeconds": {
             "type": "number",
@@ -547,6 +552,7 @@
         },
         "required": [
           "phone",
+          "displayPhone",
           "expiresInSeconds",
           "resendAfterSeconds"
         ]
@@ -556,12 +562,12 @@
         "properties": {
           "phone": {
             "type": "string",
-            "example": "0803 123 4567",
+            "example": "6 71 23 45 67",
             "description": "As typed: national format together with `country`, or full international format."
           },
           "country": {
             "type": "string",
-            "example": "NG",
+            "example": "CM",
             "description": "ISO 3166-1 alpha-2 country chosen in the picker."
           },
           "code": {
@@ -719,7 +725,7 @@
           "country": {
             "type": "string",
             "nullable": true,
-            "example": "NG"
+            "example": "CM"
           },
           "language": {
             "type": "string",

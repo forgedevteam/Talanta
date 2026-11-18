@@ -16,7 +16,8 @@ T _$identity<T>(T value) => value;
 mixin _$OtpChallenge {
 
 /// The number the code was sent to, in E.164.
- String get phone; num get expiresInSeconds;/// How long to wait before asking for another code.
+ String get phone;/// The same number grouped for reading. Show this, send `phone`.
+ String get displayPhone; num get expiresInSeconds;/// How long to wait before asking for another code.
  num get resendAfterSeconds;
 /// Create a copy of OtpChallenge
 /// with the given fields replaced by the non-null parameter values.
@@ -30,16 +31,16 @@ $OtpChallengeCopyWith<OtpChallenge> get copyWith => _$OtpChallengeCopyWithImpl<O
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OtpChallenge&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.expiresInSeconds, expiresInSeconds) || other.expiresInSeconds == expiresInSeconds)&&(identical(other.resendAfterSeconds, resendAfterSeconds) || other.resendAfterSeconds == resendAfterSeconds));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OtpChallenge&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.displayPhone, displayPhone) || other.displayPhone == displayPhone)&&(identical(other.expiresInSeconds, expiresInSeconds) || other.expiresInSeconds == expiresInSeconds)&&(identical(other.resendAfterSeconds, resendAfterSeconds) || other.resendAfterSeconds == resendAfterSeconds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,phone,expiresInSeconds,resendAfterSeconds);
+int get hashCode => Object.hash(runtimeType,phone,displayPhone,expiresInSeconds,resendAfterSeconds);
 
 @override
 String toString() {
-  return 'OtpChallenge(phone: $phone, expiresInSeconds: $expiresInSeconds, resendAfterSeconds: $resendAfterSeconds)';
+  return 'OtpChallenge(phone: $phone, displayPhone: $displayPhone, expiresInSeconds: $expiresInSeconds, resendAfterSeconds: $resendAfterSeconds)';
 }
 
 
@@ -50,7 +51,7 @@ abstract mixin class $OtpChallengeCopyWith<$Res>  {
   factory $OtpChallengeCopyWith(OtpChallenge value, $Res Function(OtpChallenge) _then) = _$OtpChallengeCopyWithImpl;
 @useResult
 $Res call({
- String phone, num expiresInSeconds, num resendAfterSeconds
+ String phone, String displayPhone, num expiresInSeconds, num resendAfterSeconds
 });
 
 
@@ -67,9 +68,10 @@ class _$OtpChallengeCopyWithImpl<$Res>
 
 /// Create a copy of OtpChallenge
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? phone = null,Object? expiresInSeconds = null,Object? resendAfterSeconds = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? phone = null,Object? displayPhone = null,Object? expiresInSeconds = null,Object? resendAfterSeconds = null,}) {
   return _then(_self.copyWith(
 phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
+as String,displayPhone: null == displayPhone ? _self.displayPhone : displayPhone // ignore: cast_nullable_to_non_nullable
 as String,expiresInSeconds: null == expiresInSeconds ? _self.expiresInSeconds : expiresInSeconds // ignore: cast_nullable_to_non_nullable
 as num,resendAfterSeconds: null == resendAfterSeconds ? _self.resendAfterSeconds : resendAfterSeconds // ignore: cast_nullable_to_non_nullable
 as num,
@@ -157,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String phone,  num expiresInSeconds,  num resendAfterSeconds)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String phone,  String displayPhone,  num expiresInSeconds,  num resendAfterSeconds)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OtpChallenge() when $default != null:
-return $default(_that.phone,_that.expiresInSeconds,_that.resendAfterSeconds);case _:
+return $default(_that.phone,_that.displayPhone,_that.expiresInSeconds,_that.resendAfterSeconds);case _:
   return orElse();
 
 }
@@ -178,10 +180,10 @@ return $default(_that.phone,_that.expiresInSeconds,_that.resendAfterSeconds);cas
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String phone,  num expiresInSeconds,  num resendAfterSeconds)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String phone,  String displayPhone,  num expiresInSeconds,  num resendAfterSeconds)  $default,) {final _that = this;
 switch (_that) {
 case _OtpChallenge():
-return $default(_that.phone,_that.expiresInSeconds,_that.resendAfterSeconds);case _:
+return $default(_that.phone,_that.displayPhone,_that.expiresInSeconds,_that.resendAfterSeconds);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +200,10 @@ return $default(_that.phone,_that.expiresInSeconds,_that.resendAfterSeconds);cas
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String phone,  num expiresInSeconds,  num resendAfterSeconds)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String phone,  String displayPhone,  num expiresInSeconds,  num resendAfterSeconds)?  $default,) {final _that = this;
 switch (_that) {
 case _OtpChallenge() when $default != null:
-return $default(_that.phone,_that.expiresInSeconds,_that.resendAfterSeconds);case _:
+return $default(_that.phone,_that.displayPhone,_that.expiresInSeconds,_that.resendAfterSeconds);case _:
   return null;
 
 }
@@ -213,11 +215,13 @@ return $default(_that.phone,_that.expiresInSeconds,_that.resendAfterSeconds);cas
 @JsonSerializable()
 
 class _OtpChallenge implements OtpChallenge {
-  const _OtpChallenge({required this.phone, required this.expiresInSeconds, required this.resendAfterSeconds});
+  const _OtpChallenge({required this.phone, required this.displayPhone, required this.expiresInSeconds, required this.resendAfterSeconds});
   factory _OtpChallenge.fromJson(Map<String, dynamic> json) => _$OtpChallengeFromJson(json);
 
 /// The number the code was sent to, in E.164.
 @override final  String phone;
+/// The same number grouped for reading. Show this, send `phone`.
+@override final  String displayPhone;
 @override final  num expiresInSeconds;
 /// How long to wait before asking for another code.
 @override final  num resendAfterSeconds;
@@ -235,16 +239,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OtpChallenge&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.expiresInSeconds, expiresInSeconds) || other.expiresInSeconds == expiresInSeconds)&&(identical(other.resendAfterSeconds, resendAfterSeconds) || other.resendAfterSeconds == resendAfterSeconds));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OtpChallenge&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.displayPhone, displayPhone) || other.displayPhone == displayPhone)&&(identical(other.expiresInSeconds, expiresInSeconds) || other.expiresInSeconds == expiresInSeconds)&&(identical(other.resendAfterSeconds, resendAfterSeconds) || other.resendAfterSeconds == resendAfterSeconds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,phone,expiresInSeconds,resendAfterSeconds);
+int get hashCode => Object.hash(runtimeType,phone,displayPhone,expiresInSeconds,resendAfterSeconds);
 
 @override
 String toString() {
-  return 'OtpChallenge(phone: $phone, expiresInSeconds: $expiresInSeconds, resendAfterSeconds: $resendAfterSeconds)';
+  return 'OtpChallenge(phone: $phone, displayPhone: $displayPhone, expiresInSeconds: $expiresInSeconds, resendAfterSeconds: $resendAfterSeconds)';
 }
 
 
@@ -255,7 +259,7 @@ abstract mixin class _$OtpChallengeCopyWith<$Res> implements $OtpChallengeCopyWi
   factory _$OtpChallengeCopyWith(_OtpChallenge value, $Res Function(_OtpChallenge) _then) = __$OtpChallengeCopyWithImpl;
 @override @useResult
 $Res call({
- String phone, num expiresInSeconds, num resendAfterSeconds
+ String phone, String displayPhone, num expiresInSeconds, num resendAfterSeconds
 });
 
 
@@ -272,9 +276,10 @@ class __$OtpChallengeCopyWithImpl<$Res>
 
 /// Create a copy of OtpChallenge
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? phone = null,Object? expiresInSeconds = null,Object? resendAfterSeconds = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? phone = null,Object? displayPhone = null,Object? expiresInSeconds = null,Object? resendAfterSeconds = null,}) {
   return _then(_OtpChallenge(
 phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
+as String,displayPhone: null == displayPhone ? _self.displayPhone : displayPhone // ignore: cast_nullable_to_non_nullable
 as String,expiresInSeconds: null == expiresInSeconds ? _self.expiresInSeconds : expiresInSeconds // ignore: cast_nullable_to_non_nullable
 as num,resendAfterSeconds: null == resendAfterSeconds ? _self.resendAfterSeconds : resendAfterSeconds // ignore: cast_nullable_to_non_nullable
 as num,

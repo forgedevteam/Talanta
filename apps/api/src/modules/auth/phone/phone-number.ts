@@ -6,6 +6,8 @@ import { AppError } from '../../../common/errors/app-error.js';
 export interface PhoneNumber {
   /** For example +2348031234567. */
   readonly e164: string;
+  /** Grouped for reading, for example +237 6 71 23 45 67. */
+  readonly international: string;
   /** ISO 3166-1 alpha-2, derived from the number itself. */
   readonly country: string;
 }
@@ -53,5 +55,9 @@ export function parsePhoneNumber(
     );
   }
 
-  return { e164: parsed.number, country: parsed.country };
+  return {
+    e164: parsed.number,
+    international: parsed.formatInternational(),
+    country: parsed.country,
+  };
 }

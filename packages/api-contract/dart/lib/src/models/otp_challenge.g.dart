@@ -9,6 +9,7 @@ part of 'otp_challenge.dart';
 _OtpChallenge _$OtpChallengeFromJson(Map<String, dynamic> json) =>
     _OtpChallenge(
       phone: json['phone'] as String,
+      displayPhone: json['displayPhone'] as String,
       expiresInSeconds: json['expiresInSeconds'] as num,
       resendAfterSeconds: json['resendAfterSeconds'] as num,
     );
@@ -16,6 +17,7 @@ _OtpChallenge _$OtpChallengeFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$OtpChallengeToJson(_OtpChallenge instance) =>
     <String, dynamic>{
       'phone': instance.phone,
+      'displayPhone': instance.displayPhone,
       'expiresInSeconds': instance.expiresInSeconds,
       'resendAfterSeconds': instance.resendAfterSeconds,
     };

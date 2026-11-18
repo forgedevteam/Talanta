@@ -208,7 +208,7 @@ export interface components {
             status: string;
         };
         MeDto: {
-            /** @example NG */
+            /** @example CM */
             country: string | null;
             /**
              * @description YYYY-MM-DD.
@@ -235,11 +235,16 @@ export interface components {
          */
         OnboardingStep: "talents" | "profile" | "done";
         OtpChallengeDto: {
+            /**
+             * @description The same number grouped for reading. Show this, send `phone`.
+             * @example +237 6 71 23 45 67
+             */
+            displayPhone: string;
             /** @example 300 */
             expiresInSeconds: number;
             /**
              * @description The number the code was sent to, in E.164.
-             * @example +2348031234567
+             * @example +237671234567
              */
             phone: string;
             /**
@@ -276,12 +281,12 @@ export interface components {
         RequestOtpDto: {
             /**
              * @description ISO 3166-1 alpha-2 country chosen in the picker.
-             * @example NG
+             * @example CM
              */
             country?: string;
             /**
              * @description As typed: national format together with `country`, or full international format.
-             * @example 0803 123 4567
+             * @example 6 71 23 45 67
              */
             phone: string;
         };
@@ -363,14 +368,14 @@ export interface components {
             code: string;
             /**
              * @description ISO 3166-1 alpha-2 country chosen in the picker.
-             * @example NG
+             * @example CM
              */
             country?: string;
             /** @example Tecno Spark 10 */
             deviceName?: string;
             /**
              * @description As typed: national format together with `country`, or full international format.
-             * @example 0803 123 4567
+             * @example 6 71 23 45 67
              */
             phone: string;
         };

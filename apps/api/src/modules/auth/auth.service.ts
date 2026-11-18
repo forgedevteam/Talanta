@@ -30,7 +30,7 @@ export class AuthService {
   async requestOtp(input: RequestOtpDto, ip: string): Promise<OtpChallengeDto> {
     const phone = parsePhoneNumber(input.phone, input.country, this.config.sms.allowedCountries);
     const challenge = await this.otp.request(phone.e164, ip);
-    return { phone: phone.e164, ...challenge };
+    return { phone: phone.e164, displayPhone: phone.international, ...challenge };
   }
 
   async verifyOtp(input: VerifyOtpDto): Promise<AuthSessionDto> {

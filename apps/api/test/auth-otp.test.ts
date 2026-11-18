@@ -27,6 +27,7 @@ describe('phone sign-in', () => {
 
       expect(response.body).toEqual({
         phone: phone.e164,
+        displayPhone: expect.stringMatching(/^\+234 803 /) as unknown,
         expiresInSeconds: 300,
         resendAfterSeconds: 60,
       });
@@ -34,7 +35,7 @@ describe('phone sign-in', () => {
     });
 
     it('accepts numbers from each launch country', async () => {
-      for (const number of ['+254712345678', '+233241234567', '+27821234567']) {
+      for (const number of ['+237671234567', '+254712345678', '+233241234567', '+27821234567']) {
         await requestCode(number).expect(200);
       }
     });

@@ -34,7 +34,7 @@ const envSchema = z
       .or(z.literal('').transform(() => undefined)),
 
     SMS_PROVIDER: z.enum(['console', 'africastalking']).default('console'),
-    SMS_ALLOWED_COUNTRIES: z.string().default('NG,KE,GH,ZA'),
+    SMS_ALLOWED_COUNTRIES: z.string().default('CM,NG,KE,GH,ZA'),
     /** `sandbox` sends to the Africa's Talking simulator instead of real phones. */
     AFRICASTALKING_USERNAME: z.string().min(1).optional(),
     AFRICASTALKING_API_KEY: z.string().min(1).optional(),

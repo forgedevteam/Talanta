@@ -9,7 +9,7 @@ const CODE_PATTERN = /^\d{6}$/;
 
 export class RequestOtpDto {
   @ApiProperty({
-    example: '0803 123 4567',
+    example: '6 71 23 45 67',
     description: 'As typed: national format together with `country`, or full international format.',
   })
   @IsString()
@@ -17,7 +17,7 @@ export class RequestOtpDto {
   phone: string;
 
   @ApiPropertyOptional({
-    example: 'NG',
+    example: 'CM',
     description: 'ISO 3166-1 alpha-2 country chosen in the picker.',
   })
   @IsOptional()
@@ -28,10 +28,16 @@ export class RequestOtpDto {
 
 export class OtpChallengeDto {
   @ApiProperty({
-    example: '+2348031234567',
+    example: '+237671234567',
     description: 'The number the code was sent to, in E.164.',
   })
   phone: string;
+
+  @ApiProperty({
+    example: '+237 6 71 23 45 67',
+    description: 'The same number grouped for reading. Show this, send `phone`.',
+  })
+  displayPhone: string;
 
   @ApiProperty({ example: 300 })
   expiresInSeconds: number;
