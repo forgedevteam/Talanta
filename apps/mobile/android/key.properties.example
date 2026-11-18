@@ -1,0 +1,5 @@
+# Copy to key.properties (git-ignored) and fill in. See docs/RELEASING.md.
+storePassword=
+keyPassword=
+keyAlias=upload
+storeFile=C:/Users/you/keys/talanta-upload.jks

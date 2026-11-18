@@ -93,12 +93,29 @@ CI fails if `openapi.json` is out of date with the controllers.
 | —                                            | Light theme values, plus `surfaceRaised`, `outline`, `danger` and `onPrimary` roles                         | Needed for a complete theme. Provisional until the brand designer signs off.                                     |
 | Clash Display                                | Bundled from Fontshare under the ITF Free Font License                                                      | Licence permits embedding in apps and self-hosting on the web. Keep `ClashDisplay-LICENSE.txt` next to the font. |
 
+## 8. Age gate
+
+The first profile save needs a date of birth, sent as `YYYY-MM-DD`. Under
+`MIN_SIGNUP_AGE` (13) the request fails with `age_below_minimum` and nothing
+is stored. Once set, the date cannot be changed through the API, so a minor
+cannot opt out of protections later; changes go through support. `/v1/me`
+exposes `isMinor` (under 18) for the safety features in Phase 1, such as
+default-private accounts and limits on direct messages from adults.
+
+## 9. Testing levels
+
+- API: Vitest through HTTP against PGlite, with a fake SMS gateway and a
+  clock the test moves.
+- Mobile widgets: `flutter test` over an in-memory fake of the API.
+- End to end: `integration_test/` runs the real app on a device or emulator
+  against a running API. Not in CI (needs an emulator); run it before every
+  release. See [RELEASING.md](RELEASING.md).
+
 ## Before launch
 
-- Date of birth and an age gate: required for the child-safety rules in the
-  blueprint. The `users.date_of_birth` column exists; the screen does not.
-- A real SMS provider (Africa's Talking or Termii) and the Android SMS
-  Retriever hash so codes fill in without a tap.
-- Confirm the Android application id (`com.talanta.talanta` today) before the
-  first Play Store upload; it cannot change afterwards.
-- Release signing config for Android.
+- Accounts and decisions listed in [RELEASING.md](RELEASING.md): SMS
+  provider, hosting, domain, legal documents, logo, Android app id.
+- Android SMS Retriever, so codes fill in without a tap. It needs the
+  release signing key to compute the app hash, so it comes after the upload
+  key exists.
+- Show phone numbers in their local readable form (`+234 803 123 4567`).

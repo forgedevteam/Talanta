@@ -10,7 +10,7 @@ and the packages they share.
 ## What works today
 
 - Phone sign-in with one-time codes, rotating sessions and sign-out
-- Onboarding: pick your talents, create your profile
+- Onboarding: pick your talents, create your profile, date of birth with a minimum age of 13
 - Mobile app for Android and iOS covering splash, phone, code, talents,
   profile and a home placeholder
 - Web landing page on the same design system
@@ -59,3 +59,4 @@ pnpm lint && pnpm typecheck
 - [CLAUDE.md](CLAUDE.md): layout, commands, rules and colour tokens
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): decisions and why
 - [docs/BLUEPRINT.md](docs/BLUEPRINT.md): the product blueprint
+- [docs/RELEASING.md](docs/RELEASING.md): accounts you need, signing and building the app

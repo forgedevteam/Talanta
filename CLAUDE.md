@@ -31,6 +31,7 @@ pnpm lint && pnpm typecheck
 pnpm tokens                          # after editing tokens.json
 pnpm contract                        # after changing an endpoint or DTO
 cd apps/mobile && flutter test && flutter analyze
+cd apps/mobile && flutter test integration_test --dart-define=OTP_CODE=<code>  # real app vs running API
 ```
 
 The local OTP code is whatever `OTP_DEV_FIXED_CODE` is in `apps/api/.env`;
