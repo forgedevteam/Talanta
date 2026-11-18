@@ -1,0 +1,52 @@
+@import 'tailwindcss';
+@import '@talanta/design-tokens/tokens.css';
+@import '@talanta/design-tokens/tailwind.css';
+
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/ClashDisplay-Variable.woff2') format('woff2');
+  font-weight: 200 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --font-clash-display: 'Clash Display';
+  --font-inter: 'Inter';
+}
+
+html {
+  background: var(--talanta-background);
+  color: var(--talanta-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+::selection {
+  background: var(--talanta-primary);
+  color: var(--talanta-on-primary);
+}
+
+/* The signature gradient is for the wordmark only. */
+.wordmark {
+  background: var(--talanta-gradient-signature);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.weave {
+  background-image:
+    radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--talanta-text) 7%, transparent) 1px, transparent 0);
+  background-size: 48px 48px;
+}
